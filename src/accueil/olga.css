@@ -1,0 +1,51 @@
+.headerOlga {
+    background-color: orange;
+    color: white;
+    
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.headerTitle {
+    font-size: 20px;
+    text-align: center;
+}
+
+.headerLeft {
+    font-size: 16px;
+    text-align: left;
+}
+
+.headerRight {
+    font-size: 16px;
+    text-align: right;
+}
+
+.plus {
+    text-align: center;
+}
+.memberOlga {
+    max-height: 600px;
+    width: 50px;
+    font-size: 24px;
+    padding: 10px;
+}
+
+.heading {
+    padding: 10px;
+}
+
+.bouton {
+    width: 100px;
+    padding-top: 3px;
+}
+
+.ribbonOrange {
+    display: inline-block;
+}
+
+.lienCategorie {
+    text-decoration: none;
+    color: white;
+
+}
