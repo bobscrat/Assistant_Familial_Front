@@ -1,0 +1,21 @@
+<Table celled collapsing>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>Id</Table.HeaderCell>
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Edit</Table.HeaderCell>
+        <Table.HeaderCell>Delete</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
+
+    <Table.Body>
+      {this.state.priorities.map(priority =>
+        <Table.Row>
+          <Table.Cell>{priority.id}</Table.Cell>
+          <Table.Cell>{priority.username}</Table.Cell>
+          <Table.Cell><button type="button" onClick={editPriority}>Edit</button></Table.Cell>
+          <Table.Cell><button type="button" onClick={deletePriority}>Edit</button></Table.Cell>
+      </Table.Row>)
+}
+    </Table.Body>
+  </Table>
