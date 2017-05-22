@@ -1,0 +1,15 @@
+.connexion{
+    border: 1px solid black;
+}
+
+.coco{
+    background-color: grey;
+    color:white;
+}
+
+.head-connect{
+    background-color: grey;
+    color: white !important;
+    padding: 1rem !important;
+    border-radius: 0.5rem;
+}
