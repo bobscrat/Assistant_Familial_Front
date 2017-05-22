@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Form, Label, Message} from 'semantic-ui-react';
+import {Form, Message} from 'semantic-ui-react';
 import axios from 'axios';
 
-import priorities from './priorities.json';
+// import priorities from './priorities.json';  // pour test sans le back
 import Priority from './Priority.js';
 
 class PriorityTable extends Component {
@@ -10,29 +10,41 @@ class PriorityTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      priority: {},
-      msgError: ''
+      msgSuccess: null,
+      msgError: null,
+      priorities: []
     };
   }
 
   componentWillMount() {
-    this.state = {priorities: priorities.data};
-    // const componentInstance = this;
-    // axios.get('http://localhost:8080/api/priorities').then((response) => {
-    //   componentInstance.setState({priorities: response.data});
-    // }).catch((err) => {
-    //   console.log('Failed to get priorities : ', err);
-    // })
+    // this.state = {priorities: priorities.data}; // pour test sans le back
+    const componentInstance = this;
+    axios.get('http://localhost:8080/api/priorities').then((response) => {
+      const priorities = response.data;
+      const newState = {
+        priorities: priorities
+      };
+      // ajout des propriétés idName (=0name,1name,2name,etc) à la racine du State
+      // pour pouvoir gérer les changements des différents input "name"
+      for (let i = 0; i < priorities.length; i++) {
+        const idName = priorities[i].id + 'name';
+        const value = priorities[i].name;
+        newState[idName] = value;
+        // console.log('idName='+idName+', newState[idName]='+newState[idName]);
+      }
+      componentInstance.setState(newState);
+    }).catch((err) => {
+      console.log('Failed to get priorities : ', err);
+    })
   }
 
   updatePriority = (priority) => {
     const componentInstance = this;
     axios.put('http://localhost:8080/api/priorities', priority).then((response) => {
       if (null != response.data.msgError) {
-        componentInstance.setState({msgError: response.data.msgError, priority: null});
-      }
-      else {
-        componentInstance.setState({priority: response.data, msgError: null});
+        componentInstance.setState({msgError: response.data.msgError, msgSuccess: null});
+      } else {
+        componentInstance.setState({msgSuccess: "Modification réussie !", msgError: null});
       }
     }).catch((err) => {
       console.log('Failed to update priority : ', err);
@@ -40,21 +52,27 @@ class PriorityTable extends Component {
   }
 
   editPriority = (priorityId, priorityName) => {
-    console.log('editing : ' + priorityId + ' ' + priorityName);
-    // this.setState({name: priorityName});
-    // this.updatePriority({id: priorityId, name: priorityName});
+    // console.log('editing : ' + priorityId + ' ' + priorityName);
+    this.setState({name: priorityName});
+    this.updatePriority({id: priorityId, name: priorityName});
+  }
+
+  handleChange = (evt, id) => {
+    let idName = id + 'name';
+    let newName = evt.target.value;
+    // modification de la propriété idName (=0name,1name,2name, etc) du State
+    // et reset des messages
+    this.setState({[idName]: newName, msgSuccess: null, msgError: null,});
   }
 
   render() {
     return (
-      <Form>
-      {/*  */}
-          {this.state.priorities.map(
-            priority =>
-            <Priority key={priority.id} id={priority.id} name={priority.name}
-            priority={priority} edit={this.editPriority} />
-            )
-          }
+      <Form success error>
+        <Message success content={this.state.msgSuccess}/>
+        <Message error content={this.state.msgError}/>
+        {/* chaque name = valeur des propriétés 0name,1name,2name du State */}
+        {this.state.priorities.map(priority => <Priority key={priority.id} id={priority.id} name={this.state[priority.id + 'name']} change={this.handleChange} edit={this.editPriority}/>)
+}
       </Form>
     )
   }

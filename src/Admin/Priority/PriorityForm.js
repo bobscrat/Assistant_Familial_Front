@@ -12,8 +12,6 @@ class PriorityForm extends Component {
     };
   }
 
-   
-
   createPriority = (priority) => {
     const componentInstance = this;
     axios.post('http://localhost:8080/api/priorities', priority).then((response) => {
@@ -64,11 +62,11 @@ class PriorityForm extends Component {
     });
     console.log('Priority = { id: ' + this.state.id + ', name: ' + this.state.name + '}');
     if ('' === this.state.id) {
-      // this.createPriority({name: this.state.name});
-      console.log('post');
+      this.createPriority({name: this.state.name});
+      // console.log('post');
     } else {
-      console.log('put');
-      // this.updatePriority({id: this.state.id, name: this.state.name});
+      // console.log('put');
+      this.updatePriority({id: this.state.id, name: this.state.name});
     }
 
   }

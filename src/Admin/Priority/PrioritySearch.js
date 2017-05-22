@@ -25,7 +25,7 @@ class PrioritySearch extends Component {
       }
       // console.log('msgError=' + this.state.msgError + ', msgSuccess=' + this.state.msgSuccess);
     }).catch((err) => {
-      console.log('Failed to create priority : ', err);
+      console.log('Failed to get priority : ', err);
     })
   }
 
