@@ -1,57 +1,31 @@
 import React, {Component} from 'react';
-import {Container, Grid, Icon, Divider } from 'semantic-ui-react';
-import axios from 'axios';
+import {Container, Grid, Icon } from 'semantic-ui-react';
 
-import ModalNewEvent from '../event/newEvent.js';
+import ModalNewEvent from '../Event/NewEvent.js';
 
-import Category from '../category/category.js'
-import Event from '../event/event.js'
-import Member from '../member/member.js'
-import Project from '../project/project.js'
-import Search from '../search/search.js'
-import NameForm from '../search/test.js'
-import Header from './header.js';
+import Category from '../Category/Category.js'
+import Event from '../Event/Event.js'
+import Member from '../User/User.js'
+import Project from '../Project/Project.js'
+import Search from '../Search/Search.js'
+
+import Header from './Header.js';
 import './olga.css';
+
 
 class Accueil extends Component {
 
-    componentWillMount() {
-        this.state = {
-            users: [],
-            families: []
-        };
-        const componentInstance = this;
-
-        axios.get('http://localhost:8080/acdo/api/contact')
-        .then( (response) => {
-            componentInstance.setState({
-                users :response.data
-            })
-        })
-        .catch( (err => {
-            console.log('failed to get users :::', err);
-        }))
-
-        axios.get('http://localhost:8080/acdo/api/family')
-        .then( (response) => {
-            componentInstance.setState({
-                families :response.data
-            })
-        })
-        .catch( (err => {
-            console.log('failed to get families :::', err);
-        }))
-    }
     render() {
 
         return(
             <Container>
-                 <Divider hidden />
-                
-                <Header />   
-                <Grid>
-                                     
-                    <Grid.Row>
+                <Grid>                                     
+                    <Grid.Row className='header'>
+                        <Grid.Column width={16}> 
+                            <Header />   
+                        </Grid.Column>
+                    </Grid.Row>                    
+                    <Grid.Row className='part1'>
                         <Grid.Column width={4}>                            
                             <div className="plus">                                                    
                                 <ModalNewEvent />
@@ -106,7 +80,7 @@ class Accueil extends Component {
                     {/*<Grid.Row>
                         <Grid.Column width={16} >
                             <div>test</div>
-                            <NameForm />
+                            <Test />
                         </Grid.Column>
                     </Grid.Row>*/}
                 </Grid>

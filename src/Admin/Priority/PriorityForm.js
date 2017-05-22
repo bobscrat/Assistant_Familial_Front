@@ -12,6 +12,8 @@ class PriorityForm extends Component {
     };
   }
 
+   
+
   createPriority = (priority) => {
     const componentInstance = this;
     axios.post('http://localhost:8080/api/priorities', priority).then((response) => {

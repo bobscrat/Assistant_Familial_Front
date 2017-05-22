@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Popup, Button, Modal, Icon } from 'semantic-ui-react'
-import '../accueil/olga.css';
+import '../Accueil/olga.css';
 
 class ModalValidEvent extends Component {
   state = { open: false }

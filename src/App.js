@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 
-//import RouterComponent from './routeur/router.js';
-
-//import './App.css';
-
-import Accueil from './accueil/accueil.js'
+import Accueil from './Accueil/Accueil.js'
 
 class App extends Component {
 
   componentWillMount () {
-   // $.post('www.ste.com/api/autenticate', function (data) {
-   //   if (data) userConnected = True;
-   //});
 
     this.setState({
       userConnected: true
@@ -20,9 +13,7 @@ class App extends Component {
 
   render() {
     return (
-        
           <Accueil /> 
-       
     );
   }
 }

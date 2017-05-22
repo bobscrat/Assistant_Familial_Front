@@ -2,28 +2,27 @@ import React, {Component} from 'react';
 import {Container, Grid, Label, List, Segment} from 'semantic-ui-react';
 import axios from 'axios';
 
-import ModalNewCategory from './newCategory.js';
-import ModalEditCategory from './editCategory.js';
+import ModalEditCategory from './EditCategory.js';
+import ModalNewCategory1 from './NewCategoryV1.js';
 
-import '../accueil/olga.css';
+import '../Accueil/olga.css';
 
 class Category extends Component {
 
     componentWillMount() {
         this.state = {
-            users: [],
-            families: []
+            categories: []
         };
         const componentInstance = this;
 
-        axios.get('http://localhost:8080/acdo/api/family')
+        axios.get('http://localhost:8080/api/categories')
         .then( (response) => {
             componentInstance.setState({
-                families :response.data
+                categories :response.data
             })
         })
         .catch( (err => {
-            console.log('failed to get families :::', err);
+            console.log('failed to get categories :::', err);
         }))
     }
     render() {
@@ -34,12 +33,12 @@ class Category extends Component {
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Segment raised>
-                                <Label color='orange' ribbon><ModalNewCategory /><ModalEditCategory /></Label>
+                                <Label color='orange' ribbon><ModalNewCategory1 /><ModalEditCategory /></Label>
                                 <List celled verticalAlign='middle'> 
                                     { 
-                                        this.state.families.map(
-                                            family =>                                                
-                                                <Label color='purple' tag><a className="lienCategorie" >{family.name}</a></Label>                            
+                                        this.state.categories.map(
+                                            category =>                                                
+                                                <Label as='a' tag color={category.color} key={category.id}>{category.name}</Label>                                                                    
                                             )
                                     }
                                 </List>

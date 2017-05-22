@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Popup, Button, Input, Modal, Icon } from 'semantic-ui-react'
-import '../accueil/olga.css';
+import '../Accueil/olga.css';
 
 class ModalNewCategory extends Component {
   state = { open: false }
@@ -15,8 +15,6 @@ class ModalNewCategory extends Component {
       <div className='ribbonOrange'>
         Les catégories
         <Popup trigger={<Icon link size='large' name='plus' onClick={this.show(true)}/>}>
-        
-        {/*<Popup trigger={<Button color='orange' onClick={this.show(false)}>None</Button>}>*/}
           <Popup.Header>Ajouter une catégorie</Popup.Header>
           <Popup.Content>
             En cliquant sur ce bouton, vous ajoutez une catégorie.

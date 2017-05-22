@@ -5,47 +5,87 @@ import axios from 'axios';
 class NameForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        name: '',
-        id: ''
+    this.state = { }  
     };
-
-    this.handleChangeId = this.handleChangeId.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
   componentWillMount() {
         this.state = {
-            users: [],
-            families: []
+            categories: [],
+            id: '',
+            name: '',
+            color: '',
+            family: {
+                id: 13,
+                name: 'didi'
+            }
         };
         const componentInstance = this;
 
-        axios.get('http://localhost:8080/acdo/api/family')
+        axios.get('http://localhost:8080/api/categories')
         .then( (response) => {
             componentInstance.setState({
-                families :response.data
+                categories :response.data
             })
+            
         })
         .catch( (err => {
-            console.log('failed to get families :::', err);
+            console.log('failed to get categories :::', err);
         }))
     }
 
-  handleChangeId(event) {
-    this.setState({id: event.target.value});
-    console.log(this.state.id);
-  }
+    componentWillUpdate() {
+        this.state = {
+            categories: []
+        };
+        const componentInstance = this;
 
-   handleChangeName(event) {
-    this.setState({name: event.target.value});
-    console.log(this.state.name);
-  }
+        axios.get('http://localhost:8080/api/categories')
+        .then( (response) => {
+            componentInstance.setState({
+                categories :response.data
+            })
+        })
+        .catch( (err => {
+            console.log('failed to get categories :::', err);
+        }))
+    }
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.name + ' ' + this.state.id);
-    event.preventDefault();
+    createCategory = (category) => {
+        const componentInstance = this;
+        axios.post('http://localhost:8080/api/category', category).then((response) => {
+            componentInstance.setState({category: response.data});
+            console.log('post');
+            }).catch((err) => {
+            console.log('Failed to create category : ', err);
+        })
+    }
+
+    handleSubmit = (evt) => {
+        evt.preventDefault();
+        // pour mettre à jour le state avec les toutes dernières valeurs des champs
+        const inputName = evt.target.name;
+        const inputValue = evt.target.value;
+        this.setState({
+            [inputName]: inputValue
+        });
+        console.log('Category = { id: ' + this.state.id + ', name: ' + this.state.name + ', color: ' + this.state.color + 
+             ', family: ' + this.state.family.id + '}');
+        if ('' === this.state.name) {
+            console.log('impossible de créer la catégorie sans nom');  
+        } else {
+            this.createCategory({name: this.state.name, color: this.state.color, family: this.state.family});          
+        }
+    }
+
+  // sinon, la valeur du champ revient à '' chaque fois qu'on tape une lettre
+  handleChange = (evt) => {
+    const inputName = evt.target.name;
+    const inputValue = evt.target.value;
+    this.setState({
+      [inputName]: inputValue
+    });
+    console.log(inputValue);
+    
   }
 
   render() {
@@ -58,9 +98,9 @@ class NameForm extends Component {
                           
                           <List celled verticalAlign='middle'> 
                               { 
-                                  this.state.families.map(
-                                      family =>                                                
-                                          <Label color='purple' tag><a className="lienCategorie" >{family.name}</a></Label>                            
+                                  this.state.categories.map(
+                                      category =>                                                
+                                          <Label color={category.color} tag as='a'>{category.name}</Label>                            
                                       )
                               }
                           </List>
@@ -70,11 +110,11 @@ class NameForm extends Component {
               <Form onSubmit={this.handleSubmit}>
                   <Label>
                     Name:
-                    <Form.Input type="text" value={this.state.value} onChange={this.handleChangeName} />
+                    <Form.Input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
                   </Label>
                   <Label>
                     id:
-                    <Form.Input type="text" value={this.state.value}  onChange={this.handleChangeId}/>
+                    <Form.Input type="text" name="color" value={this.state.color}  onChange={this.handleChange}/>
                   </Label>
                   <Button type='submit'>Submit</Button>
                 </Form> 
