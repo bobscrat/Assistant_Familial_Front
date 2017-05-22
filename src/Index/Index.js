@@ -24,7 +24,7 @@ class Index extends Component{
     saveUser = (user) => {
         const componentInstance = this;
 
-        axios.post('http://localhost:8080/api/user', user)
+        axios.post('http://localhost:8080/api/users', user)
             .then ( (response) => {
                 componentInstance.setState({user: response.data});
             })
@@ -91,6 +91,12 @@ class Index extends Component{
         })
     }
 
+    validatePassword = () => {
+        if (this.state.confirmpassword.value != this.state.password.value){
+            alert ('faux password');
+        }
+    }
+
 
     render(){
         return (
@@ -99,7 +105,7 @@ class Index extends Component{
                     <Grid.Column id="connexion" >
                         <Header as="h4" className="head-connect">CONNEXION</Header>
                         <Form>
-                            <Form.Input label="Adresse Mail" />
+                            <Form.Input label="Adresse Mail" type="email" />
                             <Form.Input label="Mot de passe" type="password"/>
                             <div> <a href="#" >Mot de passe oublié?</a></div>
                             <Grid columns="1" textAlign="right">
@@ -112,11 +118,16 @@ class Index extends Component{
                     <Grid.Column>
                         <Header as="h4" className="head-connect">INSCRIPTION</Header>
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Input placeholder="Nom de votre famille" label="Nom de famille" name="familyName" value={this.state.familyName} onChange={this.handleChange} required/>
-                            <Form.Input placeholder='Votre prénom' label="Prénom" name='firstName' type="text" value={this.state.firstName} onChange={this.handleChange}required/>
-                            <Form.Input placeholder='Adresse mail' label="Adresse Mail" name='email'  type="email" value={this.state.email} onChange={this.handleChange} required/>
-                            <Form.Input placeholder='Mot de passe' label="Mot de passe" name='password' type="password" value={this.state.password} onChange={this.handleChange} required/>
-                            <Form.Input placeholder='Confirmation mot de passe' label="Confirmation mot de passe" name='confirmpassword' type="password" value={this.state.confirmpassword} onChange={this.handleChange} required/>
+                            <Form.Input placeholder="Nom de votre famille" label="Nom de famille" name="familyName" 
+                                        value={this.state.familyName} onChange={this.handleChange} required/>
+                            <Form.Input placeholder='Votre prénom' label="Prénom" name='firstName' type="text" 
+                                        value={this.state.firstName} onChange={this.handleChange}required/>
+                            <Form.Input placeholder='Adresse mail' label="Adresse Mail" name='email'  type="email" 
+                                        value={this.state.email} onChange={this.handleChange} required/>
+                            <Form.Input placeholder='Mot de passe' label="Mot de passe" name='password' type="password" 
+                                        value={this.state.password} onChange={this.handleChange} required/>
+                            <Form.Input placeholder='Confirmation mot de passe' label="Confirmation mot de passe" name='confirmpassword' 
+                                        type="password" value={this.state.confirmpassword | this.validatePassword} onChange={this.handleChange} required/>
                             <Grid columns="2" textAlign="center">
                             <Grid.Column>
                                 <Button onClick={this.resetField}>ANNULER</Button>

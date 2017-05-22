@@ -56,7 +56,7 @@ class NameForm extends Component {
             componentInstance.setState({category: response.data});
             console.log('post');
             }).catch((err) => {
-            console.log('Failed to create category : ', err);
+            console.log('Failed to create Category : ', err);
         })
     }
 

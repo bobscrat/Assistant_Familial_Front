@@ -5,7 +5,7 @@ import createBrowserHistory from 'history/createBrowserHistory.js';
 
 //import './App.css';
 
-import Accueil from './accueil/accueil.js'
+import Accueil from './Accueil/Accueil.js'
 import Admin from './Admin/Admin.js';
 
 const history = createBrowserHistory();
@@ -29,7 +29,7 @@ class App extends Component {
             <div>
               {/* <Route path="/" component={Accueil} />*/}
               <Route exact path="/" component={Accueil} />
-              <Route path="/accueil" component={Accueil} />
+              <Route path="/Accueil" component={Accueil} />
               <Route path="/admin" component={Admin} />
             </div>
           </Router>
