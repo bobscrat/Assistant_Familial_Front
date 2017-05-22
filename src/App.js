@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-//import RouterComponent from './routeur/router.js';
+import {Router, Route} from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory.js';
 
 //import './App.css';
 
 import Accueil from './accueil/accueil.js'
+import Admin from './Admin/Admin.js';
+
+const history = createBrowserHistory();
 
 class App extends Component {
 
@@ -20,9 +24,16 @@ class App extends Component {
 
   render() {
     return (
-        
-          <Accueil /> 
-       
+
+          <Router history={history}>
+            <div>
+              {/* <Route path="/" component={Accueil} />*/}
+              <Route exact path="/" component={Accueil} />
+              <Route path="/accueil" component={Accueil} />
+              <Route path="/admin" component={Admin} />
+            </div>
+          </Router>
+
     );
   }
 }

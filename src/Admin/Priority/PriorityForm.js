@@ -15,8 +15,12 @@ class PriorityForm extends Component {
   createPriority = (priority) => {
     const componentInstance = this;
     axios.post('http://localhost:8080/api/priorities', priority).then((response) => {
-      componentInstance.setState({priority: response.data});
-      console.log('post');
+      if (null != response.data.msgError) {
+        componentInstance.setState({msgError: response.data.msgError, priority: null, msgSuccess: null});
+      }
+      else {
+        componentInstance.setState({priority: response.data, msgSuccess: "Succès", msgError: null});
+      }
     }).catch((err) => {
       console.log('Failed to create priority : ', err);
     })
@@ -25,7 +29,12 @@ class PriorityForm extends Component {
   updatePriority = (priority) => {
     const componentInstance = this;
     axios.put('http://localhost:8080/api/priorities', priority).then((response) => {
-      componentInstance.setState({priority: response.data});
+      if (null != response.data.msgError) {
+        componentInstance.setState({msgError: response.data.msgError, priority: null, msgSuccess: null});
+      }
+      else {
+        componentInstance.setState({priority: response.data, msgSuccess: "Succès", msgError: null});
+      }
     }).catch((err) => {
       console.log('Failed to update priority : ', err);
     })
@@ -40,9 +49,12 @@ class PriorityForm extends Component {
     });
   }
 
+  // handleChange = (e, {name, value}) => this.setState({[name]: value});
+
   handleSubmit = (evt) => {
     evt.preventDefault();
     // pour mettre à jour le state avec les toutes dernières valeurs des champs
+    // sinon le dernier caractère tapé ne sera pas pris en compte
     const inputName = evt.target.name;
     const inputValue = evt.target.value;
     this.setState({
@@ -50,11 +62,11 @@ class PriorityForm extends Component {
     });
     console.log('Priority = { id: ' + this.state.id + ', name: ' + this.state.name + '}');
     if ('' === this.state.id) {
-      this.createPriority({name: this.state.name});
+      // this.createPriority({name: this.state.name});
       console.log('post');
     } else {
       console.log('put');
-      this.updatePriority({id: this.state.id, name: this.state.name});
+      // this.updatePriority({id: this.state.id, name: this.state.name});
     }
 
   }
