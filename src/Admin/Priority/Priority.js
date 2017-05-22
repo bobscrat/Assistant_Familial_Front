@@ -1,22 +1,34 @@
 import React, {Component} from 'react';
+import {Form, Label, Message} from 'semantic-ui-react';
+import axios from 'axios';
 
 export default class Priority extends Component {
+
+  handleChange = (evt) => {
+    const inputName = evt.target.name;
+    const inputValue = evt.target.value;
+    this.setState({
+      [inputName]: inputValue
+    });
+  }
 
   transferEdit = () => {
     this.props.edit(this.props.id, this.props.name);
   }
 
-  transferSuppr = () => {
-    this.props.suppr(this.props.id);
+  transferDesactivate = () => {
+    this.props.desactiv(this.props.id);
   }
 
-
   render() {
-    return(
-      <div className="priority">
-        {this.props.id} - {this.props.name} -
-        <button type="button" onClick={this.transferEdit}>Edit</button>
-        <button type="button" onClick={this.transferSuppr}>Suppr</button>
+    return (
+      <div>
+        <Form.Group inline>
+          <Label circular color='orange'>{this.props.id}</Label>
+          <Form.Input placeholder='Nom' value={this.props.name}  onChange={()=>this.props.change(this.props.id)} />
+            <Form.Button type="button" onClick={()=>this.props.edit(this.props.id, this.props.name)}>Éditer</Form.Button>
+        </Form.Group>
+        <Message error content={this.props.msgError} />
       </div>
     )
   }

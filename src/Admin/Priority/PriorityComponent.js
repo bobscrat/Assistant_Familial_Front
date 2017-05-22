@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Grid} from 'semantic-ui-react';
+import {Divider, Grid} from 'semantic-ui-react';
 
 import PriorityForm from '../Priority/PriorityForm.js';
+import PrioritySearch from '../Priority/PrioritySearch.js';
 import PriorityTable from '../Priority/PriorityTable.js';
 
 class PriorityComponent extends Component {
@@ -13,6 +14,8 @@ class PriorityComponent extends Component {
             <PriorityTable/>
           </Grid.Column>
           <Grid.Column>
+            <PrioritySearch/>
+            <Divider section />
             <PriorityForm/>
           </Grid.Column>
         </Grid.Row>
