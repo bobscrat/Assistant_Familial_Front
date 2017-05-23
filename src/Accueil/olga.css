@@ -3,6 +3,12 @@
     margin: 20px;
 }
 
+.footer {
+    max-height: 150px;
+    margin: 20px;
+    text-align: center;
+}
+
 .ui.basic.button.profil {
     color: white!important;
     box-shadow: 0 0 0 1px rgba(255,255,255,.9) inset;
@@ -13,6 +19,9 @@ i.link.icon.connexion {
     color: white!important;
     opacity: 1;
 }
+.citation {
+    font-size: 12px;
+}
 
 .part1 {
     max-height: 150px;
@@ -20,7 +29,6 @@ i.link.icon.connexion {
 .headerOlga {
     background-color: orange;
     color: white;
-    
     border-radius: 10px;
     overflow: hidden;
 }

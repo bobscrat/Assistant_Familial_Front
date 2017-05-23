@@ -1,7 +1,4 @@
 .event {
-    height: 300px;
+    min-height: 300px;
 }
 
-.cadre {
-    height: 230px;
-}

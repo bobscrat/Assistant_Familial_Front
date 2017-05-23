@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Popup, Button, Modal, Icon, Form } from 'semantic-ui-react'
-import '../Accueil/olga.css';
+//import '../Accueil/olga.css';
 import axios from 'axios';
 
 const options = [
@@ -14,7 +14,17 @@ const options = [
 class ModalNewCategory1 extends Component {
   constructor(props) {
     super(props);
-    this.state = { }  
+    this.state = { 
+       categories: [],
+            id: '',
+            name: '',
+            color: '',
+            value: '',
+            family: {
+                id: 2,
+                name: 'Mouse'
+            }
+    }  
   };
   
   state = { open: false }
@@ -23,63 +33,28 @@ class ModalNewCategory1 extends Component {
   closeConfigShow = (closeOnEscape, closeOnRootNodeClick) => () => {
     this.setState({ closeOnEscape, closeOnRootNodeClick, open: true })
   }
-  
 
   show = (dimmer) => () => this.setState({ dimmer, open: true })
   close = () => this.setState({ open: false })
 
-   componentWillMount() {
-        this.state = {
-            categories: [],
-            id: '',
-            name: '',
-            color: '',
-            value: '',
-            family: {
-                id: 13,
-                name: 'didi'
-            }
-            
-        };
-        const componentInstance = this;
 
-        axios.get('http://localhost:8080/api/categories')
-        .then( (response) => {
-            componentInstance.setState({
-                categories :response.data
-            })
-            
+    createCategory = (category) => {
+      const componentInstance = this;
+      return axios.post('http://localhost:8080/api/categories', category)
+        .then((response) => {
+          componentInstance.setState({category: response.data});
+          console.log('post');
         })
-        .catch( (err => {
-            console.log('failed to get categories :::', err);
-        }))
-    }
-
-  // componentWillUpdate() {
-  //       this.state = {
-  //           categories: []
-  //       };
-  //       const componentInstance = this;
-
-  //       axios.get('http://localhost:8080/api/categories')
-  //       .then( (response) => {
-  //           componentInstance.setState({
-  //               categories :response.data
-  //           })
-  //       })
-  //       .catch( (err => {
-  //           console.log('failed to get categories :::', err);
-  //       }))
-  //   }
-
-  createCategory = (category) => {
-        const componentInstance = this;
-        axios.post('http://localhost:8080/api/Category', category).then((response) => {
-            componentInstance.setState({category: response.data});
-            console.log('post');
-            }).catch((err) => {
-            console.log('Failed to create Category : ', err);
+        .then((response) => {
+          
+          console.log('Création de la catégorie ' + this.state.name); 
+          // this.props.test(true);   
+          this.close(); 
+          this.props.test(true);  
         })
+        .catch((err) => {
+          console.log('Failed to create Category : ', err);
+      })
     }
 
     handleSubmit = (evt) => {
@@ -95,8 +70,11 @@ class ModalNewCategory1 extends Component {
         if ('' === this.state.name || '' === this.state.colorName || null === this.state.colorName ) {
             console.log('impossible de créer la catégorie sans nom');  
         } else {
-            // this.createCategory({name: this.state.name, color: this.state.color, family: this.state.family});  
-            console.log('Création de la catégorie ' + this.state.name);          
+            this.createCategory({name: this.state.name, color: this.state.color, family: this.state.family})//, () => 
+            // this.props.test(true));  
+            // console.log('Création de la catégorie ' + this.state.name); 
+            // // this.props.test(true);   
+            // this.close();     
         }
     }
 
@@ -108,12 +86,11 @@ class ModalNewCategory1 extends Component {
         [inputName]: inputValue
       });
       // console.log(inputName + ' ' + inputValue +  ' ' + inputColor);
-      console.log(evt.target);
+      //console.log(evt.target);
     }
 
     handleDDChange = (e, { value }) => {
-      console.log('key= ' + value )
-      this.setState({ colorName: value })
+      this.setState({ color: value });
     }
 
   render() {
@@ -150,7 +127,7 @@ class ModalNewCategory1 extends Component {
                         placeholder='couleur de la catégorie'
                         selection
                         value={colorName}
-                        name='colorName'
+                        name='color'
                         onChange={this.handleDDChange}
                       />
                     </Form.Group>   
