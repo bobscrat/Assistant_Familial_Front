@@ -25,7 +25,7 @@ class PriorityTable extends Component {
         priorities: priorities
       };
       // ajout des propriétés idName (=0name,1name,2name,etc) à la racine du State
-      // pour pouvoir gérer les changements des différents input "name"
+      // pour pouvoir gérer les changements de chaque input "name"
       for (let i = 0; i < priorities.length; i++) {
         const idName = priorities[i].id + 'name';
         const value = priorities[i].name;
@@ -73,6 +73,7 @@ class PriorityTable extends Component {
         {/* chaque name = valeur des propriétés 0name,1name,2name du State */}
         {this.state.priorities.map(priority => <Priority key={priority.id} id={priority.id} name={this.state[priority.id + 'name']} change={this.handleChange} edit={this.editPriority}/>)
 }
+      <Form.Button type='Submit'>Rafraichir la liste</Form.Button>
       </Form>
     )
   }

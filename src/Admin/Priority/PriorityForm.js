@@ -60,7 +60,7 @@ class PriorityForm extends Component {
     this.setState({
       [inputName]: inputValue
     });
-    console.log('Priority = { id: ' + this.state.id + ', name: ' + this.state.name + '}');
+    // console.log('Priority = { id: ' + this.state.id + ', name: ' + this.state.name + '}');
     if ('' === this.state.id) {
       this.createPriority({name: this.state.name});
       // console.log('post');

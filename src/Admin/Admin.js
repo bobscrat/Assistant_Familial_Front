@@ -8,7 +8,6 @@ class Admin extends Component {
       <div>
         <Header as="h3" color="orange">Priorités</Header>
         <PriorityComponent/>
-        {/* Vos Components en dessous... ou au dessus ! */}
       </div>
     )
   }
