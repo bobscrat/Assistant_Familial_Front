@@ -1,3 +1,4 @@
+// Didier Olga
 import React, {Component} from 'react';
 import {Container, Grid, Label, List, Segment} from 'semantic-ui-react';
 import axios from 'axios';
@@ -20,7 +21,7 @@ class Project extends Component {
       const projects = response.data;
       for (let i=0; i<projects.length; i++) {
         projects[i].active = false;
-        projects[i].iconcolor = 'orange'; // orange par défaut, voir à récupérer la couleur des catégories des events associés
+        projects[i].catcolor = 'orange'; // orange par défaut, voir à récupérer la couleur des catégories des events associés
       }
       componentInstance.setState({projects: projects})
     }).catch((err => {
@@ -28,15 +29,11 @@ class Project extends Component {
     }))
   }
 
-  handleClick = (Id, Active) => {
+  handleClick = (index, bool) => {
     const newProjects = this.state.projects;
-    // recherche la position du projet correspondant à Id dans le tableau
-    // data.findIndex(function(obj) { return obj[property] === value; })
-    // équivalent à data.findIndex(obj => obj[property] === value)
-    const index = newProjects.findIndex(obj => obj.id === Id);
     // inverse le booléen "active" pour ce projet et désactive tous les autres projets
     for (let i=0; i<newProjects.length; i++) {
-      if (i === index) {newProjects[i].active = !Active;}
+      if (i === index) {newProjects[i].active = !bool;}
       else {newProjects[i].active = false;}
     }
     this.setState({projects: newProjects});
@@ -53,10 +50,12 @@ class Project extends Component {
                   <ProjectModal projects={this.state.projects}/>
                 </Label>
                 <List verticalAlign='middle'>
-                  {this.state.projects.map(project =>
-                    <List.Item key={project.id}>
-                     <ProjectButton id={project.id} name={project.name} click={this.handleClick} active={project.active} color={(project.active)?'orange':'grey'}
-                     iconcolor={project.iconcolor} />
+                  {this.state.projects.map(
+                    (project, i) =>
+                    <List.Item key={i}>
+                    {/* index = place du projet dans le tableau, pas son id */}
+                     <ProjectButton index={i} name={project.name} click={this.handleClick} active={project.active} color={(project.active)?'orange':'grey'}
+                     iconcolor={project.catcolor} />
                     </List.Item>)
                     }
                 </List>

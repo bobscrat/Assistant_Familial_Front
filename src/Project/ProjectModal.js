@@ -1,3 +1,4 @@
+// Olga
 import React, {Component} from 'react';
 import {Popup, Button, Form, Input, Modal, Icon, Container} from 'semantic-ui-react';
 import axios from 'axios';
@@ -7,37 +8,24 @@ import ProjectInput from './ProjectInput.js';
 
 class ProjectModal extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
       open: false,
-      projects: this.props.projects,
+      projects: [],
       changes: []
     };
-  }
 
-  show = (dimmer) => () => this.setState({dimmer, open: true})
+  show = (dimmer) => () => this.setState({dimmer, open: true, projects: this.props.projects})
   close = () => this.setState({open: false})
 
-  componentWillMount() {
-    const componentInstance = this;
-    // axios.get('/api/projects').then((response) => {
-      const projects = this.props.projects;
-      const newState = {
-        projects: projects
-      };
-      // ajout des propriétés idName (=0name,1name,2name,etc) à la racine du State
-      // pour pouvoir gérer les changements de chaque input "name"
-      for (let i = 0; i < projects.length; i++) {
-        const idName = projects[i].id + 'name';
-        const value = projects[i].name;
-        newState[idName] = value;
-        // console.log('idName='+idName+', newState[idName]='+newState[idName]);
-      }
-      componentInstance.setState(newState);
-    // }).catch((err) => {
-    //   console.log('Failed to get projects : ', err);
-    // })
+  initProjects = () => {
+    const projects = this.props.projects;
+    for (let i = 0; i < projects.length; i++) {
+      const idName = projects[i].id + 'name';
+      const value = projects[i].name;
+
+      // console.log('idName='+idName+', newState[idName]='+newState[idName]);
+    }
+    return projects;
   }
 
   updateProject = (project) => {
@@ -68,7 +56,8 @@ class ProjectModal extends Component {
   }
 
   render() {
-    const {open, dimmer} = this.state
+    const {open, dimmer} = this.state;
+    console.log(this.state.projects);
 
     return (
       <div className='ribbonOrange'>
@@ -98,7 +87,7 @@ class ProjectModal extends Component {
                 </Form.Group>
                 <Form.Group inline>
                 {/* chaque name = valeur des propriétés 0name,1name,2name du State */}
-                {this.state.projects.map(project => <ProjectInput key={project.id} id={project.id} name={this.state[project.id + 'name']} change={this.handleChange}/>)
+                {this.state.projects.map(project => <ProjectInput key={project.id} id={project.id} name={project.name} change={this.handleChange}/>)
                 }
                 </Form.Group>
               </Form>
