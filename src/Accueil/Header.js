@@ -18,7 +18,7 @@ class Header extends Component {
                         On Line Gestion Assistant
                     </Grid.Column>
                     <Grid.Column only='computer' width={4} className="headerRight" >
-                        <Icon link className='connexion' name='shutdown' size='big'/>
+                        <Icon link className='connexion' name='shutdown' size='big' onClick={this.props.logoutUser}/>
                     </Grid.Column>
 
                      <Grid.Column only='tablet' width={10} className="headerTitle">

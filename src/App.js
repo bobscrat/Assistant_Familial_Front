@@ -1,41 +1,68 @@
 import React, { Component } from 'react';
 
-import {Router, Route} from 'react-router';
-import createBrowserHistory from 'history/createBrowserHistory.js';
+
 
 //import './App.css';
 
-import Accueil from './Accueil/Accueil.js'
-import Admin from './Admin/Admin.js';
+import Site from './Site/Site.js'
 
-const history = createBrowserHistory();
+
 
 class App extends Component {
 
-  componentWillMount () {
-   // $.post('www.ste.com/api/autenticate', function (data) {
-   //   if (data) userConnected = True;
-   //});
+   constructor(props){
+     super(props);
 
-    this.setState({
-      userConnected: true
-    })
-  }
+     this.state = {
+        logged : false,
+         user: {}
+     }
+   }
 
-  render() {
-    return (
+    componentDidMount() {
+        console.log("App did mount")
+        this.checkSessionStorage();
+    }
 
-          <Router history={history}>
-            <div>
-              {/* <Route path="/" component={Accueil} />*/}
-              <Route exact path="/" component={Accueil} />
-              <Route path="/Accueil" component={Accueil} />
-              <Route path="/admin" component={Admin} />
-            </div>
-          </Router>
+    componentDidUpdate(prevProps, prevState) {
+        console.log("App did update")
+        sessionStorage.setItem('state', JSON.stringify(this.state));
+    }
 
-    );
-  }
+    checkSessionStorage = () => {
+        try {
+            if (sessionStorage.getItem('state') !== null) {
+                this.setState((prevState) => {
+                    return prevState = JSON.parse(sessionStorage.getItem('state'))
+                });
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    getUser = (boolean, newUser) => {
+        this.setState ({
+            logged: boolean,
+            user: newUser
+        })
+    }
+
+    logoutUser = () => {
+        this.setState ({
+            logged: false,
+            user: {}
+        })
+    }
+
+
+
+    render() {
+     console.log(this.state.logged)
+        return (
+          <Site user={this.state.user} logged={this.state.logged} getUser={this.getUser} logoutUser={this.logoutUser} />
+        )
+    }
 }
 
 export default App;

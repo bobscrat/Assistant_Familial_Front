@@ -22,7 +22,7 @@ class Accueil extends Component {
                 <Grid>                                     
                     <Grid.Row className='header'>
                         <Grid.Column width={16}> 
-                            <Header />   
+                            <Header logoutUser={this.props.logoutUser}/>   
                         </Grid.Column>
                     </Grid.Row>                    
                     <Grid.Row className='part1'>
