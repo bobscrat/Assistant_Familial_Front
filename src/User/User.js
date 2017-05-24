@@ -40,15 +40,13 @@ class Member extends Component {
                                     { 
                                         this.state.users.map(
                                             user =>
-                                                <List.Item key={user.id}>
-                                                    
+                                                <List.Item key={user.id}>                                                    
                                                     <List.Content>
                                                         <Label as='a' image >
                                                             <img src={require('../images/avatars/32x32/'+user.image)} />
                                                             {user.firstName}
                                                         </Label>
-                                                    </List.Content>
-                                                
+                                                    </List.Content>                                                
                                                 </List.Item>
                                         )
                                     }
