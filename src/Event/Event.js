@@ -33,7 +33,7 @@ class Event extends Component {
                 <Grid >                                     
                     <Grid.Row>
                         <Grid.Column width={16}>
-                            <Segment raised piled className='event'>
+                            <Segment raised className='event'>
                                 <Label color='orange' ribbon><ModalNewEventPlus /></Label>
                                 <List celled verticalAlign='middle' className='cadre'>  
                                     { 

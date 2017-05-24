@@ -7,9 +7,9 @@ import Category from '../Category/Category.js'
 import Event from '../Event/Event.js'
 import Member from '../User/User.js'
 import Project from '../Project/Project.js'
-import Search from '../Search/Search.js'
 
 import Header from './Header.js';
+import Footer from './Footer.js';
 import './olga.css';
 
 
@@ -26,9 +26,24 @@ class Accueil extends Component {
                         </Grid.Column>
                     </Grid.Row>                    
                     <Grid.Row className='part1'>
-                        <Grid.Column width={4}>                            
+                        <Grid.Column only='computer' width={2}>                            
                             <div className="plus">                                                    
                                 <ModalNewEvent />
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column only='tablet mobile' width={4}>                            
+                            <div className="plus">                                                    
+                                <ModalNewEvent />
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column only='computer' width={2}>                            
+                            <div className="plus">                                                    
+                                <Icon link color='orange' size='huge' name='search'/>
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
+                            <div className="plus">
+                                <Icon link color='orange' size='huge' name='search'/>
                             </div>
                         </Grid.Column>
                         <Grid.Column only='mobile' width={3}>
@@ -46,11 +61,7 @@ class Accueil extends Component {
                                 <Icon link color='orange' size='huge' name='folder'/>
                             </div>
                         </Grid.Column>
-                        <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
-                            <div className="plus">
-                                <Icon link color='orange' size='huge' name='search'/>
-                            </div>
-                        </Grid.Column>
+                       
                         
                         <Grid.Column computer={12} only='computer'>
                             {/* LES CATEGORIES */}
@@ -71,18 +82,11 @@ class Accueil extends Component {
                             <Project />
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column only='computer'>
-                             {/* LES RECHERCHES */}
-                            <Search />
+                    <Grid.Row  className='footer'>
+                        <Grid.Column>                                                         
+                            <Footer />
                         </Grid.Column>
                     </Grid.Row>
-                    {/*<Grid.Row>
-                        <Grid.Column width={16} >
-                            <div>test</div>
-                            <Test />
-                        </Grid.Column>
-                    </Grid.Row>*/}
                 </Grid>
                 
             </Container>
