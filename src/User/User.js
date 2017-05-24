@@ -7,7 +7,6 @@ import ModalEditMember from './EditUser.js';
 
 import './user.css'
 import '../Accueil/olga.css';
-import img from '../images/avatars/32x32/01-32x32.png';
 
 class Member extends Component {
 
