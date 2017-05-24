@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment, Icon} from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Icon, Image} from 'semantic-ui-react';
 import axios from 'axios';
 
 import ModalNewMember from './NewUser.js';
@@ -7,15 +7,16 @@ import ModalEditMember from './EditUser.js';
 
 import './user.css'
 import '../Accueil/olga.css';
+import img from '../images/avatars/32x32/01-32x32.png';
 
 class Member extends Component {
 
     componentWillMount() {
         this.state = {
-            users: []
+            users: [],
         };
         const componentInstance = this;
-
+       
         axios.get('http://localhost:8080/api/users')
         .then( (response) => {
             componentInstance.setState({
@@ -42,7 +43,10 @@ class Member extends Component {
                                                 <List.Item key={user.id}>
                                                     
                                                     <List.Content>
-                                                        <Icon name='user' color='orange' /><a>{user.firstName}</a>
+                                                        <Label as='a' image >
+                                                            <img src={require('../images/avatars/32x32/'+user.image)} />
+                                                            {user.firstName}
+                                                        </Label>
                                                     </List.Content>
                                                 
                                                 </List.Item>
