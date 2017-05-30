@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Popup, Button, Input, Modal, Icon, Label, Form, Divider, Grid } from 'semantic-ui-react';
+import { Input, Form, Divider, Grid } from 'semantic-ui-react';
 
 import'./event.css';
 
@@ -10,27 +10,29 @@ class Modal1 extends Component {
   close = () => this.setState({ open: false });
 
   render() {
-    const { open, dimmer } = this.state;
-
+   
     return (
-      <div>        
+      <div className='heightModal'>        
         <Grid>
             <Grid.Row>
             <Grid.Column width={3}>
             </Grid.Column>
             <Grid.Column width={10}>
-                Les catégories
-                <Divider hidden />  
                 <Form.Group>
-                <Form.Field required>
-                    <label>Nom de l'évènement</label>
-                    <Input fluid placeholder="nom de l'évènement" />
-                </Form.Field>
-                <Divider hidden />
-                <Form.Field required>
-                    <label>Date de l'évènement</label>
-                    <Input fluid placeholder="date de l'évènement" />
-                </Form.Field>
+                  <Form.Field>
+                      <label>Nom du membre</label><span className='fieldRequired'> *</span>
+                      <Input fluid name="nameUser" value={this.props.myNameUser} placeholder='nom du membre' onChange={this.props.updateStateNameUserProp}/>
+                  </Form.Field>
+                  <Divider hidden />
+                  <Form.Field>
+                      <label>Nom de la catégorie</label><span className='fieldRequired'> *</span>
+                      <Input fluid name="nameCategory" value={this.props.myNameCategory} placeholder='nom de la catégorie' onChange={this.props.updateStateNameCategoryProp}/>
+                  </Form.Field>
+                  <Divider hidden />
+                  <Form.Field>
+                      <label>Nom du projet</label>
+                      <Input fluid name="nameProject" value={this.props.myNameProject} placeholder='nom du projet' onChange={this.props.updateStateNameProjectProp}/>
+                  </Form.Field>
                 </Form.Group>
             </Grid.Column>
             <Grid.Column width={3}>

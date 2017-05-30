@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 //import './App.css';
 
 import Site from './Site/Site.js'
-
+import Accueil from './Accueil/Accueil.js'
 
 
 class App extends Component {
@@ -54,9 +54,11 @@ class App extends Component {
             user: {}
         })
     }
-
-
-
+    // render() {
+    //     return (
+    //         <Accueil />
+    //     )
+    // }
     render() {
      console.log(this.state.logged)
         return (

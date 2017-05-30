@@ -18,6 +18,7 @@
 i.link.icon.connexion {
     color: white!important;
     opacity: 1;
+    border: 0;
 }
 .citation {
     font-size: 12px;

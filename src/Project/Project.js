@@ -17,7 +17,7 @@ class Project extends Component {
     };
     const componentInstance = this;
 
-    axios.get('/api/projects').then((response) => {
+    axios.get('http://localhost:8080/api/projects').then((response) => {
       const projects = response.data;
       for (let i=0; i<projects.length; i++) {
         projects[i].active = false;

@@ -5,3 +5,11 @@
 .buttonSuivant {
     display: inline-block;
 }
+
+.fieldRequired {
+    color: red;
+}
+
+.heightModal {
+    height: 300px;
+}

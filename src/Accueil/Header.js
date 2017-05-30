@@ -37,7 +37,7 @@ class Header extends Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column only='computer' width={4} className="headerLeft">
-                        Bonjour Clément,
+                        Bonjour {this.props.user.firstName},
                     </Grid.Column>
                      <Grid.Column only='computer' width={8} className="headerCenter">
                         {now}
