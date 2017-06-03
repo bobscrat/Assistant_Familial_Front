@@ -1,3 +1,4 @@
+// Olga
 import React, {Component} from 'react';
 import {Form, Message} from 'semantic-ui-react';
 import axios from 'axios';
@@ -19,7 +20,7 @@ class PriorityTable extends Component {
   componentWillMount() {
     // this.state = {priorities: priorities.data}; // pour test sans le back
     const componentInstance = this;
-    axios.get('http://localhost:8080/api/priorities').then((response) => {
+    axios.get('/api/priorities').then((response) => {
       const priorities = response.data;
       const newState = {
         priorities: priorities

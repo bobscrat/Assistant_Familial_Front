@@ -14,7 +14,7 @@ const options = [
 class ModalNewCategory1 extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
        categories: [],
             id: '',
             name: '',
@@ -24,9 +24,9 @@ class ModalNewCategory1 extends Component {
                 id: 2,
                 name: 'Mouse'
             }
-    }  
+    }
   };
-  
+
   state = { open: false }
   state = { options }
 
@@ -46,11 +46,11 @@ class ModalNewCategory1 extends Component {
           console.log('post');
         })
         .then((response) => {
-          
-          console.log('Création de la catégorie ' + this.state.name); 
-          // this.props.test(true);   
-          this.close(); 
-          this.props.test(true);  
+
+          console.log('Création de la catégorie ' + this.state.name);
+          // this.props.test(true);
+          this.close();
+          this.props.test(true);
         })
         .catch((err) => {
           console.log('Failed to create Category : ', err);
@@ -65,16 +65,16 @@ class ModalNewCategory1 extends Component {
         this.setState({
             [inputName]: inputValue
         });
-        console.log('Category = { id: ' + this.state.id + ', name: ' + this.state.name + ', color: ' + this.state.colorName + 
+        console.log('Category = { id: ' + this.state.id + ', name: ' + this.state.name + ', color: ' + this.state.colorName +
              ', family: ' + this.state.family.id + '}');
         if ('' === this.state.name || '' === this.state.colorName || null === this.state.colorName ) {
-            console.log('impossible de créer la catégorie sans nom');  
+            console.log('impossible de créer la catégorie sans nom');
         } else {
-            this.createCategory({name: this.state.name, color: this.state.color, family: this.state.family})//, () => 
-            // this.props.test(true));  
-            // console.log('Création de la catégorie ' + this.state.name); 
-            // // this.props.test(true);   
-            // this.close();     
+            this.createCategory({name: this.state.name, color: this.state.color, family: this.state.family})//, () =>
+            // this.props.test(true));
+            // console.log('Création de la catégorie ' + this.state.name);
+            // // this.props.test(true);
+            // this.close();
         }
     }
 
@@ -106,19 +106,19 @@ class ModalNewCategory1 extends Component {
           </Popup.Content>
         </Popup>
 
-        <Modal 
-          dimmer={dimmer} 
-          open={open} 
-          closeOnEscape={closeOnEscape} 
+        <Modal
+          dimmer={dimmer}
+          open={open}
+          closeOnEscape={closeOnEscape}
           closeOnRootNodeClick={closeOnRootNodeClick}
           onClose={this.close}
           >
-          
+
             <Modal.Header>Ajouter une catégorie</Modal.Header>
             <Modal.Content>
               <Form onSubmit={this.handleSubmit}>
-                <Form.Group inline widths='equal'>                  
-                    <Form.Group >                      
+                <Form.Group inline widths='equal'>
+                    <Form.Group >
                       <Form.Input required label="Nom" name="name" placeholder="nom de la catégorie" value={this.state.name} onChange={this.handleChange.bind(this)} />
                       <Form.Select
                         label="Couleur"
@@ -130,12 +130,12 @@ class ModalNewCategory1 extends Component {
                         name='color'
                         onChange={this.handleDDChange}
                       />
-                    </Form.Group>   
+                    </Form.Group>
                     <Form.Group>
                       <Button color='orange' onClick={this.close}>Annuler</Button>
                       <Button positive type='submit' >Valider</Button>
-                    </Form.Group>                        
-                </Form.Group>              
+                    </Form.Group>
+                </Form.Group>
               </Form>
             </Modal.Content>
         </Modal>
@@ -145,5 +145,3 @@ class ModalNewCategory1 extends Component {
 }
 
 export default ModalNewCategory1
-
- 
