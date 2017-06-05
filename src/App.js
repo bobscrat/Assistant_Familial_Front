@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 
-
-
 //import './App.css';
 
 import Site from './Site/Site.js'
-import Accueil from './Accueil/Accueil.js'
-
 
 class App extends Component {
 

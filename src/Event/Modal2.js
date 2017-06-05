@@ -3,7 +3,7 @@ import { Input, Form, Divider, Grid } from 'semantic-ui-react';
 
 import'./event.css';
 
-class Modal1 extends Component {
+class Modal2 extends Component {
   state = { open: false };
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
@@ -44,6 +44,6 @@ class Modal1 extends Component {
   }
 }
 
-export default Modal1
+export default Modal2
 
  

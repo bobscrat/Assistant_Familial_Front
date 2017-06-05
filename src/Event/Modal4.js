@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Divider, Grid, Radio } from 'semantic-ui-react';
+import { List, Form, Divider, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import'./event.css';
 
@@ -44,17 +44,24 @@ class Modal4 extends Component {
             <Grid.Row>
             <Grid.Column width={3}>
             </Grid.Column>
-            <Grid.Column width={5}>
+            <Grid.Column width={10}>
                 Les contacts
                <Divider hidden />  
-                <Form.Group>
+                <List celled verticalAlign='middle' >
                    { 
                       this.state.contacts.map(
-                          contact =>                                         
-                              <Form.Field control={Radio} label={contact.name} key={contact.id} value={contact.id} onChange={this.handleChange}/>                                               
+                          contact => 
+                            <List.Item key={contact.id}> 
+                                <List.Content floated='right'>
+                                    <Form.Radio />
+                                </List.Content>
+                                <List.Content>
+                                    {contact.name}   
+                                </List.Content> 
+                            </List.Item>                                      
                       )
                     }
-                </Form.Group>
+                </List>
             </Grid.Column>
             
             <Grid.Column width={3}>

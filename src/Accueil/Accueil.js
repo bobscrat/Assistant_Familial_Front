@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Container, Grid, Icon} from 'semantic-ui-react';
 import * as utils from '../Utils/utils.js';
 
-import ModalNewEvent from '../Event/NewEvent.js';
+import ModalNewEventIcon from '../Event/NewEventIcon.js';
 
 import Category from '../Category/Category.js'
 import Event from '../Event/Event.js'
@@ -59,13 +59,13 @@ class Accueil extends Component {
             <Grid.Column only='computer' width={2}>
               <div className="plus">
                 {/* Modale Nouvel Evénement */}
-                <ModalNewEvent/>
+                <ModalNewEventIcon/>
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' width={4}>
               <div className="plus">
                 {/* Modale Nouvel Evénement */}
-                <ModalNewEvent/>
+                <ModalNewEventIcon/>
               </div>
             </Grid.Column>
             <Grid.Column only='computer' width={2}>

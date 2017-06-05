@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Form, Header, Button, Message} from 'semantic-ui-react';
+import {Grid, Form, Header} from 'semantic-ui-react';
 
 import axios from 'axios';
 
@@ -28,7 +28,7 @@ class LoginIn extends Component {
         let user = {};
         user["email"] = this.state.email;
         user["password"] = this.state.password;
-        console.log("email: " + user["email"] + "password : " + user["password"]);
+        console.log("email: " + user["email"] + " password : " + user["password"]);
         axios.post("http://localhost:8080/api/users/log", user)
             .then((response) => {
                 console.log('ok')

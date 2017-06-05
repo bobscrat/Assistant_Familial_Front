@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container, Grid, Label, List, Segment, } from 'semantic-ui-react';
 import axios from 'axios';
 
-import ModalNewEventPlus from './NewEventPlus.js';
+import ModalNewEvent from './NewEvent.js';
 import ModalValidEvent from './ValidEvent.js';
 
 import './event.css'
@@ -12,7 +12,8 @@ class Event extends Component {
 
     componentWillMount() {
         this.state = {
-            events: []
+            events: [],
+            family: {}
         };
         const componentInstance = this;
 
@@ -34,7 +35,7 @@ class Event extends Component {
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Segment raised className='event'>
-                                <Label color='orange' ribbon><ModalNewEventPlus /></Label>
+                                <Label color='orange' ribbon><ModalNewEvent user={this.props.user} family={this.props.family} /></Label>
                                 <List celled verticalAlign='middle' className='cadre'>  
                                     { 
                                         this.state.events.map(

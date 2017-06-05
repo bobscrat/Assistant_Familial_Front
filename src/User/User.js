@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment, Icon, Image} from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Image} from 'semantic-ui-react';
 import axios from 'axios';
 
 import ModalNewMember from './NewUser.js';
@@ -35,16 +35,18 @@ class Member extends Component {
                         <Grid.Column width={16}>
                             <Segment raised className='member'>
                                 <Label color='orange' ribbon>Les membres<ModalNewMember /><ModalEditMember /></Label>
-                                <List celled verticalAlign='middle' className='listMember'> 
+                                <List verticalAlign='middle' className='listMember'> 
                                     { 
                                         this.state.users.map(
                                             user =>
                                                 <List.Item key={user.id}>                                                    
                                                     <List.Content>
-                                                        <Label as='a' image >
-                                                            <img src={require('../images/avatars/32x32/'+user.image)} />
+                                                        {/*<Label as='a' basic image >
+                                                            <img src={require('../images/avatars/32x32/' + user.image)} />
                                                             {user.firstName}
-                                                        </Label>
+                                                        </Label>*/}
+                                                        <Image src={require('../images/avatars/32x32/' + user.image)} avatar />
+                                                        <a>{user.firstName}</a>
                                                     </List.Content>                                                
                                                 </List.Item>
                                         )

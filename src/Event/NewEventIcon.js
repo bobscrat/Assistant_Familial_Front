@@ -61,6 +61,10 @@ class ModalNewEvent extends Component {
       this.setState({commentEvent: e.target.value});
   }
 
+  closeConfigShow = (closeOnEscape, closeOnRootNodeClick) => () => {
+    this.setState({ closeOnEscape, closeOnRootNodeClick, open: true })
+  }
+
   show = (dimmer) => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
 
@@ -143,18 +147,24 @@ class ModalNewEvent extends Component {
   }
 
   render() {
-    const { open, dimmer } = this.state;
+    const { open, dimmer, closeOnEscape, closeOnRootNodeClick  } = this.state;
 
     return (
       <div>
-        Les évènements
-        <Popup trigger={<Icon link name='plus' size='large' onClick={this.show(true)}/>}>
+        <Popup trigger={<Icon link color='orange' name='calendar plus' size='huge' onClick={this.show(true)}/>}>
           <Popup.Header>Créer un évènement</Popup.Header>
           <Popup.Content>
             En cliquant sur ce bouton, vous créez un nouvel évènement pour un membre de votre famille.
           </Popup.Content>
         </Popup>
-        <Modal dimmer={dimmer} open={open} onClose={this.close} closeIcon='close'>          
+        <Modal 
+          dimmer={dimmer} 
+          closeOnRootNodeClick={closeOnRootNodeClick} 
+          closeOnEscape={closeOnEscape} 
+          open={open} 
+          onClose={this.close} 
+          closeIcon='close'
+        >          
             <Modal.Header>Ajouter un nouvel évènement {this.state.numero}/{this.state.nbModal}</Modal.Header>
             <Modal.Content>            
               <Modal.Description>

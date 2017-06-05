@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Router, Route, IndexRoute} from "react-router";
+import {Router, Route} from "react-router";
 import createBrowserHistory from "history/createBrowserHistory";
 
 import Accueil from '../Accueil/Accueil.js'

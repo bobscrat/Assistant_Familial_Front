@@ -23,22 +23,33 @@ class Modal5 extends Component {
       <div className='heightModal'>        
         <Grid>
             <Grid.Row>
-            <Grid.Column width={3}>
-            </Grid.Column>
-            <Grid.Column width={10}>
-                <Form.Field>
-                    <label>Budget prévisionnel</label>
-                    <Input fluid name='budget' value={this.props.myBudget} placeholder="budget previsionnel en €" onChange={this.props.updateStateBudgetProp} />
-                </Form.Field>
-                <Divider hidden />
-                <Form.Field>
+                <Grid.Column width={3} />
+
+                <Grid.Column width={10}>
+                    <Form.Field>
+                        <label>Budget prévisionnel</label>
+                        <Input 
+                            fluid 
+                            name='budget' 
+                            value={this.props.myBudgetEvent} 
+                            placeholder="budget previsionnel en €" 
+                            onChange={this.props.updateStateBudgetEventProp} 
+                        />
+                    </Form.Field>
+                    <Divider hidden />
                     <label>Commentaires</label>
-                    <TextArea name='comment' value={this.props.myComment} placeholder='vous pouvez ajouter un commentaire ...' value={this.props.myComment} autoHeight onChange={this.props.updateStateCommentProp}/>
-                </Form.Field>
-            </Grid.Column>
-            
-            <Grid.Column width={3}>
-            </Grid.Column>
+                    <Form.Field>                        
+                        <TextArea 
+                            name='comment' 
+                            placeholder='vous pouvez ajouter un commentaire ...' 
+                            value={this.props.myCommentEvent} 
+                            
+                            onChange={this.props.updateStateCommentEventProp}
+                        />
+                    </Form.Field>
+                </Grid.Column>
+                
+                <Grid.Column width={3} />
             </Grid.Row>
         </Grid>                               
       </div>
