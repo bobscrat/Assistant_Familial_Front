@@ -21,7 +21,7 @@ class NameForm extends Component {
         };
         const componentInstance = this;
 
-        axios.get('http://localhost:8080/api/categories')
+        axios.get('/api/categories')
         .then( (response) => {
             componentInstance.setState({
                 categories :response.data
@@ -39,7 +39,7 @@ class NameForm extends Component {
         };
         const componentInstance = this;
 
-        axios.get('http://localhost:8080/api/categories')
+        axios.get('/api/categories')
         .then( (response) => {
             componentInstance.setState({
                 categories :response.data
@@ -52,7 +52,7 @@ class NameForm extends Component {
 
     createCategory = (category) => {
         const componentInstance = this;
-        axios.post('http://localhost:8080/api/category', category).then((response) => {
+        axios.post('/api/category', category).then((response) => {
             componentInstance.setState({category: response.data});
             console.log('post');
             }).catch((err) => {

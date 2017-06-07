@@ -40,7 +40,7 @@ class ModalNewCategory1 extends Component {
 
     createCategory = (category) => {
       const componentInstance = this;
-      return axios.post('http://localhost:8080/api/categories', category)
+      return axios.post('/api/categories', category)
         .then((response) => {
           componentInstance.setState({category: response.data});
           console.log('post');

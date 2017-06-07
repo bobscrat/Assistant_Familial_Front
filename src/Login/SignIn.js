@@ -27,7 +27,7 @@ class Index extends Component{
     saveUser = (user) => {
     const componentInstance = this;
 
-    axios.post('http://localhost:8080/api/users', user)
+    axios.post('/api/users', user)
 .then ( (response) => {
     componentInstance.setState({user: response.data});
 })
@@ -37,7 +37,7 @@ class Index extends Component{
 }
 // saveFamily = (family) => {
 //     const componentInstance = this;
-//     axios.post('http://localhost:8080/api/family', family)
+//     axios.post('/api/family', family)
 //         .catch( (err) => {
 //             console.log('Failes to create family', err);
 //         })
@@ -64,7 +64,7 @@ handleSubmit = (e) => {
     console.log('mdp: '+this.state.password + 'confirm: ' + this.state.confirmpassword);
     if(this.state.password === this.state.confirmpassword) {
         console.log('familyName: ' + this.state.familyName);
-        axios.post('http://localhost:8080/api/families', {name: this.state.familyName}) // enregistrer la famille
+        axios.post('/api/families', {name: this.state.familyName}) // enregistrer la famille
             .then((response) => {
             this.saveUser({
             firstName: this.state.firstName,
@@ -94,7 +94,7 @@ handleSubmit = (e) => {
 //     this.setState({
 //         [inputName]: inputValue
 //     });
-//     axios.post('http://localhost:8080/api/users', user)
+//     axios.post('/api/users', user)
 // }
 
 resetField = () => {

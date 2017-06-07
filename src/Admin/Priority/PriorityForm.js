@@ -15,7 +15,7 @@ class PriorityForm extends Component {
 
   createPriority = (priority) => {
     const componentInstance = this;
-    axios.post('http://localhost:8080/api/priorities', priority).then((response) => {
+    axios.post('/api/priorities', priority).then((response) => {
       if (null != response.data.msgError) {
         componentInstance.setState({msgError: response.data.msgError, priority: null, msgSuccess: null});
       }
@@ -29,7 +29,7 @@ class PriorityForm extends Component {
 
   updatePriority = (priority) => {
     const componentInstance = this;
-    axios.put('http://localhost:8080/api/priorities', priority).then((response) => {
+    axios.put('/api/priorities', priority).then((response) => {
       if (null != response.data.msgError) {
         componentInstance.setState({msgError: response.data.msgError, priority: null, msgSuccess: null});
       }

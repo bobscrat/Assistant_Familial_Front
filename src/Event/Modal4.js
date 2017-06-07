@@ -22,7 +22,7 @@ class Modal4 extends Component {
 
      getContacts() {
       const componentInstance = this;
-      return axios.get('http://localhost:8080/api/contacts')
+      return axios.get('/api/contacts')
           .then( (response) => {
               componentInstance.setState({
                   contacts :response.data

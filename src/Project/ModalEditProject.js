@@ -1,6 +1,6 @@
 // Olga
 import React, {Component} from 'react';
-import {Popup, Button, Form, Input, Grid, Modal, Icon, Container} from 'semantic-ui-react';
+import {Popup, Button, Form, Input, Grid, Modal, Icon, Container, Message} from 'semantic-ui-react';
 import '../Accueil/olga.css';
 
 import ModalEditProjectInput from './ModalEditProjectInput.js';
@@ -13,12 +13,13 @@ class ModalEditProject extends Component {
       changes: [],
       addedProject: {},
       isProjectAdded: false,
-      family: {}
+      family: {},
+      msgError: ''
     };
 
   show = () => () => {
     // reset state values
-    this.setState({projects: this.props.projects, changes: [], addedProject: {}, family: this.props.family, isProjectAdded: false, open: true});
+    this.setState({projects: this.props.projects, changes: [], addedProject: {}, family: this.props.family, isProjectAdded: false, msgError: '', open: true});
   }
 
   close = () => {
@@ -40,7 +41,10 @@ class ModalEditProject extends Component {
         this.props.update(projects[i], i);
       }
     }
-    this.close();
+    // close modal if no error
+    if ('' === this.state.msgError) {
+      this.close();
+    }
   }
 
   // add project
@@ -82,12 +86,14 @@ class ModalEditProject extends Component {
           </Modal.Header>
 
           <Modal.Content>
-            <Form>
+            <Form error>
                 <Form.Group>
                   <Container textAlign='center'>
                     <Input focus label='Nouveau projet' placeholder='Nom du nouveau projet' onChange={(evt) => this.handleChangeAdd(evt)} />
                   </Container>
                 </Form.Group>
+
+                <Message error content={this.state.msgError} />
 
                 <Grid stackable doubling columns={3}>
                 {/* index = project's rank in the array, not his id */}

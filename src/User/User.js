@@ -16,7 +16,7 @@ class Member extends Component {
         };
         const componentInstance = this;
        
-        axios.get('http://localhost:8080/api/users')
+        axios.get('/api/users')
         .then( (response) => {
             componentInstance.setState({
                 users :response.data

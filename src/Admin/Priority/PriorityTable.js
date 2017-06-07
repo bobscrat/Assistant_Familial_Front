@@ -41,7 +41,7 @@ class PriorityTable extends Component {
 
   updatePriority = (priority) => {
     const componentInstance = this;
-    axios.put('http://localhost:8080/api/priorities', priority).then((response) => {
+    axios.put('/api/priorities', priority).then((response) => {
       if (null != response.data.msgError) {
         componentInstance.setState({msgError: response.data.msgError, msgSuccess: null});
       } else {

@@ -162,7 +162,7 @@ class ModalNewEvent extends Component {
 
   createEvent = (event) => {
       const componentInstance = this;
-      return axios.post('http://localhost:8080/api/events', event)
+      return axios.post('/api/events', event)
         .then((response) => {
           componentInstance.setState({event: response.data});
           console.log('post');

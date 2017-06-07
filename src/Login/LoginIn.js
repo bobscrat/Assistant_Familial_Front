@@ -29,7 +29,7 @@ class LoginIn extends Component {
         user["email"] = this.state.email;
         user["password"] = this.state.password;
         console.log("email: " + user["email"] + " password : " + user["password"]);
-        axios.post("http://localhost:8080/api/users/log", user)
+        axios.post("/api/users/log", user)
             .then((response) => {
                 console.log('ok')
                 componentInstance.props.getUser(true, response.data);

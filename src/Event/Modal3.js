@@ -27,7 +27,7 @@ class Modal1 extends Component {
 
   getPriorities() {
       const componentInstance = this;
-      return axios.get('http://localhost:8080/api/priorities')
+      return axios.get('/api/priorities')
           .then( (response) => {
               componentInstance.setState({
                   priorities :response.data
@@ -41,7 +41,7 @@ class Modal1 extends Component {
 
      getPeriodicities() {
       const componentInstance = this;
-      return axios.get('http://localhost:8080/api/periodicities')
+      return axios.get('/api/periodicities')
           .then( (response) => {
               componentInstance.setState({
                   periodicities :response.data

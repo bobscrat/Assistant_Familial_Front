@@ -16,7 +16,7 @@ class PrioritySearch extends Component {
 
   getPriority = (id) => {
     const componentInstance = this;
-    axios.get('http://localhost:8080/api/priorities/' + id).then((response) => {
+    axios.get('/api/priorities/' + id).then((response) => {
       // console.log('response.data.msgError=' + response.data.msgError + ', response.data.name=' + response.data.name);
       if (null != response.data.msgError) {
         componentInstance.setState({msgError: response.data.msgError, msgSuccess: null});

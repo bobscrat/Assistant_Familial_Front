@@ -17,7 +17,7 @@ class Event extends Component {
         };
         const componentInstance = this;
 
-        axios.get('http://localhost:8080/api/events')
+        axios.get('/api/events')
         .then( (response) => {
             componentInstance.setState({
                 events :response.data
