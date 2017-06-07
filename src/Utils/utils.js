@@ -20,7 +20,7 @@ export function loadFamily(instance) {
 //           CATEGORIES
 // *********************************
 export function addCategoryAttributes(category) {
-  category.activefilter = false;
+  category.active = false;
 }
 
 export function loadCategories(instance) {
@@ -39,7 +39,7 @@ export function loadCategories(instance) {
 //           MEMBRES
 // *********************************
 export function addMemberAttributes(member) {
-  member.activefilter = false;
+  member.active = false;
 }
 
 export function loadMembers(instance) {
@@ -59,7 +59,7 @@ export function loadMembers(instance) {
 // *********************************
 
 export function addProjectAttributes(project) {
-  project.activefilter = false;
+  project.active = false;
   project.catcolor = 'orange'; // orange par défaut, voir à récupérer la couleur des catégories des events associés
 }
 
@@ -72,5 +72,31 @@ export function loadProjects(instance) {
     instance.setState({projects: projects});
   }).catch((err => {
     console.log('failed to get projects :::', err);
+  }))
+}
+
+// *********************************
+//           PRIORITIES
+// *********************************
+
+export function loadPriorities(instance) {
+  axios.get('/api/priorities').then((response) => {
+    const priorities = response.data;
+    instance.setState({priorities: priorities});
+  }).catch((err => {
+    console.log('failed to get priorities :::', err);
+  }))
+}
+
+// *********************************
+//           PERIODICITIES
+// *********************************
+
+export function loadPeriodicities(instance) {
+  axios.get('/api/periodicities').then((response) => {
+    const periodicities = response.data;
+    instance.setState({periodicities: periodicities});
+  }).catch((err => {
+    console.log('failed to get periodicities :::', err);
   }))
 }

@@ -17,7 +17,7 @@ class ModalEditProject extends Component {
     };
 
   show = () => () => {
-    // reset des valeurs
+    // reset state values
     this.setState({projects: this.props.projects, changes: [], addedProject: {}, family: this.props.family, isProjectAdded: false, open: true});
   }
 
@@ -30,11 +30,11 @@ class ModalEditProject extends Component {
     let changes = this.state.changes;
     let newProject = this.state.addedProject;
     let isProjectAdded = this.state.isProjectAdded;
-    // ajout
+    // project added
     if (isProjectAdded) {
       this.props.save(newProject);
     }
-    // modifications
+    // project(s) updated
     for (let i=0; i<changes.length; i++) {
       if (changes[i]) {
         this.props.update(projects[i], i);
@@ -43,7 +43,7 @@ class ModalEditProject extends Component {
     this.close();
   }
 
-  // ajout
+  // add project
   handleChangeAdd = (evt) => {
     let newProject = this.state.addedProject;
     if ('' !== evt.target.value) {
@@ -52,7 +52,7 @@ class ModalEditProject extends Component {
       this.setState({addedProject: newProject, isProjectAdded: true});
     }
   }
-  // modification
+  // update project
   handleChangeEdit = (evt, index) => {
     let newProjects = this.state.projects;
     let newChanges = this.state.changes;
@@ -90,7 +90,7 @@ class ModalEditProject extends Component {
                 </Form.Group>
 
                 <Grid stackable doubling columns={3}>
-                {/* index = place du projet dans le tableau, pas son id */}
+                {/* index = project's rank in the array, not his id */}
                 {this.state.projects.map(
                   (project, i) => <ModalEditProjectInput key={i} index={i} id={project.id} catcolor={project.catcolor} name={project.name} change={this.handleChangeEdit}/>
                 )}

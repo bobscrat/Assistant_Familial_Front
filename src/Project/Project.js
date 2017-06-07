@@ -17,26 +17,27 @@ class Project extends Component {
     family: {}
   };
 
+  // select/unselect a project
   handleClickSelect = (index, bool, id) => {
     const newProjects = this.props.projects;
     let selectedId;
-    // inverse le booléen "active" pour ce "bouton" et désactive tous les autres
+    // invert this project.active and unselect others
     for (let i = 0; i < newProjects.length; i++) {
       if (i === index) {
-        newProjects[i].activefilter = !bool;
+        newProjects[i].active = !bool;
       } else {
-        newProjects[i].activefilter = false;
+        newProjects[i].active = false;
       }
     }
-    // si le projet n'était pas sélectionné avant le click, il le devient
+    // if project wasn't selected before click, it is now
     if (!bool) {selectedId = id;}
     else {selectedId = 0;}
-    // exporte le selectedId dans le State de Accueil
+    // export selectedId to Home's State
     this.props.select('selectedProjectId', selectedId);
     this.setState({projects: newProjects});
   }
 
-  // pour la modale d'édition
+  // add & edit modal
   saveProject = (project) => {
     const newProjects = this.props.projects;
     axios.post('/api/projects', project).then((response) => {
@@ -44,14 +45,14 @@ class Project extends Component {
       addProjectAttributes(project);
       newProjects.push(project);
       this.setState({projects: newProjects});
-      // rechargement des projets dans le State de Accueil pour les trier correctement
-      this.props.maj();
+      // reload projects in Home's State, to sort them
+      this.props.update();
     }).catch((err) => {
     console.log('Failed to add project : ', err);
   })
 }
 
-// pour la modale d'édition
+// add & edit modal
 updateProject = (project, index) => {
   const newProjects = this.props.projects;
   axios.put('/api/projects', project).then((response) => {
@@ -75,10 +76,10 @@ render() {
               </Label>
               <List verticalAlign='middle'>
                 {this.props.projects.map((project, i) => <List.Item key={i}>
-                  {/* index = place du projet dans le tableau, pas son id */}
-                  <ProjectItem index={i} name={project.name} active={project.activefilter} catcolor={project.catcolor} click={this.handleClickSelect}  color={(project.activefilter)?'orange':'grey'} />
-                </List.Item>)
-}
+                  {/* index = project's rank in the array, not his id */}
+                  <ProjectItem index={i} name={project.name} active={project.active} catcolor={project.catcolor} click={this.handleClickSelect}  color={(project.active)?'orange':'grey'} />
+                  </List.Item>)
+                }
               </List>
             </Segment>
           </Grid.Column>
