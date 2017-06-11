@@ -16,12 +16,12 @@ class App extends Component {
    }
 
     componentDidMount() {
-        console.log("App did mount")
+        console.log("App did mount <app.js>")
         this.checkSessionStorage();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("App did update")
+        console.log("App did update <app.js>")
         sessionStorage.setItem('state', JSON.stringify(this.state));
     }
 
@@ -56,7 +56,7 @@ class App extends Component {
     //     )
     // }
     render() {
-     console.log(this.state.logged)
+     console.log('return <app.js> ' + this.state.logged)
         return (
           <Site user={this.state.user} logged={this.state.logged} getUser={this.getUser} logoutUser={this.logoutUser} />
         )

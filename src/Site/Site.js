@@ -27,7 +27,7 @@ class Site extends Component{
     }
 
     componentDidUpdate() {
-        console.log("component did update")
+        console.log("component did update <site.js>")
         this.props.logged ? ( history.push('/accueil') ) : (history.push('/') );
     }
 

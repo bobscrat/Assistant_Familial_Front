@@ -44,6 +44,15 @@ class Modal1 extends Component {
             })
             this.props.addPrefixeProp(this.state.prefixe);
         }  
+        this.focus()
+    }
+
+    handleRef = c => {
+      this.inputRef = c
+    }
+
+    focus = () => {
+        this.inputRef.focus()
     }
 
     render() {
@@ -67,7 +76,8 @@ class Modal1 extends Component {
                                     <label>Nom de l'évènement</label>
                                     <span className='fieldRequired'> *</span>
                                     <Input 
-                                        fluid 
+                                        ref={this.handleRef}
+                                        fluid                                         
                                         name="nameEvent" 
                                         value={this.props.myNameEvent} 
                                         placeholder="nom de l'évènement" 

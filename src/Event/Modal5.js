@@ -37,9 +37,10 @@ class Modal5 extends Component {
                         />
                     </Form.Field>
                     <Divider hidden />
-                    <label>Commentaires</label>
-                    <Form.Field>                        
-                        <TextArea 
+                    <label>Commentaire</label>
+                    <Form.Field>
+                        <TextArea
+                            className='myTextArea'
                             name='comment' 
                             placeholder='vous pouvez ajouter un commentaire ...' 
                             value={this.props.myCommentEvent} 

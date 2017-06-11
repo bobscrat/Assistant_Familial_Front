@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Divider, Grid, Radio } from 'semantic-ui-react';
+import { Form, Divider, Grid, Label, Checkbox, Segment, Input } from 'semantic-ui-react';
 import axios from 'axios';
 import'./event.css';
 
@@ -9,11 +9,7 @@ class Modal1 extends Component {
         this.state = {
             priorities: [],
             periodicities: [],
-            value: ''
          } 
-         this.handleChange = this.handleChange.bind(this);
-         this.changePriority = this.changePriority.bind(this);
-
     };
   state = { open: false };
 
@@ -21,13 +17,13 @@ class Modal1 extends Component {
   close = () => this.setState({ open: false });
 
   componentWillMount() {
-      this.getPriorities();
-      this.getPeriodicities();
+        this.getPriorities();
+        this.getPeriodicities();
   }
 
   getPriorities() {
       const componentInstance = this;
-      return axios.get('/api/priorities')
+      return axios.get('http://localhost:8080/api/priorities')
           .then( (response) => {
               componentInstance.setState({
                   priorities :response.data
@@ -41,7 +37,7 @@ class Modal1 extends Component {
 
      getPeriodicities() {
       const componentInstance = this;
-      return axios.get('/api/periodicities')
+      return axios.get('http://localhost:8080/api/periodicities')
           .then( (response) => {
               componentInstance.setState({
                   periodicities :response.data
@@ -53,16 +49,30 @@ class Modal1 extends Component {
           }))
     }
 
-    changePriority(event) {
-        console.log(event.target.value);
-        console.log(event.target.name);
-    }
+  handleChangePriority = (e, { value }) => {
+      this.props.updateStatePriorityProp(value);
+  }
+  handleChangePeriodicity = (e, { value }) => {
+      this.props.updateStatePeriodicityProp(value);
 
-    handleChange(event) {
-        console.log(event.target.name);
-        this.setState({value: event.target.value});
-    }
-  //handleChange = (e, { value }) => this.setState({ value })
+      if (value > 1) {
+          this.focus()
+      }
+  }
+
+  handleChangeValuePeriodicity = (e, { value }) => {
+      if (null !== value && value >= 0) {
+        this.props.updateStateValuePeriodicityProp(value);
+      }
+  }
+
+  handleRef = c => {
+      this.inputRef = c
+  }
+
+  focus = () => {
+      this.inputRef.focus()
+  }
 
   render() {
 
@@ -70,49 +80,69 @@ class Modal1 extends Component {
       <div className='heightModal'>        
         <Grid>
             <Grid.Row>
-            <Grid.Column width={3}>
-            </Grid.Column>
-            <Grid.Column width={5}>
-                La périodicité
-               <Divider hidden />  
-                <Form.Group>
-                   { 
-                      this.state.periodicities.map(
-                          periodicity =>                                         
-                            <Form.Field key={periodicity.id}>
-                                <Radio 
-                                    label={periodicity.name} 
-                                    name={periodicity.name} 
-                                    value={periodicity.id} 
-                                    checked={this.state.value === periodicity.name}
-                                    onChange={this.handleChange}
-                                /> 
-                            </Form.Field>                                              
-                      )
-                    }
-                </Form.Group>
-            </Grid.Column>
-            <Grid.Column width={5}>
-                La priorité
-                <Divider hidden />  
-                <Form.Group>
-                   { 
-                      this.state.priorities.map(
-                          priority =>                                         
-                              <Form.Field key={priority.id}>
-                                  <Radio 
-                                    label={priority.name}
-                                    name='radioPriority'  
-                                    value={priority.id}
-                                    onChange={this.changePriority}
-                                    />    
-                                </Form.Field>                                           
-                      )
-                    }
-                </Form.Group>
-            </Grid.Column>
-            <Grid.Column width={3}>
-            </Grid.Column>
+                <Grid.Column width={3}>
+                </Grid.Column>
+                <Grid.Column width={5}>
+                    <Segment>
+                        <Label color='orange' ribbon>La périodicité</Label>
+                        <Divider hidden />                          
+                            <Form size='large'>
+                            { 
+                                this.state.periodicities.map(
+                                    periodicity => 
+                                        <Form.Group inline>                                        
+                                            <Form.Field key={periodicity.id}>
+                                                <Checkbox
+                                                    radio
+                                                    label={periodicity.name}
+                                                    name='checkboxRadioGroupPeriodicity'
+                                                    value={periodicity.id}
+                                                    checked={periodicity.id === (this.props.myPeriodicity)}
+                                                    onChange={this.handleChangePeriodicity}
+                                                />
+                                            </Form.Field> 
+                                            {this.props.myPeriodicity !== 1 && periodicity.id === this.props.myPeriodicity && <Form.Field>
+                                                <Input
+                                                    className="valuePeriodicity"
+                                                    name="valuePeriodicity" 
+                                                    ref={this.handleRef}
+                                                    value={this.props.myValuePeriodicity} 
+                                                    placeholder="nbre" 
+                                                    onChange={this.handleChangeValuePeriodicity} 
+                                                />
+                                            </Form.Field>}                                        
+                                        </Form.Group>                            
+                                    )
+                                }
+                            </Form>                            
+                    </Segment>
+                </Grid.Column>
+                <Grid.Column width={5}>
+                    <Segment>
+                        <Label color='orange' ribbon>La priorité</Label>
+                        <Divider hidden />  
+                        <Form size='large'>
+                        { 
+                            this.state.priorities.map(
+                                priority =>                                         
+                                    
+                                        <Form.Field key={priority.id}>
+                                            <Checkbox
+                                                radio
+                                                label={priority.name}
+                                                name='checkboxRadioGroupPriority'
+                                                value={priority.id}
+                                                checked={priority.id === (this.props.myPriority)}
+                                                onChange={this.handleChangePriority}
+                                            />
+                                        </Form.Field>                                          
+                            )
+                            }
+                        </Form>
+                    </Segment>
+                </Grid.Column>
+                <Grid.Column width={3}>
+                </Grid.Column>
             </Grid.Row>
         </Grid>                               
       </div>

@@ -26,6 +26,9 @@ class ModalNewEvent extends Component {
             nameUser: '',
             nameCategory: '',
             nameProject: '',
+            priority:'',
+            valuePeriodicity:0,
+            periodicity: 1,
             budgetEvent: '',
             commentEvent: '',
             family: {}
@@ -37,7 +40,9 @@ class ModalNewEvent extends Component {
          this.updateStateNameUser = this.updateStateNameUser.bind(this);
          this.updateStateNameCategory = this.updateStateNameCategory.bind(this);
          this.updateStateNameProject = this.updateStateNameProject.bind(this);
-
+         this.updateStatePeriodicity = this.updateStatePeriodicity.bind(this);
+         this.updateStateValuePeriodicity = this.updateStateValuePeriodicity.bind(this);
+         this.updateStatePriority = this.updateStatePriority.bind(this);
          this.updateStateBudgetEvent = this.updateStateBudgetEvent.bind(this);
          this.updateStateCommentEvent = this.updateStateCommentEvent.bind(this);
          
@@ -52,7 +57,15 @@ class ModalNewEvent extends Component {
         this.setState({prefixe: e.target.value});
     }
   updateStateNameEvent(e) {
-        this.setState({nameEvent: e.target.value});
+      var validNameEvent = false
+        if (e.target.value.length > 2) {
+          validNameEvent = true;
+        }
+        this.setState({
+          nameEvent: e.target.value,
+
+        });
+        console.log("valid : " + validNameEvent + ' ' + this.state.nameEvent);
     }
   updateStateDateEvent(e) {
         this.setState({dateEvent: e.target.value});
@@ -66,7 +79,19 @@ class ModalNewEvent extends Component {
   updateStateNameProject(e) {
         this.setState({nameProject: e.target.value});
     }
-
+  updateStatePeriodicity(mesure) {
+        this.setState({periodicity: mesure});
+    }
+   updateStateValuePeriodicity(mesure) {
+     console.log('mesure : ' + mesure)
+        // if (mesure >= 0) {
+          this.setState({valuePeriodicity: mesure});
+        // }
+        console.log('valuePeriodicity = ' + this.state.valuePeriodicity);
+    }
+   updateStatePriority(mesure) {
+        this.setState({priority: mesure});
+    }
   updateStateBudgetEvent(e) {
       this.setState({budgetEvent: e.target.value});
   }
@@ -131,7 +156,9 @@ class ModalNewEvent extends Component {
         console.log('user = ' + this.state.nameUser);
         console.log('category = ' + this.state.nameCategory);
         console.log('project = ' + this.state.nameProject);
-
+        console.log('value periodicity = ' + this.state.valuePeriodicity);
+        console.log('periodicity = ' + this.state.periodicity);
+        console.log('priority = ' + this.state.priority);
         console.log('budget = ' + this.state.budgetEvent);
         console.log('comment = ' + this.state.commentEvent);
         console.log('family = ' + this.props.family.id);
@@ -220,7 +247,14 @@ class ModalNewEvent extends Component {
                   myNameProject={this.state.nameProject} 
                   updateStateNameProjectProp={this.updateStateNameProject}
                 />}
-                {this.state.showModal[2] && < Modal3 />}
+                {this.state.showModal[2] && < Modal3 
+                  myPriority={this.state.priority}
+                  updateStatePriorityProp={this.updateStatePriority}
+                  myPeriodicity={this.state.periodicity}
+                  updateStatePeriodicityProp={this.updateStatePeriodicity}
+                  myValuePeriodicity={this.state.valuePeriodicity}
+                  updateStateValuePeriodicityProp={this.updateStateValuePeriodicity}
+                />}
                 {this.state.showModal[3] && < Modal4 />}
                 {this.state.showModal[4] && < Modal5 
                   myBudgetEvent={this.state.budgetEvent}

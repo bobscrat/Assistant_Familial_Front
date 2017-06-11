@@ -14,3 +14,12 @@
     height: 300px;
 }
 
+.ui.input.valuePeriodicity {
+    width: 80px!important;
+    height: 20px;
+}
+
+.myTextArea {
+    height: 150px!important;
+    width: 100%!important;
+}

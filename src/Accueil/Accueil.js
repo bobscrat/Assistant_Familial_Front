@@ -5,10 +5,10 @@ import * as utils from '../Utils/utils.js';
 
 import ModalNewEventIcon from '../Event/NewEventIcon.js';
 
-import Category from '../Category/Category.js'
-import Event from '../Event/Event.js'
-import Member from '../User/User.js'
-import Project from '../Project/Project.js'
+import Category from '../Category/Category.js';
+import Event from '../Event/Event.js';
+import Member from '../Member/Member.js';
+import Project from '../Project/Project.js';
 
 import Header from './Header.js';
 import Footer from './Footer.js';
