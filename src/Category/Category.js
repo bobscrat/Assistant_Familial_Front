@@ -66,7 +66,7 @@ class Category extends Component {
                                     { 
                                         this.state.categories.map(
                                             category =>                                                
-                                                <Label as='a' tag color={category.color} key={category.id}>{category.name}</Label>                                                                    
+                                                <Label tag as='a' style={{"backgroundColor" : category.color, "color" : "#ffffff"}} key={category.id}>{category.name}</Label>                                                                    
                                             )
                                     }
                                 </List>
