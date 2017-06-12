@@ -20,7 +20,7 @@ export function loadFamily(instance) {
 //           CATEGORIES
 // *********************************
 export function addCategoryAttributes(category) {
-  category.active = false;
+  category.activeFilter = false;
 }
 
 export function loadCategories(instance) {
@@ -39,15 +39,19 @@ export function loadCategories(instance) {
 //           MEMBRES
 // *********************************
 export function addMemberAttributes(member) {
-  member.active = false;
+  member.activeFilter = false;
 }
 
 export function loadMembers(instance) {
   axios.get('/api/users').then((response) => {
     const members = response.data;
+    console.log('members=');
+    console.log(members);
     for (let i = 0; i < members.length; i++) {
       this.addMemberAttributes(members[i]);
     }
+    console.log('members=');
+    console.log(members);
     instance.setState({members: members});
   }).catch((err => {
     console.log('failed to get members :::', err);
@@ -59,7 +63,7 @@ export function loadMembers(instance) {
 // *********************************
 
 export function addProjectAttributes(project) {
-  project.active = false;
+  project.activeFilter = false;
   project.catcolor = 'orange'; // orange par défaut, voir à récupérer la couleur des catégories des events associés
 }
 

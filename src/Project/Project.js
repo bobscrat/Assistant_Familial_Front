@@ -21,12 +21,12 @@ class Project extends Component {
   handleClickSelect = (index, bool, id) => {
     const newProjects = this.props.projects;
     let selectedId;
-    // invert this project.active and unselect others
+    // invert this project.activeFilter and unselect others
     for (let i = 0; i < newProjects.length; i++) {
       if (i === index) {
-        newProjects[i].active = !bool;
+        newProjects[i].activeFilter = !bool;
       } else {
-        newProjects[i].active = false;
+        newProjects[i].activeFilter = false;
       }
     }
     // if project wasn't selected before click, it is now
@@ -77,7 +77,7 @@ render() {
               <List verticalAlign='middle'>
                 {this.props.projects.map((project, i) => <List.Item key={i}>
                   {/* index = project's rank in the array, not his id */}
-                  <ProjectItem index={i} name={project.name} active={project.active} catcolor={project.catcolor} click={this.handleClickSelect}  color={(project.active)?'orange':'grey'} />
+                  <ProjectItem index={i} name={project.name} activeFilter={project.activeFilter} catcolor={project.catcolor} click={this.handleClickSelect}  color={(project.activeFilter)?'orange':'grey'} />
                   </List.Item>)
                 }
               </List>
