@@ -1,20 +1,5 @@
+//Olga
 import axios from 'axios';
-
-// *********************************
-//           USER & FAMILY
-// *********************************
-export function loadUser(instance) {
-  const user = {}; // à récupérer en props depuis le login
-  instance.setState({user: user});
-}
-
-export function loadFamily(instance) {
-  const family = {
-    id: 2,
-    name: 'Mouse'
-  }; // à récupérer du user
-  instance.setState({family: family});
-}
 
 // *********************************
 //           CATEGORIES
@@ -23,8 +8,12 @@ export function addCategoryAttributes(category) {
   category.activeFilter = false;
 }
 
-export function loadCategories(instance) {
-  axios.get('/api/categories').then((response) => {
+export function loadCategories(instance, familyId, bool) {
+  // bool = true = get family's categories and predefined categories
+  // bool = false = get only family's categories
+  // const request = '/api/categories?filters?familyId='+familyId+'&getPredefined='+bool;
+  const request = '/api/categories';
+  axios.get(request).then((response) => {
     const categories = response.data;
     for (let i = 0; i < categories.length; i++) {
       this.addCategoryAttributes(categories[i]);
@@ -42,16 +31,14 @@ export function addMemberAttributes(member) {
   member.activeFilter = false;
 }
 
-export function loadMembers(instance) {
-  axios.get('/api/users').then((response) => {
+export function loadMembers(instance, familyId) {
+  // const request = '/api/users?filters?familyId='+familyId;
+  const request = '/api/users';
+  axios.get(request).then((response) => {
     const members = response.data;
-    console.log('members=');
-    console.log(members);
     for (let i = 0; i < members.length; i++) {
       this.addMemberAttributes(members[i]);
     }
-    console.log('members=');
-    console.log(members);
     instance.setState({members: members});
   }).catch((err => {
     console.log('failed to get members :::', err);
@@ -64,11 +51,12 @@ export function loadMembers(instance) {
 
 export function addProjectAttributes(project) {
   project.activeFilter = false;
-  project.catcolor = 'orange'; // orange par défaut, voir à récupérer la couleur des catégories des events associés
+  project.catcolor = 'orange'; // orange by default, will get category color ?
 }
 
-export function loadProjects(instance) {
-  axios.get('/api/projects').then((response) => {
+export function loadProjects(instance, familyId) {
+  const request = '/api/projects/filters?familyId=' + familyId;
+  axios.get(request).then((response) => {
     const projects = response.data;
     for (let i = 0; i < projects.length; i++) {
       this.addProjectAttributes(projects[i]);

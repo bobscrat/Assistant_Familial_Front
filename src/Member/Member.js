@@ -27,7 +27,8 @@ class Member extends Component {
                   {this.props.members.map(
                     (member, i) => <List.Item key={i}>
                     <List.Content>
-                      <Image src={require('../images/avatars/32x32/01-32x32.png')} avatar/>
+                      <Image src={require('../images/avatars/32x32/0'+(i+1)+'-32x32.png')} avatar/>
+                      {/* <Image src={require('../images/avatars/32x32/0'+member.image)} avatar/> */}
                       <a>{member.firstName}</a>
                     </List.Content>
                   </List.Item>)
