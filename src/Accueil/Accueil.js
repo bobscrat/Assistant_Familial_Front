@@ -28,11 +28,12 @@ class Accueil extends Component {
   };
 
   componentWillMount() {
-    utils.loadUser(this); // =this.setState({user: user})
-    utils.loadFamily(this); // =this.setState({family: family})
-    utils.loadCategories(this); // =this.setState({categories: categories})
-    utils.loadMembers(this); // =this.setState({members: members})
-    utils.loadProjects(this); // =this.setState({projects: projects})
+    let user = this.props.user;
+    let family = this.props.user.family;
+    this.setState({user: user, family: family});
+    utils.loadCategories(this, family.id, true); // =this.setState({categories: categories})
+    utils.loadMembers(this, family.id); // =this.setState({members: members})
+    utils.loadProjects(this, family.id); // =this.setState({projects: projects})
   }
 
   updateSelectedId = (name, id) => {
@@ -40,9 +41,9 @@ class Accueil extends Component {
     this.setState({[name]: id});
   }
 
-  reloadCategories = () => {utils.loadCategories(this);}
-  reloadMembers = () => {utils.loadMembers(this);}
-  reloadProjects = () => {utils.loadProjects(this);}
+  reloadCategories = () => {utils.loadCategories(this, this.state.family.id);}
+  reloadMembers = () => {utils.loadMembers(this, this.state.family.id);}
+  reloadProjects = () => {utils.loadProjects(this, this.state.family.id);}
 
   render() {
     return (
@@ -117,7 +118,7 @@ class Accueil extends Component {
             <Grid.Column width={5} only='computer'>
               {/* LES PROJETS */}
               <Project projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId}
-              maj={this.reloadProjects} />
+              rload={this.reloadProjects} />
             </Grid.Column>
           </Grid.Row>
 
