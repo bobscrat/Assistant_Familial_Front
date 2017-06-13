@@ -92,3 +92,16 @@ export function loadPeriodicities(instance) {
     console.log('failed to get periodicities :::', err);
   }))
 }
+
+// *********************************
+//           CONTACTS
+// *********************************
+
+export function loadContacts(instance) {
+  axios.get('/api/contacts').then((response) => {
+    const contacts = response.data;
+    instance.setState({contacts: contacts});
+  }).catch((err => {
+    console.log('failed to get contacts :::', err);
+  }))
+}
