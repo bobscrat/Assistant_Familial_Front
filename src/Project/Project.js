@@ -46,7 +46,7 @@ class Project extends Component {
       newProjects.push(project);
       this.setState({projects: newProjects});
       // reload projects in Home's State, to sort them
-      this.props.update();
+      this.props.rload();
     }).catch((err) => {
     console.log('Failed to add project : ', err);
   })
@@ -59,6 +59,8 @@ updateProject = (project, index) => {
     const project = response.data;
     newProjects[index].name = project.name;
     this.setState({projects: newProjects});
+    // reload projects in Home's State, to sort them
+    this.props.rload();
   }).catch((err) => {
     console.log('Failed to update project : ', err);
   })

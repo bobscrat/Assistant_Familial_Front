@@ -93,7 +93,7 @@ class ModalEditProject extends Component {
                   </Container>
                 </Form.Group>
 
-                <Message error content={this.state.msgError} />
+                {/* <Message error content={this.state.msgError} /> */}
 
                 <Grid stackable doubling columns={3}>
                 {/* index = project's rank in the array, not his id */}
