@@ -31,7 +31,8 @@ class Accueil extends Component {
     let user = this.props.user;
     let family = this.props.user.family;
     this.setState({user: user, family: family});
-    utils.loadCategories(this, family.id, true); // =this.setState({categories: categories})
+    //utils.loadCategories(this, family.id, true); // =this.setState({categories: categories})
+    utils.loadCategories(this, family.id); // =this.setState({categories: categories})
     utils.loadMembers(this, family.id); // =this.setState({members: members})
     utils.loadProjects(this, family.id); // =this.setState({projects: projects})
   }

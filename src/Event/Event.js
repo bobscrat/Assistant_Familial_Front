@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment, } from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Image } from 'semantic-ui-react';
 import axios from 'axios';
 
 import ModalNewEvent from './NewEvent.js';
@@ -13,6 +13,7 @@ class Event extends Component {
     componentWillMount() {
         this.state = {
             events: [],
+            members: [],
             family: {}
         };
         const componentInstance = this;
@@ -29,6 +30,9 @@ class Event extends Component {
     }
     render() {
 
+        // const lesdates = Object.keys(this.state.events.deadline);
+        // console.log(lesdates);
+
         return(
             <Container>  
                 <Grid >                                     
@@ -39,18 +43,19 @@ class Event extends Component {
                                 <List celled verticalAlign='middle' className='cadre'>  
                                     { 
                                         this.state.events.map(
-                                            event =>
-                                                <List.Item key={event.id}>
+                                            (event, i) =>
+                                                <List.Item key={i}>
                                                     <List.Content floated='right'>
                                                         
                                                         <ModalValidEvent />
                                                         
                                                     </List.Content>
                                                     <List.Icon name='calendar' color='orange' />
+                                                    {/*<Image src={require('../images/avatars/32x32/'+ (event.image))} avatar/>*/}
                                                     <List.Content>
                                                         
                                                         <List.Header as='a'>{event.name}</List.Header>
-                                                        
+                                                        <List.Description>{event.deadline} {event.user_id}</List.Description>
                                                     </List.Content>
                                                 
                                                 </List.Item>

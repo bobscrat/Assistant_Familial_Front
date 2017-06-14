@@ -26,6 +26,7 @@ class Modal1 extends Component {
             this.state.activeRDV = false;
         }
     }
+    
 
     show = (dimmer) => () => this.setState({ dimmer, open: true });
     close = () => this.setState({ open: false });
@@ -56,7 +57,7 @@ class Modal1 extends Component {
     }
 
     render() {
-        const { open, dimmer, closeOnEscape, closeOnRootNodeClick, activeRDV, activePriseRDV  } = this.state
+        const { activeRDV, activePriseRDV  } = this.state
 
         return (
             <div className='heightModal'>        

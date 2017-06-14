@@ -8,11 +8,13 @@ export function addCategoryAttributes(category) {
   category.activeFilter = false;
 }
 
-export function loadCategories(instance, familyId, bool) {
+// export function loadCategories(instance, familyId, bool) {
+export function loadCategories(instance, familyId) {
   // bool = true = get family's categories and predefined categories
   // bool = false = get only family's categories
-  // const request = '/api/categories?filters?familyId='+familyId+'&getPredefined='+bool;
-  const request = '/api/categories';
+  // const request = '/api/categories/filters?familyId='+familyId+'&getPredefined='+bool;
+  // const request = '/api/categories';
+  const request = '/api/categories/filters?familyId='+familyId;
   axios.get(request).then((response) => {
     const categories = response.data;
     for (let i = 0; i < categories.length; i++) {
@@ -32,7 +34,7 @@ export function addMemberAttributes(member) {
 }
 
 export function loadMembers(instance, familyId) {
-  // const request = '/api/users?filters?familyId='+familyId;
+  // const request = '/api/users/filters?familyId='+familyId;
   const request = '/api/users';
   axios.get(request).then((response) => {
     const members = response.data;
