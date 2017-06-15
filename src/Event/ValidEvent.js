@@ -43,7 +43,5 @@ class ModalValidEvent extends Component {
     )
   }
 }
-
 export default ModalValidEvent
-
  

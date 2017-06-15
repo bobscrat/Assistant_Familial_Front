@@ -210,7 +210,7 @@ class ModalNewEvent extends Component {
           console.log('post');
           this.setState({event: myEvent})
           
-          console.log('Création de l événement' + ' ' + this.state.event.name); 
+          
           // this.props.test(true);   
           this.close(); 
         })

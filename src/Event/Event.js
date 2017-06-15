@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment, Image } from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Image, Popup } from 'semantic-ui-react';
 import axios from 'axios';
 
 import ModalNewEvent from './NewEvent.js';
@@ -10,15 +10,14 @@ import '../Accueil/olga.css';
 
 class Event extends Component {
 
-    componentWillMount() {
+     componentWillMount() {
         this.state = {
             events: [],
-            members: [],
             family: {}
         };
         const componentInstance = this;
 
-        axios.get('/api/events')
+        axios.get('/api/events/filters?familyId=2')
         .then( (response) => {
             componentInstance.setState({
                 events :response.data
@@ -29,9 +28,6 @@ class Event extends Component {
         }))
     }
     render() {
-
-        // const lesdates = Object.keys(this.state.events.deadline);
-        // console.log(lesdates);
 
         return(
             <Container>  
@@ -45,19 +41,48 @@ class Event extends Component {
                                         this.state.events.map(
                                             (event, i) =>
                                                 <List.Item key={i}>
-                                                    <List.Content floated='right'>
-                                                        
-                                                        <ModalValidEvent />
-                                                        
-                                                    </List.Content>
-                                                    <List.Icon name='calendar' color='orange' />
-                                                    {/*<Image src={require('../images/avatars/32x32/'+ (event.image))} avatar/>*/}
-                                                    <List.Content>
-                                                        
-                                                        <List.Header as='a'>{event.name}</List.Header>
-                                                        <List.Description>{event.deadline} {event.user_id}</List.Description>
-                                                    </List.Content>
-                                                
+                                                    <List.Content floated='right'>                                                        
+                                                        <ModalValidEvent />                                                        
+                                                    </List.Content> 
+                                                    <Popup trigger={<Image src={require('../images/avatars/32x32/'+ (event.user.image))} avatar/>}>
+                                                        {event.user.firstName}
+                                                    </Popup>
+                                                    <List.Content>                                                                                                        
+                                                        <List.Header as='a'>
+                                                            <Popup trigger={<a>{event.name}</a>} wide='very'>
+                                                                <Popup.Header>Détails de {event.name}</Popup.Header>
+                                                                <Popup.Content>
+                                                                    <List>
+                                                                        <List.Item>Membre : {event.user.firstName}.</List.Item>                                                     
+                                                                        <List.Item>Catégorie : {event.category.name}.</List.Item> 
+                                                                        
+                                                                        
+                                                                        {event.comment !== null && <List.Item>Commentaire : {event.comment}</List.Item>}
+                                                                    </List>
+                                                                </Popup.Content>
+                                                            </Popup>
+                                                            <Popup trigger={event.priority.id === 2 && <List.Icon name='attention' color='orange' />}>
+                                                                Important
+                                                            </Popup>
+                                                            <Popup trigger={event.priority.id === 4 && <List.Icon name='attention' color='orange' />}>                                                                                                                      
+                                                                 Important
+                                                            </Popup>
+                                                        </List.Header>
+                                                        <List.Description>
+                                                            <List.Icon name='calendar' color='orange' />
+                                                            {event.deadline[2]}/{event.deadline[1]}/{event.deadline[0]}
+                                                            {event.deadline[3] !== 0 && <List.Icon name='time' color='orange' />}
+                                                            {event.deadline[3] !== 0 && event.deadline[3] + 'h'}
+                                                            {event.deadline[3] > 0 && event.deadline[4] < 10 && '0'}
+                                                            {event.deadline[3] > 0 && event.deadline[4]}
+                                                            <Popup trigger={event.priority.id === 3 && <List.Icon name='bell' color='orange' />}>
+                                                                Urgent
+                                                            </Popup>
+                                                            <Popup trigger={event.priority.id === 4 && <List.Icon name='bell' color='orange' />}>
+                                                                Urgent
+                                                            </Popup>
+                                                        </List.Description>
+                                                    </List.Content>                                                
                                                 </List.Item>
                                         )
                                     }
@@ -67,7 +92,6 @@ class Event extends Component {
                     </Grid.Row>  
                 </Grid>                 
             </Container>
-
         )
     }
 };

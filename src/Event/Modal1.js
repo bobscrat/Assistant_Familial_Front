@@ -34,10 +34,10 @@ class Modal1 extends Component {
     handleClick = (evt) => {
         // vérif si le clic change RDV en prise de RDV ou inversement
         if (evt.target.name !== this.props.myPrefixe) {
-            if (evt.target.name === 'RDV_') {
-                this.state.prefixe = 'RDV_';
-            }else{
+            if (evt.target.name === 'PRV_') {
                 this.state.prefixe = 'PRV_';
+            }else{
+                this.state.prefixe = '';
             }
             this.setState({ 
                 activeRDV: !this.state.activeRDV,
