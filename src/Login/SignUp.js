@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Grid, Form, Header, Button } from 'semantic-ui-react';
+import { Grid, Form, Header, Button, Message } from 'semantic-ui-react';
 
 
 import axios from 'axios';
@@ -12,7 +12,7 @@ class Index extends Component{
         this.state = {
             firstName: '',
             familyName:'',
-            familyId: '',
+            //familyId: '',
             email: '',
             password: '',
             confirmpassword: '',
@@ -20,29 +20,25 @@ class Index extends Component{
                 id: '1',
                 name: 'Admin Familial'
             },
-            family: {}
+            family: {},
+            valideMsg: true,
+            errMsg: true
         };
     }
 
     saveUser = (user) => {
-    const componentInstance = this;
-
-    axios.post('/api/users', user)
-.then ( (response) => {
-    componentInstance.setState({user: response.data});
-})
-.catch ( (err) => {
-    console.log('Failed to get user::', err);
-})
-}
-// saveFamily = (family) => {
-//     const componentInstance = this;
-//     axios.post('/api/family', family)
-//         .catch( (err) => {
-//             console.log('Failes to create family', err);
-//         })
-//
-// }
+    const self = this;
+    return axios.post('/api/users', user)
+        .then ( (response) => {
+            self.setState({user: response.data});
+            return response;
+        })
+        .catch ( (err) => {
+            
+            console.log('Failed to get user::', err);
+            return err;
+        })
+    }
 
 handleChange = (e) => {
     const inputName = e.target.name;
@@ -54,7 +50,7 @@ handleChange = (e) => {
 
 //Il faut un seul setState par submit
 handleSubmit = (e) => {
-    const componentInstance = this;
+    const self = this;
     e.preventDefault();
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -64,38 +60,31 @@ handleSubmit = (e) => {
     console.log('mdp: '+this.state.password + 'confirm: ' + this.state.confirmpassword);
     if(this.state.password === this.state.confirmpassword) {
         console.log('familyName: ' + this.state.familyName);
+        let createdFamily;
         axios.post('/api/families', {name: this.state.familyName}) // enregistrer la famille
             .then((response) => {
-            this.saveUser({
-            firstName: this.state.firstName,
-            email: this.state.email,
-            password: this.state.password,
-            role: this.state.role,
-            family: response.data
-        });
-
-        console.log('family id: ' + this.state.family.id + ', family name: ' + this.state.family.name);
-    })
-    .then((response) => {
-            componentInstance.setState({user: response.data});
-    })
-    .catch((err) => {
-            console.log('Failes to create family', err);
-    })
-        console.log('family id: ' + this.state.family.id);
+                createdFamily = response;
+                return this.saveUser({
+                firstName: this.state.firstName,
+                email: this.state.email,
+                password: this.state.password,
+                role: this.state.role,
+                family: response.data
+                });
+        
+                console.log('family name: ' + this.state.family.name);
+            })
+            .then((response) => {
+                self.setState({user: createdFamily.data, valideMsg: false});
+                console.log(createdFamily.data);
+            })
+            .catch((err) => {
+                console.log('Failes to create family', err);
+                self.setState({errMsg: false})
+            })
     }
 };
 
-// login = (e) => {
-//     const componentInstance = this;
-//     e.preventDefault();
-//     const inputName = e.target.name;
-//     const inputValue = e.target.value;
-//     this.setState({
-//         [inputName]: inputValue
-//     });
-//     axios.post('/api/users', user)
-// }
 
 resetField = () => {
     this.setState({
@@ -109,12 +98,14 @@ resetField = () => {
 
 
 render(){
+    const valideMsg = this.state.valideMsg;
+    const errMsg = this.state.errMsg;
     return (
 
         <Grid.Column>
             <Header as="h4" className="head-connect">INSCRIPTION</Header>
             <Form onSubmit={this.handleSubmit}>
-                <Form.Input placeholder="Nom de votre famille" label="Nom de famille" name="familyName"
+                <Form.Input placeholder="ex: Ma super Famille" label="Nom de famille" name="familyName"
                             value={this.state.familyName} onChange={this.handleChange} required/>
                 <Form.Input placeholder='Votre prénom' label="Prénom" name='firstName' type="text"
                             value={this.state.firstName} onChange={this.handleChange}required/>
@@ -135,6 +126,14 @@ render(){
                     </Grid.Column>
                 </Grid>
             </Form>
+            <Message hidden={valideMsg} positive={!valideMsg}>
+                <Message.Header>Inscription réussie</Message.Header>
+                    <p>Vouz pouvez vous connecter dès maintenant !!</p>
+            </Message>
+            <Message hidden={errMsg} error={!errMsg}>
+                <Message.Header>Erreur</Message.Header>
+                <p>Le nom de famille est déjà utilisé</p>
+            </Message>
         </Grid.Column>
 
 

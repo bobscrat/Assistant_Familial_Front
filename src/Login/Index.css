@@ -2,14 +2,22 @@
     border: 1px solid black;
 }
 
-.coco{
-    background-color: grey;
-    color:white;
-}
 
 .head-connect{
     background-color: grey;
     color: white !important;
     padding: 1rem !important;
     border-radius: 0.5rem;
+}
+
+.log-header{
+      background-color: orange;
+    color: white !important;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 1rem !important;
+}
+
+a{
+    color: blue;
 }
