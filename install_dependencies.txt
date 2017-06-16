@@ -1,0 +1,1 @@
+npm i -S axios semantic-ui-react semantic-ui-css react-router react-router-dom react-color react-toggle-display
