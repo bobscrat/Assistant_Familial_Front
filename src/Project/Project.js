@@ -79,7 +79,7 @@ render() {
               <List verticalAlign='middle'>
                 {this.props.projects.map((project, i) => <List.Item key={i}>
                   {/* index = project's rank in the array, not his id */}
-                  <ProjectItem index={i} name={project.name} activeFilter={project.activeFilter} catcolor={project.catcolor} click={this.handleClickSelect}  color={(project.activeFilter)?'orange':'grey'} />
+                  <ProjectItem index={i} name={project.name} activeFilter={project.activeFilter} click={this.handleClickSelect}  color={(project.activeFilter)?'orange':'grey'} />
                   </List.Item>
                 )}
               </List>

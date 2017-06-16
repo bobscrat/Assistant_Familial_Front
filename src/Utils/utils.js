@@ -53,7 +53,6 @@ export function loadMembers(instance, familyId) {
 
 export function addProjectAttributes(project) {
   project.activeFilter = false;
-  project.catcolor = 'orange'; // orange by default, will get category color ?
 }
 
 export function loadProjects(instance, familyId) {
