@@ -1,6 +1,8 @@
 // Olga
 import React, {Component} from 'react';
 import {Popup, Button, Form, Input, Grid, Modal, Icon, Container, Message} from 'semantic-ui-react';
+import axios from 'axios';
+import {addProjectAttributes} from '../Utils/utils.js';
 import '../Home/olga.css';
 
 import ModalEditProjectInput from './ModalEditProjectInput.js';
@@ -18,7 +20,7 @@ class ModalEditProject extends Component {
     };
 
   show = () => () => {
-    // reset state values, msgError must be null to not display
+    // reset state values
     this.setState({projects: this.props.projects, changes: [], addedProject: {}, family: this.props.family, isProjectAdded: false, msgError: null, open: true});
   }
 
@@ -29,22 +31,59 @@ class ModalEditProject extends Component {
   validate = () => {
     let projects = this.state.projects;
     let changes = this.state.changes;
-    let newProject = this.state.addedProject;
-    let isProjectAdded = this.state.isProjectAdded;
-    // project added
-    if (isProjectAdded) {
-      this.props.save(newProject);
+    let ok = [];
+    // new project has been added
+    if (this.state.isProjectAdded) {
+      ok.push(this.saveProject(this.state.addedProject));
     }
-    // project(s) updated
+    // projects have been updated
     for (let i=0; i<changes.length; i++) {
       if (changes[i]) {
-        this.props.update(projects[i], i);
+        ok.push(this.updateProject(projects[i], i));
       }
     }
-    // close modal if no error
-    if ('' === this.state.msgError) {
-      this.close();
-    }
+    console.log(ok);
+    console.log("ok.indexOf('false')<0"+(ok.indexOf('false')<0));
+    console.log('ok.indexOf("false")<0'+(ok.indexOf("false")<0));
+    // no error
+    // if (null === this.state.msgError) is a bad test because the state has not been updated yet
+    // if (ok.indexOf('false')<0) {
+    //   // reload projects in Home's State
+    //   this.props.load();
+    //   // close modal
+    //   this.close();
+    // }
+  }
+
+  saveProject = (project) => {
+    const newProjects = this.props.projects;
+    let ok = false;
+    return axios.post('/api/projects', project).then((response) => {
+      console.log(response);
+      const project = response.data;
+      addProjectAttributes(project);
+      newProjects.push(project);
+      this.setState({projects: newProjects, msgError: null});
+      ok = true;
+    }).catch((err) => {
+      console.log('Failed to add project : ', err);
+      this.setState({msgError: err.response.data.message});
+    })
+  }
+
+  updateProject = (project, index) => {
+    const newProjects = this.props.projects;
+    let ok = false;
+    axios.put('/api/projects', project).then((response) => {
+      const project = response.data;
+      newProjects[index].name = project.name;
+      this.setState({projects: newProjects, msgError: null});
+      ok = true;
+    }).catch((err) => {
+      console.log('Failed to update project : ', err);
+      this.setState({msgError: err.response.data.message});
+    })
+    return ok;
   }
 
   // add project
@@ -104,7 +143,7 @@ class ModalEditProject extends Component {
             </Form>
           </Modal.Content>
 
-           <Modal.Actions>
+          <Modal.Actions>
             <Button color='orange' content='Annuler' onClick={this.close} />
             <Button positive content='Valider' onClick={this.validate} />
           </Modal.Actions>

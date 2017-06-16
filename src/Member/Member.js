@@ -5,7 +5,7 @@ import ModalNewMember from './NewUser.js';
 import ModalEditMember from './EditUser.js';
 
 import './member.css'
-import '../Accueil/olga.css';
+import '../Home/olga.css';
 
 class Member extends Component {
 

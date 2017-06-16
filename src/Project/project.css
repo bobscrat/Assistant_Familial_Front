@@ -1,3 +1,7 @@
 .project {
-    min-height: 300px;
+  min-height: 300px;
+}
+
+.ui.basic.label {
+  border: 0!important;
 }

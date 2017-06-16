@@ -4,7 +4,7 @@ import { CirclePicker} from 'react-color';
 import ToggleDisplay from 'react-toggle-display';
 
 
-import '../Accueil/olga.css';
+import '../Home/olga.css';
 import axios from 'axios';
 
 class ModalNewCategory extends Component {

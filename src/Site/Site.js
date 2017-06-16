@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Router, Route} from "react-router";
 import createBrowserHistory from "history/createBrowserHistory";
 
-import Accueil from '../Accueil/Accueil.js'
+import Home from '../Home/Home.js'
 import Admin from '../Admin/Admin.js';
 import Login from '../Login/Login.js';
 
@@ -18,8 +18,8 @@ class Site extends Component{
         return <Login getUser={this.props.getUser}/>
     }
 
-    accueil = () => {
-        return <Accueil logged={this.props.logged} user={this.props.user} logoutUser={this.props.logoutUser} redirect={this.redirection}/>
+    home = () => {
+        return <Home logged={this.props.logged} user={this.props.user} logoutUser={this.props.logoutUser} redirect={this.redirection}/>
     }
 
     admin = () => {
@@ -28,7 +28,7 @@ class Site extends Component{
 
     componentDidUpdate() {
         console.log("component did update <site.js>")
-        this.props.logged ? ( history.push('/accueil') ) : (history.push('/') );
+        this.props.logged ? ( history.push('/home') ) : (history.push('/') );
     }
 
     render(){
@@ -36,7 +36,7 @@ class Site extends Component{
             <Router history={history}>
                 <div>
                     <Route exact path="/" render={this.login} />
-                    <Route path="/accueil" render={this.accueil} />
+                    <Route path="/home" render={this.home} />
                     <Route path="/admin" render={this.admin} />
                 </div>
             </Router>

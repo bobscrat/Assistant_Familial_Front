@@ -5,7 +5,7 @@ import axios from 'axios';
 import ModalEditCategory from './EditCategory.js';
 import ModalNewCategory from './NewCategory.js';
 
-import '../Accueil/olga.css';
+import '../Home/olga.css';
 
 class Category extends Component {
 

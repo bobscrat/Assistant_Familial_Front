@@ -19,17 +19,21 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .chrono {
-    font-size: 48px;
-		color: #900C3F;
-		background-color: #F9E2DD;
-		width: 900px;
-		margin-left: 200px;
-    text-align: center;
+  font-size: 48px;
+  color: #900C3F;
+  background-color: #F9E2DD;
+  width: 900px;
+  margin-left: 200px;
+  text-align: center;
 }
 
 .navBar {
@@ -37,9 +41,7 @@
   height: 100px;
 }
 
-
-
-.accueil {
+.home {
   background-color: #A9CCE3;
   height: 250px;
 }
@@ -52,5 +54,4 @@
 .colonne {
   background-color: #A9CCE3;
   border-radius: 15px;
-  
 }

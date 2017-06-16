@@ -52,7 +52,7 @@ class App extends Component {
     }
     // render() {
     //     return (
-    //         <Accueil />
+    //         <Home />
     //     )
     // }
     render() {

@@ -6,7 +6,7 @@ import ModalNewEvent from './NewEvent.js';
 import ModalValidEvent from './ValidEvent.js';
 
 import './event.css'
-import '../Accueil/olga.css';
+import '../Home/olga.css';
 
 class Event extends Component {
 
