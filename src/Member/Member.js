@@ -23,23 +23,24 @@ class Member extends Component {
             <Grid.Column width={16}>
               <Segment raised className='member'>
                 <Label color='orange' ribbon>Les membres<ModalNewMember/><ModalEditMember/></Label>
-                <List verticalAlign='middle' className='listMember'>
-                  {this.props.members.map(
-                    (member, i) => <List.Item key={i}>
-                    <List.Content>
-                      <Image src={require('../images/avatars/32x32/0'+(i+1)+'-32x32.png')} avatar/>
-                      {/* <Image src={require('../images/avatars/32x32/0'+member.image)} avatar/> */}
-                      <a>{member.firstName}</a>
-                    </List.Content>
-                  </List.Item>)
-}
+                <List verticalAlign='middle' className='listMember' size='big'>
+                  {
+                    this.props.members.map(
+                    (member, i) => 
+                      <List.Item key={i}>
+                        <List.Content>
+                          <Image src={require('../images/avatars/32x32/'+ (member.image))} avatar/>
+                          <a>{member.firstName}</a>
+                        </List.Content>
+                      </List.Item>
+                    )
+                  }
                 </List>
               </Segment>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Container>
-
     )
   }
 };

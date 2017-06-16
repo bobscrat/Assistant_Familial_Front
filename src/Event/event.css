@@ -17,9 +17,11 @@
 .ui.input.valuePeriodicity {
     width: 80px!important;
     height: 20px;
+    text-align: right!important;
 }
 
 .myTextArea {
     height: 150px!important;
     width: 100%!important;
 }
+

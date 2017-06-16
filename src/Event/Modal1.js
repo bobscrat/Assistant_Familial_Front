@@ -26,6 +26,7 @@ class Modal1 extends Component {
             this.state.activeRDV = false;
         }
     }
+    
 
     show = (dimmer) => () => this.setState({ dimmer, open: true });
     close = () => this.setState({ open: false });
@@ -33,10 +34,10 @@ class Modal1 extends Component {
     handleClick = (evt) => {
         // vérif si le clic change RDV en prise de RDV ou inversement
         if (evt.target.name !== this.props.myPrefixe) {
-            if (evt.target.name === 'RDV_') {
-                this.state.prefixe = 'RDV_';
-            }else{
+            if (evt.target.name === 'PRV_') {
                 this.state.prefixe = 'PRV_';
+            }else{
+                this.state.prefixe = '';
             }
             this.setState({ 
                 activeRDV: !this.state.activeRDV,
@@ -56,7 +57,7 @@ class Modal1 extends Component {
     }
 
     render() {
-        const { open, dimmer, closeOnEscape, closeOnRootNodeClick, activeRDV, activePriseRDV  } = this.state
+        const { activeRDV, activePriseRDV  } = this.state
 
         return (
             <div className='heightModal'>        

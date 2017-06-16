@@ -15,14 +15,14 @@ class Header extends Component {
                     <Grid.Column only='computer' width={4} className="headerLeft" >
                     </Grid.Column>
                     <Grid.Column only='computer' width={8} className="headerTitle">
-                        On Line Gestion Assistant
+                        On Line Great Assistant
                     </Grid.Column>
                     <Grid.Column only='computer' width={4} className="headerRight" >
                         <Icon link className='connexion' name='shutdown' size='big' onClick={this.props.logoutUser}/>
                     </Grid.Column>
 
                      <Grid.Column only='tablet' width={10} className="headerTitle">
-                        On Line Gestion Assistant
+                        On Line Great Assistant
                     </Grid.Column>
                      <Grid.Column only='tablet' width={6} className="headerRight" >
                         <Icon link className='connexion' name='shutdown' size='big'/>
