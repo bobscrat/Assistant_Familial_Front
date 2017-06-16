@@ -1,0 +1,82 @@
+{
+    "images" : [
+        {
+      "type" : "gars1",
+      "name": "01-32x32.png"
+    },
+    {
+      "type" : "gars2",
+      "name": "02-32x32.png"
+    },
+        {
+      "type" : "gars3",
+      "name": "03-32x32.png"
+    },
+    {
+      "type" : "fille1",
+      "name": "04-32x32.png"
+    },
+       {
+      "type" : "gars4",
+      "name": "05-32x32.png"
+    },
+    {
+      "type" : "fille2",
+      "name": "06-32x32.png"
+    },
+        {
+      "type" : "fille3",
+      "name": "07-32x32.png"
+    },
+    {
+      "type" : "gars5",
+      "name": "08-32x32.png"
+    },   {
+      "type" : "gars6",
+      "name": "09-32x32.png"
+    },
+    {
+      "type" : "fille4",
+      "name": "10-32x32.png"
+    },
+        {
+      "type" : "fille5",
+      "name": "11-32x32.png"
+    },
+    {
+      "type" : "gars7",
+      "name": "12-32x32.png"
+    },   {
+      "type" : "fille6",
+      "name": "13-32x32.png"
+    },
+    {
+      "type" : "gars8",
+      "name": "14-32x32.png"
+    },
+        {
+      "type" : "gars9",
+      "name": "15-32x32.png"
+    },
+    {
+      "type" : "fille7",
+      "name": "16-32x32.png"
+    },   {
+      "type" : "animal1",
+      "name": "Animal_01-32x32.png"
+    },
+    {
+      "type" : "animal2",
+      "name": "Animal_02-32x32.png"
+    },
+        {
+      "type" : "animal3",
+      "name": "Animal_03-32x32.png"
+    },
+    {
+      "type" : "animal4",
+      "name": "Animal_04-32x32.png"
+    }
+    ]
+
+}
