@@ -12,9 +12,9 @@ export function addCategoryAttributes(category) {
 export function loadCategories(instance, familyId) {
   // bool = true = get family's categories and predefined categories
   // bool = false = get only family's categories
-  // const request = '/api/categories/filters?familyId='+familyId+'&getPredefined='+bool;
-  // const request = '/api/categories';
-  const request = '/api/categories/filters?familyId='+familyId;
+  // const request = '/api/categories/filters?familyId=' + familyId + '&getPredefined=' + bool;
+  const request = '/api/categories';
+  //const request = '/api/categories/filters?familyId='+familyId;
   axios.get(request).then((response) => {
     const categories = response.data;
     for (let i = 0; i < categories.length; i++) {
@@ -53,7 +53,6 @@ export function loadMembers(instance, familyId) {
 
 export function addProjectAttributes(project) {
   project.activeFilter = false;
-  project.catcolor = 'orange'; // orange by default, will get category color ?
 }
 
 export function loadProjects(instance, familyId) {

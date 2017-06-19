@@ -15,6 +15,7 @@ class Event extends Component {
             events: [],
             family: {}
         };
+        
         const componentInstance = this;
 
         axios.get('/api/events/filters?familyId=2')
@@ -50,14 +51,20 @@ class Event extends Component {
                                                     <List.Content>                                                                                                        
                                                         <List.Header as='a'>
                                                             <Popup trigger={<a>{event.name}</a>} wide='very'>
-                                                                <Popup.Header>Détails de {event.name}</Popup.Header>
+                                                                <Popup.Header>
+                                                                    <List>
+                                                                        <List.Item>{event.name}</List.Item>
+                                                                        <List.Item>du {event.deadline[2]}/{event.deadline[1]}/{event.deadline[0]}</List.Item>
+                                                                    </List>
+                                                                </Popup.Header>
                                                                 <Popup.Content>
                                                                     <List>
                                                                         <List.Item>Membre : {event.user.firstName}.</List.Item>                                                     
                                                                         <List.Item>Catégorie : {event.category.name}.</List.Item> 
-                                                                        
-                                                                        
-                                                                        {event.comment !== null && <List.Item>Commentaire : {event.comment}</List.Item>}
+                                                                        {event.project && <List.Item>Projet : {event.project.name}</List.Item>}
+                                                                        {event.estimatedBudget && <List.Item>Budget prévisionnel : {event.estimatedBudget} €</List.Item>}
+                                                                        {event.realizedBudget && <List.Item>Budget réalisé : {event.realizedBudget} €</List.Item>}
+                                                                        {event.comment && <List.Item>Commentaire : {event.comment}</List.Item>}
                                                                     </List>
                                                                 </Popup.Content>
                                                             </Popup>

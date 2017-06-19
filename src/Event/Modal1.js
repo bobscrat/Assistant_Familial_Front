@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Input, Form, Divider, Grid, Button } from 'semantic-ui-react';
+import { Input, Form, Divider, Grid, Button, Popup } from 'semantic-ui-react';
 
 import'./event.css';
 
@@ -76,27 +76,38 @@ class Modal1 extends Component {
                                 <Form.Field>
                                     <label>Nom de l'évènement</label>
                                     <span className='fieldRequired'> *</span>
-                                    <Input 
-                                        ref={this.handleRef}
-                                        fluid                                         
-                                        name="nameEvent" 
-                                        value={this.props.myNameEvent} 
-                                        placeholder="nom de l'évènement" 
-                                        onChange={this.props.updateStateNameEventProp} 
-                                    />
+                                    <Popup
+                                        trigger={ <Input 
+                                            ref={this.handleRef}
+                                            fluid                                         
+                                            name="nameEvent" 
+                                            value={this.props.myNameEvent} 
+                                            placeholder="nom de l'évènement" 
+                                            onChange={this.props.updateStateNameEventProp} 
+                                        />}
+                                        header="Nom de l'événement"
+                                        content='Vous devez saisir entre 2 et 45 caractères'
+                                        on='focus'
+                                    />                                    
                                 </Form.Field>
                                 <Divider hidden />
                                 <Form.Field>
                                     <label>Date de l'évènement</label>
                                     <span className='fieldRequired'> *</span>
-                                    <Input 
-                                        fluid 
+                                    <Popup
+                                        trigger={ <Input 
+                                            fluid 
                                         name="dateEvent" 
                                         value={this.props.myDateEvent} 
                                         placeholder="date de l'évènement" 
-                                        onChange={this.props.updateStateDateEventProp} 
-                                    />
-                                </Form.Field>
+                                        onChange={this.props.updateStateDateEventProp}  
+                                        />}
+                                        header="Date de l'événement"
+                                        content='Vous devez saisir une date'
+                                        on='focus'
+                                        position='bottom left'
+                                    />                                    
+                                </Form.Field>                        
                             </Form.Group>
                         </Grid.Column>
                         <Grid.Column width={3} />

@@ -1,6 +1,6 @@
 // Didier Olga
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment} from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 import {addProjectAttributes} from '../Utils/utils.js';
 
@@ -8,7 +8,7 @@ import ProjectItem from './ProjectItem.js';
 import ModalEditProject from './ModalEditProject.js';
 
 import './project.css'
-import '../Accueil/olga.css';
+import '../Home/olga.css';
 
 class Project extends Component {
 
@@ -40,13 +40,13 @@ class Project extends Component {
   // add & edit modal
   saveProject = (project) => {
     const newProjects = this.props.projects;
-    axios.post('/api/projects', project).then((response) => {
+    return axios.post('/api/projects', project).then((response) => {
       const project = response.data;
       addProjectAttributes(project);
       newProjects.push(project);
-      this.setState({projects: newProjects});
       // reload projects in Home's State, to sort them
       this.props.rload();
+      return newProjects;
     }).catch((err) => {
     console.log('Failed to add project : ', err);
   })
@@ -55,7 +55,7 @@ class Project extends Component {
 // add & edit modal
 updateProject = (project, index) => {
   const newProjects = this.props.projects;
-  axios.put('/api/projects', project).then((response) => {
+  return axios.put('/api/projects', project).then((response) => {
     const project = response.data;
     newProjects[index].name = project.name;
     this.setState({projects: newProjects});
@@ -79,9 +79,9 @@ render() {
               <List verticalAlign='middle'>
                 {this.props.projects.map((project, i) => <List.Item key={i}>
                   {/* index = project's rank in the array, not his id */}
-                  <ProjectItem index={i} name={project.name} activeFilter={project.activeFilter} catcolor={project.catcolor} click={this.handleClickSelect}  color={(project.activeFilter)?'orange':'grey'} />
-                  </List.Item>)
-                }
+                  <ProjectItem index={i} name={project.name} activeFilter={project.activeFilter} click={this.handleClickSelect}  color={(project.activeFilter)?'orange':'grey'} />
+                  </List.Item>
+                )}
               </List>
             </Segment>
           </Grid.Column>
