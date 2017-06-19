@@ -22,7 +22,7 @@ class Category extends Component {
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Segment raised>
-                                <Label color='orange' ribbon><ModalNewCategory  test={this.test}/><ModalEditCategory /></Label>
+                                <Label color='orange' ribbon><ModalNewCategory  categories={this.props.categories}/><ModalEditCategory /></Label>
                                 <List celled verticalAlign='middle'> 
                                     { 
                                         this.props.categories.map(

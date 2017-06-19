@@ -1,3 +1,6 @@
 .member {
     min-height: 300px;
 }
+.nameMember {
+    font-size: 18px!important;
+}

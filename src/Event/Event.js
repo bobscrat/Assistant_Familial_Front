@@ -55,9 +55,10 @@ class Event extends Component {
                                                                     <List>
                                                                         <List.Item>Membre : {event.user.firstName}.</List.Item>                                                     
                                                                         <List.Item>Catégorie : {event.category.name}.</List.Item> 
-                                                                        
-                                                                        
-                                                                        {event.comment !== null && <List.Item>Commentaire : {event.comment}</List.Item>}
+                                                                        {event.project && <List.Item>Projet : {event.project.name}</List.Item>}
+                                                                        {event.estimatedBudget && <List.Item>Budget prévisionnel : {event.estimatedBudget} €</List.Item>}
+                                                                        {event.realizedBudget && <List.Item>Budget réalisé : {event.realizedBudget} €</List.Item>}
+                                                                        {event.comment && <List.Item>Commentaire : {event.comment}</List.Item>}
                                                                     </List>
                                                                 </Popup.Content>
                                                             </Popup>

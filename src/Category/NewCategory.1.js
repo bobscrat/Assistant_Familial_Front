@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { Popup, Button, Modal, Icon, Form, Label, List, Grid } from 'semantic-ui-react';
+import { Popup, Button, Modal, Icon, Form, Label, List, Input, Grid, Segment } from 'semantic-ui-react';
 import { CirclePicker} from 'react-color';
 import ToggleDisplay from 'react-toggle-display';
-import CategoryItem from './CategoryItem.js';
 
 import '../Home/olga.css';
 import axios from 'axios';
@@ -14,7 +13,8 @@ class ModalNewCategory extends Component {
   };
   
   state = { 
-    open: false
+    open: false,
+    categorySelected: 0 
   }
 
   closeConfigShow = (closeOnEscape, closeOnRootNodeClick) => () => {
@@ -59,7 +59,6 @@ class ModalNewCategory extends Component {
             const idName = categories[i].id + 'name';
             const value = categories[i].name;
             newState[idName] = value;
-            categories[i].colorPaletteShow = false;
             }
           // console.log('idName='+idName+', newState[idName]='+newState[idName]);
           componentInstance.setState(newState);
@@ -105,29 +104,6 @@ class ModalNewCategory extends Component {
             console.log('Création de la catégorie ' + this.state.name);          
         }
     }
-
-    // select/unselect a project
-    handleClickSelect = (index, bool, id) => {
-      const newCategories = this.props.categories;
-      console.log(id)
-      // let selectedId;
-      // invert this project.activeFilter and unselect others
-      for (let i = 0; i < newCategories.length; i++) {
-        console.log('avant ' + i + ' ' + newCategories[i].colorPaletteShow + ' ' + index);
-        if (i === index) {
-          newCategories[i].colorPaletteShow = true;
-        } else {
-          newCategories[i].colorPaletteShow = false;
-        }
-        console.log('après ' + i + ' ' + newCategories[i].colorPaletteShow + ' ' + id);
-      }
-      // if category wasn't selected before click, it is now
-      // if (!bool) {selectedId = id;}
-      // else {selectedId = 0;}
-      // export selectedId to Home's State
-      // this.props.select('selectedCategoryId', selectedId);
-      this.setState({categories: newCategories});
-    }
    
     //changement nom couleur selon clique cercle   
     handleChangeColorCate = (color, event) => {      
@@ -159,11 +135,11 @@ class ModalNewCategory extends Component {
       });
     }
 
-    handleClickShowColorPickerExist(categoryId, valueShowExist) {
-      console.log(categoryId + ' ' + valueShowExist);
+    handleClickShowColorPickerExist(categoryId) {
+      console.log(categoryId);
       this.setState({
-        categorySelected: categoryId
-        // showExist: !valueShowExist
+        categorySelected: categoryId,
+        showExist: !this.state.showExist
       });
     }
 
@@ -195,7 +171,7 @@ class ModalNewCategory extends Component {
     }
 
   render() {
-    const { open, dimmer, closeOnEscape, closeOnRootNodeClick, colorName } = this.state;
+    const { open, dimmer, closeOnEscape, closeOnRootNodeClick, colorName, colorNameModif } = this.state;
 
     return (
       <div className='ribbonOrange'>
@@ -226,38 +202,66 @@ class ModalNewCategory extends Component {
                         <Label circular style={{"backgroundColor" : this.state.colorName, "color" : "white"}} onClick={ () => this.handleClickShowColorPicker() } /> 
                       </Form.Input>
                     
-                      <Label 
+                       <Label 
                         tag 
                         style={{"backgroundColor" : this.state.colorName, "color" : "white"}}
-                      > 
+                       > 
                         {this.state.name} 
                       </Label>        
                     </Form.Group>
                 </Form.Group>
 
-                <ToggleDisplay show={this.state.show} >
-                    <CirclePicker 
-                      colors={['#7947BD',' #983A7A', '#AE5A7C', '#BF4258', '#BA4E1D', '#A6645B', '#9A6D00', '#705A00', '#00891D', 
-                              '#32797C', '#007DA6', '#0061C1', '#54584B', '#106326', '#064B2D', '#005D71', '#40497C', '#663865', 
-                              '#713066', '#700C26', '#942A46', '#9A3921', '#AF5800', '#814B00'] }  
-                      onChangeComplete={ this.handleChangeColorCate }
+              <ToggleDisplay show={this.state.show} >
+                  <CirclePicker colors= {['#7947BD',' #983A7A', '#AE5A7C', '#BF4258', '#BA4E1D', '#A6645B', '#9A6D00', '#705A00', '#00891D', 
+                                      '#32797C', '#007DA6', '#0061C1', '#54584B', '#106326', '#064B2D', '#005D71', '#40497C', '#663865', 
+                                      '#713066', '#700C26', '#942A46', '#9A3921', '#AF5800', '#814B00'] }  
+                              onChangeComplete={ this.handleChangeColorCate }
                     />
-                </ToggleDisplay>
+              </ToggleDisplay>
 
               <List celled >
                 <Grid columns={2} padded > 
                   { // en 2 colonnes, espace préservé, Grid.Colomn dans la map 
                     this.state.categories.map(
-                        (category, i) =>
-                        <Grid.Column key={i}>
-                          <CategoryItem 
-                            index={i}
-                            id={category.id} 
-                            color={category.color}
-                            name={category.name}
-                            colorPaletteShow={category.colorPaletteShow}
-                            click={this.handleClickSelect}                
-                          />
+                        category =>
+                        <Grid.Column>
+                          <Form.Group inline>
+                            <Label 
+                              as='a' 
+                              style={{"backgroundColor" : category.color, "color" : "#ffffff"}} 
+                              tag>
+                              ...
+                              {/*{category.name}*/}
+                            </Label>
+                            <Form.Input 
+                              required 
+                              name={[category.id + 'name']} 
+                              value={category.name} 
+                              onChange={(e) => this.handleChangeCate(e, category.id)}                          
+                            />
+                            <Popup trigger={
+                                <Label 
+                                  circular                   
+                                  style={{"backgroundColor" : this.state.colorNameModif, "color" : "white"}}  
+                                  onClick={ () => this.handleClickShowColorPickerExist(category.id) } 
+                                />
+                                 
+                              }>
+                              <Popup.Header>Modidier la couleur</Popup.Header>
+                              <Popup.Content>
+                                En cliquant sur ce bouton, vous modifier la couleur de la catégorie.
+                              </Popup.Content>
+                            </Popup> 
+                          </Form.Group>
+
+                          {this.state.categorySelected === category.id && <ToggleDisplay show={this.state.showExist} key={category.id} >
+                              <CirclePicker 
+                                colors= {['#7947BD',' #983A7A', '#AE5A7C', '#BF4258', '#BA4E1D', '#A6645B', '#9A6D00', '#705A00', '#00891D', 
+                                          '#32797C', '#007DA6', '#0061C1', '#54584B', '#106326', '#064B2D', '#005D71', '#40497C', '#663865', 
+                                          '#713066', '#700C26', '#942A46', '#9A3921', '#AF5800', '#814B00'] }  
+                                onChangeComplete={ this.handleChangeColorCateExist }
+                              />
+                          </ToggleDisplay>}
                         </Grid.Column>
                       ) //<Form.Button type="button" onClick={()=>this.editCategory(this.props.id, this.props.name)}>Éditer</Form.Button>
                     }

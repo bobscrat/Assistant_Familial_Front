@@ -10,7 +10,7 @@ class Login extends Component{
         return(
             <Container>
                 {/*<Grid columns="2" stackable="1">*/}
-                <Header  className="log-header" size="large" textAlign="center">Simplifiez-vous la vie avec OLGA <br />Votre planificateur d'évènements familial</Header>
+                <Header  className="log-header" size="large" textAlign="center">Simplifiez-vous la vie avec OLGA <br />Votre planificateur familial d'évènements</Header>
                 <Grid columns="2" stackable>
                     <LoginIn getUser={this.props.getUser}/>
                     <SignUp/>

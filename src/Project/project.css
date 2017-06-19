@@ -1,0 +1,11 @@
+.project {
+  min-height: 300px;
+}
+
+.ui.basic.label {
+  border: 0!important;
+}
+
+.nameProject {
+    font-size: 18px!important;
+}
