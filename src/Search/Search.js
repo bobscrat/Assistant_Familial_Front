@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Grid, Icon, Label, Segment, Form, Divider } from 'semantic-ui-react';
 
-import '../Accueil/olga.css';
+import '../Home/olga.css';
 import './search.css';
 
 class Search extends Component {

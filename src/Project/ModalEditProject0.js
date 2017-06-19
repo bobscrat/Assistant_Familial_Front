@@ -18,8 +18,8 @@ class ModalEditProject extends Component {
     };
 
   show = () => () => {
-    // reset state values, msgError must be null to not display
-    this.setState({projects: this.props.projects, changes: [], addedProject: {}, family: this.props.family, isProjectAdded: false, msgError: null, open: true});
+    // reset state values
+    this.setState({projects: this.props.projects, changes: [], addedProject: {}, family: this.props.family, isProjectAdded: false, msgError: '', open: true});
   }
 
   close = () => {
@@ -93,7 +93,7 @@ class ModalEditProject extends Component {
                   </Container>
                 </Form.Group>
 
-                <Message error content={this.state.msgError} />
+                {/* <Message error content={this.state.msgError} /> */}
 
                 <Grid stackable doubling columns={3}>
                 {/* index = project's rank in the array, not his id */}
@@ -104,7 +104,7 @@ class ModalEditProject extends Component {
             </Form>
           </Modal.Content>
 
-           <Modal.Actions>
+          <Modal.Actions>
             <Button color='orange' content='Annuler' onClick={this.close} />
             <Button positive content='Valider' onClick={this.validate} />
           </Modal.Actions>
