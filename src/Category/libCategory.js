@@ -12,6 +12,7 @@ export function loadCategories(familyId) {
     const categories = response.data;
     for (let i = 0; i < categories.length; i++) {
       categories[i].activeFilter = false;
+      categories[i].colorPaletteShow = false;
     }
     return categories;
   }).catch((err => {

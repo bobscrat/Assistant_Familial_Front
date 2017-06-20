@@ -3,6 +3,7 @@ import { Popup, Button, Modal, Icon, Form, Label, List, Grid } from 'semantic-ui
 import { CirclePicker} from 'react-color';
 import ToggleDisplay from 'react-toggle-display';
 import CategoryItem from './CategoryItem.js';
+import AddCategoryItem from './AddCategoryItem.js'
 
 import '../Home/olga.css';
 import axios from 'axios';
@@ -31,47 +32,45 @@ class ModalNewCategory extends Component {
                               } )
 
    componentWillMount() {
-        this.state = {
-            categories: [],
-            id: '',
-            name: '',
-            color: 'black',
-            value: '',
-            family: {
-                id: 3,
-                name: 'duck'
-            },
-            show: false,
-            showExist: false,
-            
-        };
-        const componentInstance = this;       
-
-        axios.get('http://localhost:8080/api/categories')
-        .then( (response) => {
-          const categories = response.data;
-      const newState = {
-        categories: categories
+      this.state = {
+        categories: [],
+        id: '',
+        name: '',
+        color: 'black',
+        value: '',
+        family: {
+            id: 3,
+            name: 'duck'
+        },
+        show: false,
+        showExist: false,          
       };
-              // ajout des propriétés idName (=0name,1name,2name,etc) à la racine du State
-      // pour pouvoir gérer les changements de chaque input "name"
-          for (let i = 0; i < categories.length; i++) {
-            const idName = categories[i].id + 'name';
-            const value = categories[i].name;
-            newState[idName] = value;
-            categories[i].colorPaletteShow = false;
+      
+      // const componentInstance = this;       
+      // axios.get('http://localhost:8080/api/categories')
+      //   .then( (response) => {
+      //     const categories = response.data;
+      //     const newState = {
+      //       categories: categories
+      //     };
+      //     // ajout des propriétés idName (=0name,1name,2name,etc) à la racine du State
+      //     // pour pouvoir gérer les changements de chaque input "name"
+          for (let i = 0; i < this.props.categories.length; i++) {
+            // const idName = categories[i].id + 'name';
+            // const value = categories[i].name;
+            // newState[idName] = value;
+              this.props.categories[i].colorPaletteShow = false;
+              console.log(i + ' ' + this.props.categories[i].colorPaletteShow)
             }
-          // console.log('idName='+idName+', newState[idName]='+newState[idName]);
-          componentInstance.setState(newState);
- 
-            
-        })
-        .catch( (err => {
-            console.log('failed to get categories :::', err);
-        }))
+      //     // console.log('idName='+idName+', newState[idName]='+newState[idName]);
+      //     componentInstance.setState(newState); 
+      //   })
+      //   .catch( (err => {
+      //       console.log('failed to get categories :::', err);
+      //   }))
     }
 
-  createCategory = (category) => {
+    createCategory = (category) => {
         const componentInstance = this;
         console.log('ON ENVOIT LE POST');
         axios.post('http://localhost:8080/api/categories', category).then((response) => {
@@ -112,14 +111,12 @@ class ModalNewCategory extends Component {
       console.log(id)
       // let selectedId;
       // invert this project.activeFilter and unselect others
-      for (let i = 0; i < newCategories.length; i++) {
-        console.log('avant ' + i + ' ' + newCategories[i].colorPaletteShow + ' ' + index);
+      for (let i = 0; i < newCategories.length; i++) {      
         if (i === index) {
           newCategories[i].colorPaletteShow = true;
         } else {
           newCategories[i].colorPaletteShow = false;
-        }
-        console.log('après ' + i + ' ' + newCategories[i].colorPaletteShow + ' ' + id);
+        }      
       }
       // if category wasn't selected before click, it is now
       // if (!bool) {selectedId = id;}
@@ -137,7 +134,7 @@ class ModalNewCategory extends Component {
     };
 
     handleChangeColorCateExist = (color, event, categoryId) => {
-      console.log(categoryId);
+      console.log('color ' + categoryId);
       this.setState({ 
           colorNameModif : color.hex
       });
@@ -220,55 +217,40 @@ class ModalNewCategory extends Component {
               
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group inline widths='equal'>                  
-                    <Form.Group >                      
-                      <Form.Input required label="Nom" name="name" placeholder="nom de la catégorie" value={this.state.name} onChange={this.handleChange.bind(this)} />
-                      <Form.Input required name="colorName" placeholder="couleur de la catégorie" value={colorName} onChange={this.handleChange}>
-                        <Label circular style={{"backgroundColor" : this.state.colorName, "color" : "white"}} onClick={ () => this.handleClickShowColorPicker() } /> 
-                      </Form.Input>
                     
-                      <Label 
-                        tag 
-                        style={{"backgroundColor" : this.state.colorName, "color" : "white"}}
-                      > 
-                        {this.state.name} 
-                      </Label>        
-                    </Form.Group>
-                </Form.Group>
-
-                <ToggleDisplay show={this.state.show} >
-                    <CirclePicker 
-                      colors={['#7947BD',' #983A7A', '#AE5A7C', '#BF4258', '#BA4E1D', '#A6645B', '#9A6D00', '#705A00', '#00891D', 
-                              '#32797C', '#007DA6', '#0061C1', '#54584B', '#106326', '#064B2D', '#005D71', '#40497C', '#663865', 
-                              '#713066', '#700C26', '#942A46', '#9A3921', '#AF5800', '#814B00'] }  
-                      onChangeComplete={ this.handleChangeColorCate }
-                    />
-                </ToggleDisplay>
-
-              <List celled >
-                <Grid columns={2} padded > 
-                  { // en 2 colonnes, espace préservé, Grid.Colomn dans la map 
-                    this.state.categories.map(
-                        (category, i) =>
-                        <Grid.Column key={i}>
-                          <CategoryItem 
-                            index={i}
-                            id={category.id} 
-                            color={category.color}
-                            name={category.name}
-                            colorPaletteShow={category.colorPaletteShow}
-                            click={this.handleClickSelect}                
-                          />
-                        </Grid.Column>
-                      ) //<Form.Button type="button" onClick={()=>this.editCategory(this.props.id, this.props.name)}>Éditer</Form.Button>
-                    }
-                </Grid>                                     
-              </List>                      
+                  <AddCategoryItem 
+                    colorName='colorName'
+                    click={this.handleChange}   
+                  />
+                  <List celled >
+                    <Grid columns={2} padded > 
+                      { // en 2 colonnes, espace préservé, Grid.Colomn dans la map 
+                        this.props.categories.map(
+                            (category, i) =>
+                            <Grid.Column key={i}>
+                              <CategoryItem 
+                                index={i}
+                                id={category.id} 
+                                color={category.color}
+                                name={category.name}
+                                colorPaletteShow={category.colorPaletteShow}
+                                click={this.handleClickSelect}                
+                              />
+                            </Grid.Column>
+                          ) //<Form.Button type="button" onClick={()=>this.editCategory(this.props.id, this.props.name)}>Éditer</Form.Button>
+                        }
+                    </Grid>                                     
+                  </List> 
+                </Form.Group>  
+              </Form>
+            </Modal.Content>
+            <Modal.Actions>                   
               <Form.Group onSubmit={this.handleSubmit}>
                 <Button color='orange' onClick={this.close}>Annuler</Button>
                 <Button positive type='submit' >Valider</Button>
               </Form.Group>                                      
-            </Form>
-          </Modal.Content>
+            
+          </Modal.Actions>
         </Modal>
       </div>
     )

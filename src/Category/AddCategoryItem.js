@@ -4,17 +4,26 @@ import {Label, Form, Popup} from 'semantic-ui-react';
 import { CirclePicker} from 'react-color';
 import ToggleDisplay from 'react-toggle-display';
 
-class CategoryItem extends Component {  
+class AddCategoryItem extends Component {   
 
     state = { 
-        colorLabel: this.props.color
+        name: '',
+        colorLabel: '',
+        colorPaletteShow: false
     }
 
-    handleChangeColorCateExist = (color) => {
+    handleChangeColorCate = (color) => {
       this.setState({ 
         colorLabel: color.hex
       });
     }; 
+
+    handleClickSelect = (value) => {
+        this.setState({
+            colorPaletteShow: !value
+        })
+    }
+
 
   render() {
     return (
@@ -26,20 +35,23 @@ class CategoryItem extends Component {
                     tag
                 >
                     ...
-                </Label>
+                </Label>        
+
                 <Form.Input 
-                    required 
-                    name={[this.props.id + 'name']} 
-                    value={this.props.name} 
-                    onChange={(e) => this.handleChangeCate(e, this.props.id)}                          
-                />
+                   
+                    name="name" 
+                    placeholder="nom de la nouvelle catégorie" 
+                    value={this.state.name} 
+                    onChange={this.props.click.bind(this)} 
+                />                  
+
                 <Popup trigger={
                     <Label
                         as='a'
                         size='large' 
                         circular                   
                         style={{"backgroundColor" : this.state.colorLabel, "color" : "white"}}  
-                        onClick={ () => this.props.click(this.props.index,this.props.colorPaletteShow, this.props.id) }                     
+                        onClick={ () => this.handleClickSelect(this.state.colorPaletteShow) }                     
                     />                    
                 }>
                     <Popup.Header>Modidier la couleur</Popup.Header>
@@ -48,12 +60,12 @@ class CategoryItem extends Component {
                     </Popup.Content>
                 </Popup> 
             </Form.Group>
-            <ToggleDisplay show={this.props.colorPaletteShow} key={this.props.id} >
+            <ToggleDisplay show={this.state.colorPaletteShow}  >
                 <CirclePicker 
                     colors={['#7947BD',' #983A7A', '#AE5A7C', '#BF4258', '#BA4E1D', '#A6645B', '#9A6D00', '#705A00', '#00891D', 
                             '#32797C', '#007DA6', '#0061C1', '#54584B', '#106326', '#064B2D', '#005D71', '#40497C', '#663865', 
                             '#713066', '#700C26', '#942A46', '#9A3921', '#AF5800', '#814B00'] }  
-                    onChangeComplete={ this.handleChangeColorCateExist } 
+                    onChangeComplete={ this.handleChangeColorCate } 
                 />
             </ToggleDisplay> 
         </div>
@@ -61,4 +73,4 @@ class CategoryItem extends Component {
   }
 }
 
-export default CategoryItem;
+export default AddCategoryItem;
