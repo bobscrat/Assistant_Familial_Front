@@ -1,10 +1,13 @@
 // Didier Olga
 import React, {Component} from 'react';
 import {Container, Grid, Icon} from 'semantic-ui-react';
-import * as utils from '../Utils/utils.js';
+
+import {loadCategories} from '../Category/libCategory.js';
+import {loadMembers} from '../Member/libMember.js';
+import {loadProjects} from '../Project/libProject.js';
+import {loadEvents} from '../Event/libEvent.js';
 
 import ModalNewEventIcon from '../Event/NewEventIcon.js';
-
 import Category from '../Category/Category.js';
 import Event from '../Event/Event.js';
 import Member from '../Member/Member.js';
@@ -22,6 +25,7 @@ class Home extends Component {
     members: [],
     categories: [],
     projects: [],
+    events: [],
     selectedCategoryId: 0,
     selectedMemberId: 0,
     selectedProjectId: 0
@@ -30,14 +34,31 @@ class Home extends Component {
   componentWillMount() {
     let user = this.props.user;
     let family = this.props.user.family;
-    this.setState({user: user, family: family});
-    //utils.loadCategories(this, family.id, true); // =this.setState({categories: categories})
-    //utils.loadCategories(this, family.id); // =this.setState({categories: categories})
-    utils.loadCategories(this, 2);
-    //utils.loadMembers(this, family.id); // =this.setState({members: members})
-    utils.loadMembers(this, 2);
-    //utils.loadProjects(this, family.id); // =this.setState({projects: projects})
-    utils.loadProjects(this, 2);
+    let categories = [];
+    let members = [];
+    let projects = [];
+    let events = [];
+
+    loadCategories(2)  // must replace 2 by family.id in prod
+    .then((response) => {
+      categories = response;
+      return loadMembers(2);  // must replace 2 by family.id in prod
+    })
+    .then((response) => {
+      members = response;
+      return loadProjects(2, false);  // must replace 2 by family.id in prod
+    })
+    .then((response) => {
+      projects = response;
+      return loadEvents(2);  // must replace 2 by family.id in prod
+    })
+    .then((response) => {
+      events = response;
+      this.setState({user: user, family: family, categories: categories, members: members, projects: projects, events: events});
+    })
+    .catch((err => {
+      console.log('failed to get Home data :::', err);
+    }));
   }
 
   updateSelectedId = (name, id) => {
@@ -45,9 +66,27 @@ class Home extends Component {
     this.setState({[name]: id});
   }
 
-  reloadCategories = () => {utils.loadCategories(this, this.state.family.id);}
-  reloadMembers = () => {utils.loadMembers(this, this.state.family.id);}
-  reloadProjects = () => {utils.loadProjects(this, this.state.family.id);}
+  reloadCategories = () => {
+    loadCategories(this.state.family.id).then((response) => {
+      this.setState({categories: response})
+    });
+  }
+  reloadMembers = () => {
+    loadMembers(this.state.family.id).then((response) => {
+      this.setState({members: response})
+    });
+  }
+  reloadProjects = () => {
+    loadProjects(this.state.family.id).then((response) => {
+      this.setState({projects: response})
+    });
+  }
+  reloadEvents = () => {
+    loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId)
+    .then((response) => {
+      this.setState({events: response})
+    });
+  }
 
   render() {
     return (
