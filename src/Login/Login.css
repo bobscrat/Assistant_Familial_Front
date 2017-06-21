@@ -1,0 +1,36 @@
+.connexion{
+    border: 1px solid black;
+}
+
+
+.head-connect{
+    background-color: grey;
+    color: white !important;
+    padding: 1rem !important;
+    border-radius: 0.5rem;
+}
+
+.log-header{
+      background-color: orange;
+    color: white !important;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 1rem !important;
+}
+
+.pass{
+    color: #2719e4 !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+
+}
+
+.segment{
+    box-shadow: none !important;
+    border: none !important;
+}
+.segment:hover{
+    text-decoration: underline !important;
+}

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Grid, Form, Header, Message} from 'semantic-ui-react';
+import {Grid, Form, Header, Modal, Message} from 'semantic-ui-react';
 import ModalPassword from './Password.js';
 import axios from 'axios';
+import css from './Login.css';
 
 class LoginIn extends Component {
     constructor(props) {

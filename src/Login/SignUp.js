@@ -3,7 +3,7 @@ import { Grid, Form, Header, Button, Message } from 'semantic-ui-react';
 
 
 import axios from 'axios';
-import './Index.css';
+import './Login.css';
 
 class Index extends Component{
 
