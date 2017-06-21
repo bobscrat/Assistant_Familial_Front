@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Container, Grid, Label, List, Segment} from 'semantic-ui-react';
-import axios from 'axios';
 
 import ModalEditCategory from './EditCategory.js';
 import ModalNewCategory from './NewCategory.js';

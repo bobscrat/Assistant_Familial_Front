@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Button } from 'semantic-ui-react';
+import { Grid, Icon, Button, Image } from 'semantic-ui-react';
 
 import './olga.css';
 

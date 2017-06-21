@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import { Popup, Button, Modal, Icon, Form, Label, List, Grid } from 'semantic-ui-react';
-import { CirclePicker} from 'react-color';
-import ToggleDisplay from 'react-toggle-display';
+import { Popup, Button, Modal, Icon, Form, List, Grid } from 'semantic-ui-react';
 import CategoryItem from './CategoryItem.js';
 import AddCategoryItem from './AddCategoryItem.js'
 
@@ -192,7 +190,7 @@ class ModalNewCategory extends Component {
     }
 
   render() {
-    const { open, dimmer, closeOnEscape, closeOnRootNodeClick, colorName } = this.state;
+    const { open, dimmer, closeOnEscape, closeOnRootNodeClick } = this.state;
 
     return (
       <div className='ribbonOrange'>

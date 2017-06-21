@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Popup, Button, Input, Modal, Icon } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 
 class ForgetPassword extends Component{
     state = { open: false }
