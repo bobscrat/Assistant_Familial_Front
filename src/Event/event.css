@@ -25,3 +25,11 @@
     width: 100%!important;
 }
 
+.datePicker {
+    border: 1px solid rgba(34,36,38,.15);
+    width: 525.75px;
+    border-radius: .28571429rem;
+    height: 38px;
+    padding: .67857143em 1em;
+    color: rgba(0,0,0,.87);
+}

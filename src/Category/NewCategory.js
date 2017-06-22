@@ -195,10 +195,12 @@ class ModalNewCategory extends Component {
     return (
       <div className='ribbonOrange'>
         Les catégories
-        <Popup trigger={<Icon link size='large' name='plus' onClick={this.show(true)}/>}>
-          <Popup.Header>Ajouter une catégorie</Popup.Header>
+        <Popup trigger={<span><Icon link size='large' name='plus' onClick={
+              this.show(true)} /><Icon link size='large' name='pencil' onClick={
+                  this.show(true)} /></span>}>
+          <Popup.Header>Ajouter ou modifier une catégorie</Popup.Header>
           <Popup.Content>
-            En cliquant sur ce bouton, vous ajoutez une catégorie.
+            En cliquant sur ce bouton, vous ajoutez ou modifiez une catégorie.
           </Popup.Content>
         </Popup>
 

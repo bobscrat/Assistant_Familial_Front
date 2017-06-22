@@ -42,7 +42,7 @@ class ModalEditProject extends Component {
       }
     }
     // close modal if no error
-    if ('' === this.state.msgError) {
+    if (null === this.state.msgError) {
       this.close();
     }
   }
@@ -62,7 +62,7 @@ class ModalEditProject extends Component {
     let newChanges = this.state.changes;
     newProjects[index].name = evt.target.value;
     newChanges[index] = true;
-    this.setState({projects: newProjects, changes: newChanges});
+    this.setState({projects: newProjects, changes: newChanges})
   }
 
   render() {

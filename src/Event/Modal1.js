@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import { Input, Form, Divider, Grid, Button, Popup } from 'semantic-ui-react';
 
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+
 import'./event.css';
 
 class Modal1 extends Component {
@@ -8,8 +12,10 @@ class Modal1 extends Component {
      constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            startDate: moment()
          }  
+         moment.locale('fr'); 
     }
 
     closeConfigShow = (closeOnEscape, closeOnRootNodeClick) => () => {
@@ -25,6 +31,7 @@ class Modal1 extends Component {
             this.state.activePriseRDV = true;
             this.state.activeRDV = false;
         }
+    
     }
     
 
@@ -46,6 +53,12 @@ class Modal1 extends Component {
             this.props.addPrefixeProp(this.state.prefixe);
         }  
         this.focus()
+    }
+
+    handleChange = (date) => {
+        this.setState({
+        startDate: date
+        });
     }
 
     handleRef = c => {
@@ -90,26 +103,25 @@ class Modal1 extends Component {
                                         on='focus'
                                     />                                    
                                 </Form.Field>
-                                <Divider hidden />
+                                <Divider hidden />                                
                                 <Form.Field>
                                     <label>Date de l'évènement</label>
                                     <span className='fieldRequired'> *</span>
-                                    <Popup
-                                        trigger={ <Input 
-                                            fluid 
-                                        name="dateEvent" 
-                                        value={this.props.myDateEvent} 
-                                        placeholder="date de l'évènement" 
-                                        onChange={this.props.updateStateDateEventProp}  
-                                        />}
-                                        header="Date de l'événement"
-                                        content='Vous devez saisir une date'
-                                        on='focus'
-                                        position='bottom left'
-                                    />                                    
+                                    <DatePicker
+                                        selected={this.state.startDate}
+                                        onChange={this.handleChange}
+                                        placeholderText="Cliquer pour choisir une date" 
+                                        popoverAttachment="bottom right"
+                                        popoverTargetAttachment="top right"
+                                        popoverTargetOffset="0px 0px"                                   
+                                        showWeekNumbers
+                                        isClearable={true}
+                                        className='datePicker'
+                                    />
                                 </Form.Field>                        
                             </Form.Group>
                         </Grid.Column>
+                        
                         <Grid.Column width={3} />
                     </Grid.Row>
                 </Grid>                               

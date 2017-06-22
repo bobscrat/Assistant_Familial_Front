@@ -102,19 +102,19 @@ class Home extends Component {
           <Grid.Row className='part1'>
             <Grid.Column only='computer' width={2}>
               <div className="plus">
-                {/* Modale Nouvel Evénement */}
+                {/* Modal New Event */}
                 <ModalNewEventIcon/>
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' width={4}>
               <div className="plus">
-                {/* Modale Nouvel Evénement */}
+                {/* Modal New Event */}
                 <ModalNewEventIcon/>
               </div>
             </Grid.Column>
             <Grid.Column only='computer' width={2}>
               <div className="plus">
-                {/* Modale Recherche */}
+                {/* Modal Search */}
                 <Icon link color='orange' size='huge' name='search'/>
               </div>
             </Grid.Column>

@@ -53,9 +53,8 @@ class ModalNewEvent extends Component {
         }
         this.setState({
           nameEvent: e.target.value,
-
         });
-        this.state.event.name = this.state.prefixe + this.state.nameEvent
+        // this.state.event.name = this.state.prefixe + this.state.nameEvent
         console.log("valid : " + validNameEvent + ' ' + this.state.nameEvent + ' ' + this.state.event.name);
   }
 

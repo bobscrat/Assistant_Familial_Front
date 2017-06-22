@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Grid, Label, List, Segment} from 'semantic-ui-react';
 
-import ModalEditCategory from './EditCategory.js';
 import ModalNewCategory from './NewCategory.js';
 
 import '../Home/olga.css';
@@ -21,7 +20,7 @@ class Category extends Component {
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Segment raised>
-                                <Label color='orange' ribbon><ModalNewCategory  categories={this.props.categories}/><ModalEditCategory /></Label>
+                                <Label color='orange' ribbon><ModalNewCategory  categories={this.props.categories}/></Label>
                                 <List celled verticalAlign='middle'> 
                                     { 
                                         this.props.categories.map(

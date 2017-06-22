@@ -30,8 +30,7 @@ class AddCategoryItem extends Component {
         <div>
             <Form.Group inline>
                 <Label 
-                    as='a' 
-                    style={{"backgroundColor" : this.props.color, "color" : "#ffffff"}} 
+                    style={{"backgroundColor" : this.state.colorLabel, "color" : "#ffffff"}} 
                     tag
                 >
                     ...
