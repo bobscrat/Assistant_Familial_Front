@@ -14,7 +14,7 @@ class ForgetPassword extends Component{
 
     return (
       <div className='pass'>
-        <Segment className='segmentLogin' onClick={this.show(true)}>Mot de passe oublié ?</Segment>
+        <Segment className='segment-pass' onClick={this.show(true)}>Mot de passe oublié ?</Segment>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Modifier votre mot de passe</Modal.Header>
           <Modal.Content>           

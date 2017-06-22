@@ -27,10 +27,10 @@
 
 }
 
-.segmentLogin{
+.segment-pass{
     box-shadow: none !important;
     border: none !important;
 }
-.segmentLogin:hover{
+.segment-pass:hover{
     text-decoration: underline !important;
 }

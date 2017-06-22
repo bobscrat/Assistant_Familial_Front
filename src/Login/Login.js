@@ -10,7 +10,7 @@ class Login extends Component{
     render(){
         return(
             <Container>
-                <Header  className="log-header" textAlign='center' size="large">Simplifiez vous la vie avec <Image src={img} /> <br/>Votre planificateur familial d'évènements</Header>
+                <Header as='h1' className="log-header" textAlign='center' >Simplifiez vous la vie avec <Image src={img}/> <br/>Votre planificateur familial d'évènements</Header>
                 <Grid columns="2" stackable>
                     <LoginIn getUser={this.props.getUser}/>
                     <SignUp/>
