@@ -39,21 +39,25 @@ class Home extends Component {
     let projects = [];
     let events = [];
 
-    loadCategories(2)  // must replace 2 by family.id in prod
+    loadCategories(2 ,true)  // must replace 2 by family.id in prod
     .then((response) => {
       categories = response;
-      return loadMembers(2);  // must replace 2 by family.id in prod
+      console.log(response);
+      return loadMembers(2, true);  // must replace 2 by family.id in prod
     })
     .then((response) => {
       members = response;
+      console.log(response);
       return loadProjects(2, false);  // must replace 2 by family.id in prod
     })
     .then((response) => {
       projects = response;
+      console.log(response);
       return loadEvents(2);  // must replace 2 by family.id in prod
     })
     .then((response) => {
       events = response;
+      console.log(response);
       this.setState({user: user, family: family, categories: categories, members: members, projects: projects, events: events});
     })
     .catch((err => {

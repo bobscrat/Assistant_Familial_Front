@@ -1,9 +1,10 @@
 //Olga
 import axios from 'axios';
 
-export function loadMembers(familyId) {
-  // const request = '/api/users/filters?familyId='+familyId;
-  const request = '/api/users';
+export function loadMembers(familyId, bool) {
+  // bool = true : get only family's active members
+  // bool = false : get all family's members
+  let request = '/api/users/filters?familyId=' + familyId + '&isActive=' + bool;
   return axios.get(request).then((response) => {
     const members = response.data;
     for (let i = 0; i < members.length; i++) {

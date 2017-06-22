@@ -1,13 +1,10 @@
 //Olga
 import axios from 'axios';
 
-// export function loadCategories(familyId, bool) {
-export function loadCategories(familyId) {
+export function loadCategories(familyId, bool) {
   // bool = true = get family's categories and predefined categories
   // bool = false = get only family's categories
-  // const request = '/api/categories/filters?familyId=' + familyId + '&getPredefined=' + bool;
-  const request = '/api/categories';
-  //const request = '/api/categories/filters?familyId='+familyId;
+  let request = '/api/categories/filters?familyId=' + familyId + '&getPredefined=' + bool;
   return axios.get(request).then((response) => {
     const categories = response.data;
     for (let i = 0; i < categories.length; i++) {
