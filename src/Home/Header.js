@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Icon, Button, Image } from 'semantic-ui-react';
 
 import './olga.css';
+import logo from './logo_olga_white.png';
 
 class Header extends Component {
 
@@ -15,22 +16,21 @@ class Header extends Component {
                     <Grid.Column only='computer' width={4} className="headerLeft" >
                     </Grid.Column>
                     <Grid.Column only='computer' width={8} className="headerTitle">
-                        On Line Great Assistant            
+                      <Image src={logo} className='logo' centered/>
                     </Grid.Column>
                     <Grid.Column only='computer' width={4} className="headerRight" >
                         <Icon link className='connexion' name='shutdown' size='big' onClick={this.props.logoutUser}/>
                     </Grid.Column>
 
                      <Grid.Column only='tablet' width={10} className="headerTitle">
-                        On Line Great Assistant
-                        
+                        <Image src={logo} className='logo' centered/>
                     </Grid.Column>
                      <Grid.Column only='tablet' width={6} className="headerRight" >
                         <Icon link className='connexion' name='shutdown' size='big'/>
                     </Grid.Column>
 
                     <Grid.Column only='mobile' width={10} className="headerTitle">
-                        OLGA
+                        <Image src={logo} className='logo-icone' centered/>
                     </Grid.Column>                                       
                     <Grid.Column only='mobile' width={6} className="headerRight" >
                         <Icon link className='connexion' name='shutdown' size='big'/>

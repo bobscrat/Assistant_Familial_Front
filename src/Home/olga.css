@@ -32,8 +32,15 @@ i.link.icon.connexion {
     color: white;
     border-radius: 10px;
     overflow: hidden;
+
 }
 
+.logo{
+    height: 80px;
+}
+.logo-icone{
+    height: 50px;
+}
 .headerTitle {
     text-align: center;
     font-size: 32px;
@@ -42,6 +49,7 @@ i.link.icon.connexion {
 .headerCenter {
     text-align: center;
     font-size: 20px;
+    
 }
 
 .headerLeft {
