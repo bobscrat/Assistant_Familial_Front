@@ -39,55 +39,80 @@ class Home extends Component {
     let projects = [];
     let events = [];
 
-    loadCategories(2 ,true)  // must replace 2 by family.id in prod
+    loadCategories(2, true) // must replace 2 by family.id in prod
     .then((response) => {
       categories = response;
-      console.log(response);
-      return loadMembers(2, true);  // must replace 2 by family.id in prod
-    })
-    .then((response) => {
+      return loadMembers(2, true); // must replace 2 by family.id in prod
+    }).then((response) => {
       members = response;
-      console.log(response);
-      return loadProjects(2, false);  // must replace 2 by family.id in prod
-    })
-    .then((response) => {
+      return loadProjects(2, false); // must replace 2 by family.id in prod
+    }).then((response) => {
       projects = response;
-      console.log(response);
-      return loadEvents(2);  // must replace 2 by family.id in prod
-    })
-    .then((response) => {
+      return loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId); // must replace 2 by family.id in prod
+    }).then((response) => {
       events = response;
-      console.log(response);
-      this.setState({user: user, family: family, categories: categories, members: members, projects: projects, events: events});
-    })
-    .catch((err => {
+      this.setState({
+        user: user,
+        family: family,
+        categories: categories,
+        members: members,
+        projects: projects,
+        events: events
+      });
+    }).catch((err => {
       console.log('failed to get Home data :::', err);
     }));
   }
 
   updateSelectedId = (name, id) => {
-    // name = selectedCategoryId, selectedMemberId ou selectedProjectId
-    this.setState({[name]: id});
+    switch (name) {
+      case "selectedMemberId":
+        // must replace 2 by this.state.family.id in prod
+        loadEvents(2, id, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
+          this.setState({events: response, selectedMemberId: id});
+        });
+        break;
+      case "selectedCategoryId":
+        // must replace 2 by this.state.family.id in prod
+        loadEvents(2, this.state.selectedMemberId, id, this.state.selectedProjectId).then((response) => {
+          this.setState({events: response, selectedCategoryId: id});
+        });
+        break;
+      case "selectedProjectId":
+        // must replace 2 by this.state.family.id in prod
+        loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, id).then((response) => {
+          this.setState({events: response, selectedProjectId: id});
+        });
+        break;
+      default:
+        // must replace 2 by this.state.family.id in prod
+        loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
+          this.setState({events: response})
+        });
+    }
   }
 
   reloadCategories = () => {
-    loadCategories(this.state.family.id).then((response) => {
+    // must replace 2 by this.state.family.id in prod
+    loadCategories(2, true).then((response) => {
       this.setState({categories: response})
     });
   }
   reloadMembers = () => {
-    loadMembers(this.state.family.id).then((response) => {
+    // must replace 2 by this.state.family.id in prod
+    loadMembers(2, true).then((response) => {
       this.setState({members: response})
     });
   }
   reloadProjects = () => {
-    loadProjects(this.state.family.id).then((response) => {
-      this.setState({projects: response})
+    // must replace 2 by this.state.family.id in prod
+    loadProjects(2, false).then((response) => {
+      this.setState({events: response})
     });
   }
   reloadEvents = () => {
-    loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId)
-    .then((response) => {
+    // must replace 2 by this.state.family.id in prod
+    loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
       this.setState({events: response})
     });
   }
@@ -149,23 +174,22 @@ class Home extends Component {
 
             <Grid.Column computer={12} only='computer'>
               {/* LES CATEGORIES */}
-              <Category categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} />
+              <Category categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId}/>
             </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
             <Grid.Column tablet={6} computer={4} only='tablet computer'>
               {/* LES MEMBRES */}
-              <Member members={this.state.members} family={this.state.family} selectedId={this.state.selectedMemberId} select={this.updateSelectedId} />
+              <Member members={this.state.members} family={this.state.family} selectedId={this.state.selectedMemberId} select={this.updateSelectedId}/>
             </Grid.Column>
             <Grid.Column mobile={16} tablet={10} computer={7}>
               {/* LES EVENEMENTS */}
-              <Event events={this.state.events} family={this.state.family} />
+              <Event events={this.state.events} family={this.state.family}/>
             </Grid.Column>
             <Grid.Column width={5} only='computer'>
               {/* LES PROJETS */}
-              <Project projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId}
-              rload={this.reloadProjects} />
+              <Project projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId} rload={this.reloadProjects}/>
             </Grid.Column>
           </Grid.Row>
 

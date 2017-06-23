@@ -7,9 +7,9 @@ import axios from 'axios';
 
 export function loadEvents(familyId, memberId, categoryId, projectId) {
   let request = '/api/events/filters?familyId=' + familyId;
-  if (memberId) {request += '&memberId=' + memberId}
-  if (categoryId) {request += '&categoryId=' + categoryId}
-  if (projectId) {request += '&projectId=' + projectId}
+  if (memberId > 0) {request += '&memberId=' + memberId}
+  if (categoryId > 0) {request += '&categoryId=' + categoryId}
+  if (projectId > 0) {request += '&projectId=' + projectId}
   return axios.get(request).then((response) => {
     return response.data;
   }).catch((err => {

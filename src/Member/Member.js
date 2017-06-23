@@ -31,7 +31,7 @@ class Member extends Component {
     if (!bool) {selectedId = id;}
     else {selectedId = 0;}
     // export selectedId to Home's State
-    this.props.select('selectedProjectId', selectedId);
+    this.props.select('selectedMemberId', selectedId);
     this.setState({members: newMembers});
   }
 
@@ -47,20 +47,21 @@ class Member extends Component {
                 <List verticalAlign='middle' className='listMember' size='big'>
                   {
                     this.props.members.map(
-                    (member, i) => 
+                    (member, i) =>
                       <List.Item key={i}>
                         <List.Content>
-                          <Image src={require('../images/avatars/32x32/'+ (member.image))} avatar/>                          
-                          <MemberItem 
-                            as='a' 
-                            basic 
-                            size='large'                             
-                            index={i} 
-                            name={member.firstName} 
-                            activeFilter={member.activeFilter} 
-                            click={this.handleClickSelect}  
+                          <Image src={require('../images/avatars/32x32/'+ (member.image))} avatar/>
+                          <MemberItem
+                            as='a'
+                            basic
+                            size='large'
+                            index={i}
+                            name={member.firstName}
+                            id={member.id}
+                            activeFilter={member.activeFilter}
+                            click={this.handleClickSelect}
                             color={(member.activeFilter)?'orange':'grey'}
-                          />                            
+                          />
                         </List.Content>
                       </List.Item>
                     )
