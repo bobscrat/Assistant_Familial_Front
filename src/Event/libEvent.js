@@ -12,24 +12,18 @@ export function loadEvents(familyId, memberId, categoryId, projectId) {
   if (projectId > 0) {request += '&projectId=' + projectId}
   return axios.get(request).then((response) => {
     return response.data;
-  }).catch((err => {
-    console.log('failed to get events :::', err);
-  }))
+  })
 }
 
 export function saveEvent(event) {
   return axios.post('/api/events', event).then((response) => {
     return response.data;
-  }).catch((err) => {
-  console.log('Failed to add event : ', err);
   })
 }
 
 export function updateEvent(event) {
   return axios.put('/api/events', event).then((response) => {
     return response.data;
-  }).catch((err) => {
-    console.log('Failed to update event : ', err);
   })
 }
 
@@ -42,9 +36,7 @@ export function updateEvent(event) {
 export function loadPriorities() {
   return axios.get('/api/priorities').then((response) => {
     return response.data;
-  }).catch((err => {
-    console.log('failed to get priorities :::', err);
-  }))
+  })
 }
 
 // *********************************
@@ -54,9 +46,7 @@ export function loadPriorities() {
 export function loadPeriodicities() {
   return axios.get('/api/periodicities').then((response) => {
     return response.data;
-  }).catch((err => {
-    console.log('failed to get periodicities :::', err);
-  }))
+  })
 }
 
 // *********************************
@@ -66,7 +56,5 @@ export function loadPeriodicities() {
 export function loadContacts() {
   return axios.get('/api/contacts').then((response) => {
     return response.data;
-  }).catch((err => {
-    console.log('failed to get contacts :::', err);
-  }))
+  })
 }

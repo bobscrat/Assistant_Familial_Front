@@ -15,9 +15,7 @@ export function loadProjects(familyId, bool) {
       projects[i].activeFilter = false;
     }
     return projects;
-  }).catch((err => {
-    console.log('failed to get projects :::', err);
-  }))
+  })
 }
 
 // add & edit modal
@@ -26,8 +24,6 @@ export function saveProject(project) {
     const newProject = response.data;
     newProject.activeFilter = false;
     return newProject;
-  }).catch((err) => {
-  console.log('Failed to add project : ', err);
   })
 }
 
@@ -39,7 +35,5 @@ export function updateProject(project) {
     const newProject = response.data;
     newProject.activeFilter = bool;
     return newProject;
-  }).catch((err) => {
-    console.log('Failed to update project : ', err);
   })
 }
