@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment, Image, Popup} from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Image, Popup, Message} from 'semantic-ui-react';
 
 import ModalNewEvent from './NewEvent.js';
 import ModalValidEvent from './ValidEvent.js';
@@ -28,8 +28,11 @@ class Event extends Component {
                 <Label color='orange' ribbon>
                   <ModalNewEvent user={this.props.user} family={this.props.family}/>
                 </Label>
+                <Message color='orange' hidden={this.props.msgHidden}>
+                  Aucun événement
+                </Message>
                 <List celled verticalAlign='middle' className='cadre'>
-                  {this.props.events.map((event, i) => 
+                  {this.props.events.map((event, i) =>
                     <List.Item key={i}>
                       <List.Content floated='right'>
                         <ModalValidEvent/>
@@ -38,7 +41,7 @@ class Event extends Component {
                         {event.user.firstName}
                       </Popup>
                       <List.Content>
-                        <List.Header as='a'>
+                        <List.Header>
                           <Popup trigger={<a>{event.name}</a>} wide='very'>
                             <Popup.Header>Détails de {event.name}</Popup.Header>
                             <Popup.Content>
@@ -82,8 +85,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
       </Container>
-    )
-  }
+    )}
 };
 
 export default Event;
