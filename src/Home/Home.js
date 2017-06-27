@@ -12,6 +12,7 @@ import Category from '../Category/Category.js';
 import Event from '../Event/Event.js';
 import Member from '../Member/Member.js';
 import Project from '../Project/Project.js';
+import ModalSelectProject from '../Project/ModalSelectProject.js';
 
 import Header from './Header.js';
 import Footer from './Footer.js';
@@ -28,93 +29,140 @@ class Home extends Component {
     events: [],
     selectedCategoryId: 0,
     selectedMemberId: 0,
-    selectedProjectId: 0
+    selectedProjectId: 0,
+    msgNoProjectHidden: true,
+    msgNoEventHidden: true
   };
 
   componentWillMount() {
     let user = this.props.user;
-    let family = this.props.user.family;
+    // let family = this.props.user.family;
+    let family = {id: 2, name: "Team ACDO"};
     let categories = [];
     let members = [];
     let projects = [];
     let events = [];
+    let msgNoProjectHidden = true;
+    let msgNoEventHidden = true;
 
-    loadCategories(2, true) // must replace 2 by family.id in prod
+    loadCategories(family.id, true)
     .then((response) => {
       categories = response;
-      return loadMembers(2, true); // must replace 2 by family.id in prod
+      return loadMembers(family.id, true);
     }).then((response) => {
       members = response;
-      return loadProjects(2, false); // must replace 2 by family.id in prod
+      return loadProjects(family.id, false);
     }).then((response) => {
       projects = response;
-      return loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId); // must replace 2 by family.id in prod
+      if (projects.length < 1) {msgNoProjectHidden = false;}
+      else {msgNoProjectHidden = true;}
+      return loadEvents(family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId);
     }).then((response) => {
       events = response;
+      if (events.length < 1) {msgNoEventHidden = false;}
+      else {msgNoEventHidden = true;}
       this.setState({
         user: user,
         family: family,
         categories: categories,
         members: members,
         projects: projects,
-        events: events
+        events: events,
+        msgNoProjectHidden: msgNoProjectHidden,
+        msgNoEventHidden: msgNoEventHidden
       });
-    }).catch((err => {
+    }).catch((err) => {
       console.log('failed to get Home data :::', err);
-    }));
+    })
   }
 
   updateSelectedId = (name, id) => {
     switch (name) {
       case "selectedMemberId":
-        // must replace 2 by this.state.family.id in prod
-        loadEvents(2, id, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
-          this.setState({events: response, selectedMemberId: id});
-        });
+        loadEvents(this.state.family.id, id, this.state.selectedCategoryId, this.state.selectedProjectId)
+        .then((response) => {
+          let msgNoEventHidden;
+          if (response.length < 1) {msgNoEventHidden = false;}
+          else {msgNoEventHidden = true;}
+          this.setState({events: response, selectedMemberId: id, msgNoEventHidden: msgNoEventHidden});
+        })
+        .catch((err) => {
+          console.log('failed to get Events :::', err);
+        })
         break;
       case "selectedCategoryId":
-        // must replace 2 by this.state.family.id in prod
-        loadEvents(2, this.state.selectedMemberId, id, this.state.selectedProjectId).then((response) => {
-          this.setState({events: response, selectedCategoryId: id});
-        });
+        loadEvents(this.state.family.id, this.state.selectedMemberId, id, this.state.selectedProjectId).then((response) => {
+          let msgNoEventHidden;
+          if (response.length < 1) {msgNoEventHidden = false;}
+          else {msgNoEventHidden = true;}
+          this.setState({events: response, selectedCategoryId: id, msgNoEventHidden: msgNoEventHidden});
+        })
+        .catch((err) => {
+          console.log('failed to get Events :::', err);
+        })
         break;
       case "selectedProjectId":
-        // must replace 2 by this.state.family.id in prod
-        loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, id).then((response) => {
-          this.setState({events: response, selectedProjectId: id});
-        });
+        loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, id).then((response) => {
+          let msgNoEventHidden;
+          if (response.length < 1) {msgNoEventHidden = false;}
+          else {msgNoEventHidden = true;}
+          this.setState({events: response, selectedProjectId: id, msgNoEventHidden: msgNoEventHidden});
+        })
+        .catch((err) => {
+          console.log('failed to get Events :::', err);
+        })
         break;
       default:
-        // must replace 2 by this.state.family.id in prod
-        loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
-          this.setState({events: response})
-        });
+        loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId)
+        .then((response) => {
+          let msgNoEventHidden;
+          if (response.length < 1) {msgNoEventHidden = false;}
+          else {msgNoEventHidden = true;}
+          this.setState({events: response, msgNoEventHidden: msgNoEventHidden})
+        })
+        .catch((err) => {
+          console.log('failed to get Events :::', err);
+        })
     }
   }
 
   reloadCategories = () => {
-    // must replace 2 by this.state.family.id in prod
-    loadCategories(2, true).then((response) => {
+    loadCategories(this.state.family.id, true).then((response) => {
       this.setState({categories: response})
-    });
+    })
+    .catch((err) => {
+      console.log('failed to get Categories :::', err);
+    })
   }
   reloadMembers = () => {
-    // must replace 2 by this.state.family.id in prod
-    loadMembers(2, true).then((response) => {
+    loadMembers(this.state.family.id, true).then((response) => {
       this.setState({members: response})
-    });
+    })
+    .catch((err) => {
+      console.log('failed to get Members :::', err);
+    })
   }
   reloadProjects = () => {
-    // must replace 2 by this.state.family.id in prod
-    loadProjects(2, false).then((response) => {
-      this.setState({events: response})
-    });
+    loadProjects(this.state.family.id, false).then((response) => {
+      let msgNoProjectHidden;
+      if (response.length < 1) {msgNoProjectHidden = false;}
+      else {msgNoProjectHidden = true;}
+      this.setState({projects: response, msgNoProjectHidden: msgNoProjectHidden})
+    })
+    .catch((err) => {
+      console.log('failed to get Projects :::', err);
+    })
   }
   reloadEvents = () => {
-    // must replace 2 by this.state.family.id in prod
-    loadEvents(2, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
-      this.setState({events: response})
-    });
+    loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
+      let msgNoEventHidden;
+      if (response.length < 1) {msgNoEventHidden = false;}
+      else {msgNoEventHidden = true;}
+      this.setState({events: response, msgNoEventHidden: msgNoEventHidden})
+    })
+    .catch((err) => {
+      console.log('failed to get Events :::', err);
+    })
   }
 
   render() {
@@ -143,7 +191,7 @@ class Home extends Component {
             </Grid.Column>
             <Grid.Column only='computer' width={2}>
               <div className="plus">
-                {/* Modal Search */}
+                {/* Modale Recherche */}
                 <Icon link color='orange' size='huge' name='search'/>
               </div>
             </Grid.Column>
@@ -168,7 +216,8 @@ class Home extends Component {
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
               <div className="plus">
                 {/* Modale Sélection des Projets */}
-                <Icon link color='orange' size='huge' name='folder'/>
+                {/* <Icon link color='orange' size='huge' name='folder'/> */}
+                <ModalSelectProject projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId} rload={this.reloadProjects} msgHidden={this.state.msgNoProjectHidden} />
               </div>
             </Grid.Column>
 
@@ -185,11 +234,11 @@ class Home extends Component {
             </Grid.Column>
             <Grid.Column mobile={16} tablet={10} computer={7}>
               {/* LES EVENEMENTS */}
-              <Event events={this.state.events} family={this.state.family}/>
+              <Event events={this.state.events} family={this.state.family} msgHidden={this.state.msgNoEventHidden} />
             </Grid.Column>
             <Grid.Column width={5} only='computer'>
               {/* LES PROJETS */}
-              <Project projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId} rload={this.reloadProjects}/>
+              <Project projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId} rload={this.reloadProjects} msgHidden={this.state.msgNoProjectHidden} />
             </Grid.Column>
           </Grid.Row>
 

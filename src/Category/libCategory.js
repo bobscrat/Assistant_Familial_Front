@@ -12,9 +12,7 @@ export function loadCategories(familyId, bool) {
       categories[i].colorPaletteShow = false;
     }
     return categories;
-  }).catch((err => {
-    console.log('failed to get categories :::', err);
-  }))
+  })
 }
 
 export function saveCategory(category) {
@@ -22,8 +20,6 @@ export function saveCategory(category) {
     const newCategory = response.data;
     newCategory.activeFilter = false;
     return newCategory;
-  }).catch((err) => {
-  console.log('Failed to add category : ', err);
   })
 }
 
@@ -34,7 +30,5 @@ export function updateCategory(category) {
     const newCategory = response.data;
     newCategory.activeFilter = bool;
     return newCategory;
-  }).catch((err) => {
-    console.log('Failed to update category : ', err);
   })
 }

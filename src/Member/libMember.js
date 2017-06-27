@@ -11,9 +11,7 @@ export function loadMembers(familyId, bool) {
       members[i].activeFilter = false;
     }
     return members;
-  }).catch((err => {
-    console.log('failed to get members :::', err);
-  }))
+  })
 }
 
 export function saveMember(member) {
@@ -21,8 +19,6 @@ export function saveMember(member) {
     const newMember = response.data;
     newMember.activeFilter = false;
     return newMember;
-  }).catch((err) => {
-  console.log('Failed to add project : ', err);
   })
 }
 
@@ -33,7 +29,5 @@ export function updateMember(member) {
     const newMember = response.data;
     newMember.activeFilter = bool;
     return newMember;
-  }).catch((err) => {
-    console.log('Failed to update project : ', err);
   })
 }
