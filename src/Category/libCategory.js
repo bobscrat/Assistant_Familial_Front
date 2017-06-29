@@ -19,6 +19,7 @@ export function saveCategory(category) {
   return axios.post('/api/categories', category).then((response) => {
     const newCategory = response.data;
     newCategory.activeFilter = false;
+    newCategory.colorPaletteShow = false;
     return newCategory;
   })
 }
@@ -29,6 +30,7 @@ export function updateCategory(category) {
   return axios.put('/api/categories', category).then((response) => {
     const newCategory = response.data;
     newCategory.activeFilter = bool;
+    newCategory.colorPaletteShow = false;
     return newCategory;
   })
 }

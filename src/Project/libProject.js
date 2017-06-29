@@ -6,9 +6,7 @@ export function loadProjects(familyId, bool) {
   // bool = true : get all family's projects
   // bool = false : get only family's projects with active events
   let request = '/api/projects/filters?familyId=' + familyId;
-  if (bool) {
-    request += '&getInactive=' + bool;
-  }
+  request += '&getInactive=' + bool;
   return axios.get(request).then((response) => {
     const projects = response.data;
     for (let i = 0; i < projects.length; i++) {

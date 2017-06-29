@@ -26,7 +26,7 @@ class ModalNewEvent extends Component {
             nameUser: '',
             nameCategory: '',
             nameProject: '',
-            priority: 1, 
+            priority: 1,
             valuePeriodicity:0,
             periodicity: 1,
             contactEvent: '',
@@ -34,7 +34,7 @@ class ModalNewEvent extends Component {
             commentEvent: '',
             family: {},
             event: {}
-         } 
+         }
     };
 
   addPrefixe = (myPrefixe) => {
@@ -177,7 +177,7 @@ class ModalNewEvent extends Component {
         this.setState({})
       }
     }
-  }    
+  }
 
   onClickPrevious(e){
     if (this.state.numero > 1) {
@@ -200,18 +200,18 @@ class ModalNewEvent extends Component {
   }
 
   createEvent = (myEvent) => {
-    
+
 
     console.log('create ' + myEvent.name)
-      axios.post('/api/events', event)
+      axios.post('/api/events', myEvent)
         .then((response) => {
           const myEvent= response.data;
           console.log('post');
           this.setState({event: myEvent})
-          
-          
-          // this.props.test(true);   
-          this.close(); 
+
+
+          // this.props.test(true);
+          this.close();
         })
         .catch((err) => {
           console.log('Failed to create Event : ', err);
@@ -230,37 +230,37 @@ class ModalNewEvent extends Component {
             En cliquant sur ce bouton, vous créez un nouvel évènement pour un membre de votre famille.
           </Popup.Content>
         </Popup>
-        <Modal 
-          dimmer={dimmer} 
-          closeOnRootNodeClick={closeOnRootNodeClick} 
-          closeOnEscape={closeOnEscape} 
-          open={open} 
-          onClose={this.close} 
+        <Modal
+          dimmer={dimmer}
+          closeOnRootNodeClick={closeOnRootNodeClick}
+          closeOnEscape={closeOnEscape}
+          open={open}
+          onClose={this.close}
           closeIcon='close'
-        >          
+        >
             <Modal.Header>
               Ajouter un nouvel évènement {this.state.numero}/{this.state.nbModal}
             </Modal.Header>
 
-            <Modal.Content>            
+            <Modal.Content>
               <Modal.Description>
-                {this.state.showModal[0] && < Modal1 
+                {this.state.showModal[0] && < Modal1
                   myPrefixe={this.state.prefixe}
                   addPrefixeProp={this.addPrefixe}
-                  myNameEvent={this.state.nameEvent} 
-                  updateStateNameEventProp={this.updateStateNameEvent} 
-                  myDateEvent={this.state.dateEvent} 
+                  myNameEvent={this.state.nameEvent}
+                  updateStateNameEventProp={this.updateStateNameEvent}
+                  myDateEvent={this.state.dateEvent}
                   updateStateDateEventProp={this.updateStateDateEvent}
                 />}
-                {this.state.showModal[1] && < Modal2 
-                  myNameUser={this.state.nameUser} 
+                {this.state.showModal[1] && < Modal2
+                  myNameUser={this.state.nameUser}
                   updateStateNameUserProp={this.updateStateNameUser}
-                  myNameCategory={this.state.nameCategory} 
-                  updateStateNameCategoryProp={this.updateStateNameCategory} 
-                  myNameProject={this.state.nameProject} 
+                  myNameCategory={this.state.nameCategory}
+                  updateStateNameCategoryProp={this.updateStateNameCategory}
+                  myNameProject={this.state.nameProject}
                   updateStateNameProjectProp={this.updateStateNameProject}
                 />}
-                {this.state.showModal[2] && < Modal3 
+                {this.state.showModal[2] && < Modal3
                   myPriority={this.state.priority}
                   updateStatePriorityProp={this.updateStatePriority}
                   myPeriodicity={this.state.periodicity}
@@ -268,11 +268,11 @@ class ModalNewEvent extends Component {
                   myValuePeriodicity={this.state.valuePeriodicity}
                   updateStateValuePeriodicityProp={this.updateStateValuePeriodicity}
                 />}
-                {this.state.showModal[3] && < Modal4 
+                {this.state.showModal[3] && < Modal4
                   myContactEvent={this.state.contactEvent}
-                  updateStateContactEventProp={this.updateStateContactEvent}               
+                  updateStateContactEventProp={this.updateStateContactEvent}
                 />}
-                {this.state.showModal[4] && < Modal5 
+                {this.state.showModal[4] && < Modal5
                   myBudgetEvent={this.state.budgetEvent}
                   updateStateBudgetEventProp={this.updateStateBudgetEvent}
                   myCommentEvent={this.state.commentEvent}
@@ -288,13 +288,11 @@ class ModalNewEvent extends Component {
               </Button>
               {this.state.numero < 5 && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
               {this.state.numero === 5 && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
-            </Modal.Actions>         
-        </Modal>        
+            </Modal.Actions>
+        </Modal>
       </div>
     )
   }
 }
 
 export default ModalNewEvent
-
- 

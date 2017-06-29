@@ -216,7 +216,6 @@ class Home extends Component {
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
               <div className="plus">
                 {/* Modale Sélection des Projets */}
-                {/* <Icon link color='orange' size='huge' name='folder'/> */}
                 <ModalSelectProject projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId} rload={this.reloadProjects} msgHidden={this.state.msgNoProjectHidden} />
               </div>
             </Grid.Column>
