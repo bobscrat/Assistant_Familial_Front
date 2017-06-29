@@ -63,7 +63,7 @@ class ModalEditMember extends Component {
     let newMembers = this.state.members;
     let newChanges = this.state.changes;
     newMembers[index].firstName = evt.target.value;
-    newMembers[index].image = evt.target.value;
+   // newMembers[index].image = evt.target.value;
     // passe à true pour informer la fonction validate
     newChanges[index] = true;
     this.setState({members: newMembers, changes : newChanges });
