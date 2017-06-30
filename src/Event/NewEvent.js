@@ -295,8 +295,4 @@ class ModalNewEvent extends Component {
   }
 }
 
-<<<<<<< HEAD
 export default ModalNewEvent
-=======
-export default ModalNewEvent
->>>>>>> b2b989e7bcad05df4a8dc37a23c21715d54f6918
