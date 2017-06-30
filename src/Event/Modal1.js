@@ -7,13 +7,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import'./event.css';
 
+const optionsHours = [];
+const optionsMinutes = [];
+
 class Modal1 extends Component {
 
      constructor(props) {
         super(props);
         this.state = {
             open: false,
-            startDate: moment()
+            startDate: ''
          }  
          moment.locale('fr'); 
     }
@@ -23,50 +26,76 @@ class Modal1 extends Component {
     }
 
     componentWillMount() {
-        // par défaut RDV est choisi
-        if(this.props.myPrefixe === 'RDV_') {
-            this.state.activeRDV = true;
-            this.state.activePriseRDV = false;
-        }else{
-            this.state.activePriseRDV = true;
-            this.state.activeRDV = false;
+        optionsHours.length = 0;        
+        optionsHours.push(<option key={'0'} value={'x'}>Choisir une heure</option>);
+        for (var i = 0; i < 24; i++) {
+            var aHour = {};
+            aHour.key = i + 1;
+            aHour.name = i;               
+            optionsHours.push(<option key={aHour.key} value={aHour.key} >{aHour.name}</option>);  
+              
         }
-    
+        optionsMinutes.length = 0;        
+        optionsMinutes.push(<option key={'0'} value={'x'}>Choisir les minutes</option>);
+        for (var j = 0; j < 12; j++) {
+            var aMinute = {};
+            aMinute.key = j + 1;
+            aMinute.name = j * 5;               
+            optionsMinutes.push(<option key={aMinute.key} value={aMinute.key} >{aMinute.name}</option>);  
+              
+        }
+        // RDV selected by default
+        if (this.props.myPrefixe === 'PRV_') {
+            this.setState({
+                activeRDV : false,
+                activePriseRDV : true
+            })
+        }else{
+            this.setState({
+                activeRDV : true,
+                activePriseRDV : false
+            })
+        } 
+
+        var theDate = '';        
+        if (null !== this.props.myDateEvent) {
+            theDate = this.props.myDateEvent;
+        }else{
+            theDate = moment().format('YYYY-MM-DD');
+        }        
+        this.setState({
+            startDate: theDate
+        })
     }
     
-
     show = (dimmer) => () => this.setState({ dimmer, open: true });
     close = () => this.setState({ open: false });
 
     handleClick = (evt) => {
-        // vérif si le clic change RDV en prise de RDV ou inversement
+        // verify if clic change RDV in PRV 
+        let thePrefixe = '';
+        console.log('props prefixe :' + this.props.myPrefixe);
         if (evt.target.name !== this.props.myPrefixe) {
             if (evt.target.name === 'PRV_') {
-                this.state.prefixe = 'PRV_';
+                thePrefixe = 'PRV_';
             }else{
-                this.state.prefixe = '';
+                thePrefixe = '';
             }
             this.setState({ 
+                prefixe: thePrefixe,
                 activeRDV: !this.state.activeRDV,
                 activePriseRDV: !this.state.activePriseRDV
             })
-            this.props.addPrefixeProp(this.state.prefixe);
+            this.props.addPrefixeProp(thePrefixe);
         }  
-        this.focus()
+        
     }
 
     handleChange = (date) => {
+        this.props.updateStateDateEventProp(date.format('YYYY-MM-DD'));
         this.setState({
-        startDate: date
+            startDate: date
         });
-    }
-
-    handleRef = c => {
-      this.inputRef = c
-    }
-
-    focus = () => {
-        this.inputRef.focus()
     }
 
     render() {
@@ -76,37 +105,34 @@ class Modal1 extends Component {
             <div className='heightModal'>        
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={3} />
-                        
-                        <Grid.Column width={10}>
+                        <Grid.Column width={3} />                        
+                        <Grid.Column width={10}>                            
                             <Button.Group >
                                 <Button toggle name='RDV_' active={activeRDV} onClick={this.handleClick}>RDV</Button>
                                 <Button.Or text='ou' />
                                 <Button toggle name='PRV_' active={activePriseRDV} onClick={this.handleClick}>Prise de RDV</Button>
                             </Button.Group>
-                            <Divider hidden />  
-                            <Form.Group>
+                            <Form>
+                                <Divider hidden />  
+                                
                                 <Form.Field>
-                                    <label>Nom de l'évènement</label>
-                                    <span className='fieldRequired'> *</span>
+                                    <label>Nom de l'événement<span className='fieldRequired'> *</span></label>                                    
                                     <Popup
                                         trigger={ <Input 
-                                            ref={this.handleRef}
                                             fluid                                         
                                             name="nameEvent" 
                                             value={this.props.myNameEvent} 
-                                            placeholder="nom de l'évènement" 
+                                            placeholder="nom de l'événement" 
                                             onChange={this.props.updateStateNameEventProp} 
                                         />}
                                         header="Nom de l'événement"
                                         content='Vous devez saisir entre 2 et 45 caractères'
                                         on='focus'
                                     />                                    
-                                </Form.Field>
-                                <Divider hidden />                                
+                                </Form.Field>                               
+                                                                                            
                                 <Form.Field>
-                                    <label>Date de l'évènement</label>
-                                    <span className='fieldRequired'> *</span>
+                                    <label>Date de l'évènement<span className='fieldRequired'> *</span></label>                                    
                                     <DatePicker
                                         selected={this.state.startDate}
                                         onChange={this.handleChange}
@@ -117,11 +143,26 @@ class Modal1 extends Component {
                                         showWeekNumbers
                                         isClearable={true}
                                         className='datePicker'
+                                        value={this.state.startDate}
                                     />
-                                </Form.Field>                        
-                            </Form.Group>
-                        </Grid.Column>
-                        
+                                </Form.Field>  
+                                                              
+                                <Form.Group widths='equal' >
+                                    <Form.Field>            
+                                        <label>Heure</label>
+                                        <select name='hourChoice' value={this.props.myHour} onChange={this.props.updateStateHourEventProp}>
+                                            {optionsHours}
+                                        </select>
+                                    </Form.Field>
+                                    <Form.Field>            
+                                        <label>Minutes</label>
+                                        <select name='minuteChoice' value={this.props.myMinute} onChange={this.props.updateStateMinuteEventProp}>
+                                            {optionsMinutes}
+                                        </select>
+                                    </Form.Field>                                    
+                                </Form.Group>
+                            </Form>
+                        </Grid.Column>                        
                         <Grid.Column width={3} />
                     </Grid.Row>
                 </Grid>                               

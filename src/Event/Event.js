@@ -16,9 +16,14 @@ class Event extends Component {
 
   componentWillMount() {
     this.setState({events: this.props.events});
-  }
-
+  }  
+  
   render() {
+
+    var compareDate = function (dateEvent) {
+      return (dateEvent < new Date());     
+    }
+
     return (
       <Container>
         <Grid >
@@ -26,12 +31,12 @@ class Event extends Component {
             <Grid.Column width={16}>
               <Segment raised className='event'>
                 <Label color='orange' ribbon>
-                  <ModalNewEvent user={this.props.user} family={this.props.family}/>
+                  <ModalNewEvent user={this.props.user} family={this.props.family} rload={this.props.rload} />
                 </Label>
                 <Message color='orange' hidden={this.props.msgHidden}>
                   Aucun événement
                 </Message>
-                <List celled verticalAlign='middle' className='cadre'>
+                <List verticalAlign='middle' className='cadre'>
                   {this.props.events.map((event, i) =>
                     <List.Item key={i}>
                       <List.Content floated='right'>
@@ -42,7 +47,7 @@ class Event extends Component {
                       </Popup>
                       <List.Content>
                         <List.Header>
-                          <Popup trigger={<a>{event.name}</a>} wide='very'>
+                          <Popup trigger={<a className={compareDate(event.convertedDate) ? 'fieldRequired' : '' }>{event.name}</a>} wide='very'>
                             <Popup.Header>Détails de {event.name}</Popup.Header>
                             <Popup.Content>
                               <List>

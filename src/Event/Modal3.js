@@ -1,27 +1,15 @@
 import React, {Component} from 'react';
 import { Form, Divider, Grid, Label, Checkbox, Segment, Input } from 'semantic-ui-react';
 import'./event.css';
-import * as utils from '../Utils/utils.js';
 
 class Modal3 extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            periodicities: [],
-            priorities: []
-         } 
-    };
-   
-    state = { open: false };
+    state = {
+            open: false
+        };
 
     show = (dimmer) => () => this.setState({ dimmer, open: true });
     close = () => this.setState({ open: false });
-
-    componentWillMount() {
-      utils.loadPeriodicities(this);
-      utils.loadPriorities(this); 
-    }
 
     handleChangePriority = (e, { value }) => {
         this.props.updateStatePriorityProp(value);
@@ -40,13 +28,6 @@ class Modal3 extends Component {
         }
     }
 
-    handleRef = c => {
-        this.inputRef = c
-    }
-
-    focus = () => {
-        this.inputRef.focus()
-    }
 
     render() {
 
@@ -59,10 +40,10 @@ class Modal3 extends Component {
                     <Grid.Column width={5}>
                         <Segment>
                             <Label color='orange' ribbon>La périodicité</Label>
-                            <Divider hidden />                          
+                            <Divider hidden />               
                                 <Form size='large'>
                                 { 
-                                    this.state.periodicities.map(
+                                    this.props.thePeriodicities.map(
                                         periodicity => 
                                             <Form.Group inline key={periodicity.id}>                                        
                                                 <Form.Field >
@@ -70,16 +51,18 @@ class Modal3 extends Component {
                                                         radio
                                                         label={periodicity.name}
                                                         name='checkboxRadioGroupPeriodicity'
-                                                        value={periodicity.id}
-                                                        checked={periodicity.id === (this.props.myPeriodicity)}
+                                                        value={periodicity.name}
+                                                        checked={periodicity.name === (this.props.myPeriodicity)}
                                                         onChange={this.handleChangePeriodicity}
                                                     />
                                                 </Form.Field> 
-                                                {this.props.myPeriodicity !== 1 && periodicity.id === this.props.myPeriodicity && <Form.Field>
+                                                {this.props.myPeriodicity !== 'Aucune' && periodicity.name === this.props.myPeriodicity && <Form.Field>
                                                     <Input
                                                         className="valuePeriodicity"
                                                         name="valuePeriodicity" 
-                                                        ref={this.handleRef}
+                                                        type='number'
+                                                        min='0'
+                                                        max='365'
                                                         value={this.props.myValuePeriodicity} 
                                                         placeholder="nbre" 
                                                         onChange={this.handleChangeValuePeriodicity} 
@@ -97,15 +80,15 @@ class Modal3 extends Component {
                             <Divider hidden />  
                             <Form size='large'>
                             { 
-                                this.state.priorities.map(
+                                this.props.thePriorities.map(
                                     priority =>                                                                             
                                         <Form.Field key={priority.id}>
                                             <Checkbox
                                                 radio
                                                 label={priority.name}
                                                 name='checkboxRadioGroupPriority'
-                                                value={priority.id}
-                                                checked={priority.id === (this.props.myPriority)}
+                                                value={priority.name}
+                                                checked={priority.name === (this.props.myPriority)}
                                                 onChange={this.handleChangePriority}
                                             />
                                         </Form.Field>                                          

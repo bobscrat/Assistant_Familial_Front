@@ -11,7 +11,12 @@ export function loadEvents(familyId, memberId, categoryId, projectId) {
   if (categoryId > 0) {request += '&categoryId=' + categoryId}
   if (projectId > 0) {request += '&projectId=' + projectId}
   return axios.get(request).then((response) => {
-    return response.data;
+    const events = response.data;
+    for (let i = 0; i < events.length; i++) {
+      // JavaScript counts months from 0 to 11 : it's the reason why I write events[i].deadline[1]-1
+      events[i].convertedDate = new Date(events[i].deadline[0], events[i].deadline[1]-1, events[i].deadline[2],events[i].deadline[3],events[i].deadline[4]);
+  }
+    return events;
   })
 }
 
@@ -26,8 +31,6 @@ export function updateEvent(event) {
     return response.data;
   })
 }
-
-
 
 // *********************************
 //           PRIORITIES

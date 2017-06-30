@@ -25,7 +25,6 @@ class ModalEditProject extends Component {
   show = () => () => {
     // true = all family's projects (with active events or not)
     loadProjects(this.props.family.id, true).then((response) => {
-      console.log('load projects');
       let msgNoProjectHidden;
       if (response.length < 1) {
         msgNoProjectHidden = false;
@@ -36,10 +35,11 @@ class ModalEditProject extends Component {
       this.setState({
         open: true,
         projects: response,
+        family: this.props.family,
         msgNoProjectHidden: msgNoProjectHidden,
         changes: [],
         addedProject: {},
-        family: this.props.family,
+        value: '',
         isProjectAdded: false,
         msgSuccessHidden: true,
         msgSuccess: [],
@@ -70,7 +70,7 @@ class ModalEditProject extends Component {
         projects.push(response);
         msgSuccess.push(newProject.name + ' : Ajout effectué avec succès');
         msgSuccessHidden = false;
-        this.setState({projects: projects, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess});
+        this.setState({projects: projects, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess, addedProject: {}, isProjectAdded: false, value: ''});
       }).catch((err) => {
         console.log('Failed to add project : ', err);
         msgError.push(newProject.name + ' : ' + err.response.data.message);
@@ -88,7 +88,7 @@ class ModalEditProject extends Component {
           this.setState({projects: projects, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess});
         }).catch((err) => {
           console.log('Failed to update project : ', err);
-          msgError.push(projects[i] + ' : ' + err.response.data.message);
+          msgError.push(projects[i].name + ' : ' + err.response.data.message);
           msgErrorHidden = false;
           this.setState({msgErrorHidden: msgErrorHidden, msgError: msgError});
         })
@@ -104,7 +104,7 @@ class ModalEditProject extends Component {
     if ('' !== evt.target.value) {
       newProject.name = evt.target.value;
       newProject.family = this.props.family;
-      this.setState({addedProject: newProject, isProjectAdded: true});
+      this.setState({addedProject: newProject, isProjectAdded: true, value: evt.target.value});
     }
   }
   // update project
@@ -138,7 +138,7 @@ class ModalEditProject extends Component {
             <Form success error>
                 <Form.Group>
                   <Container textAlign='center'>
-                    <Input focus label='Nouveau projet' placeholder='Nom du nouveau projet' onChange={(evt) => this.handleChangeAdd(evt)} />
+                    <Input focus label='Nouveau projet' placeholder='Nom du nouveau projet' value={this.state.value} onChange={(evt) => this.handleChangeAdd(evt)} />
                   </Container>
                 </Form.Group>
 
@@ -146,9 +146,9 @@ class ModalEditProject extends Component {
                   Aucun projet dans votre famille
                 </Message>
 
-                <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess}/>
+                <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess} />
 
-                <Message error hidden={this.state.msgErrorHidden} list={this.state.msgError}/>
+                <Message error hidden={this.state.msgErrorHidden} list={this.state.msgError} />
 
                 <Grid stackable doubling columns={3}>
                 {/* index = project's rank in the array, not his id */}

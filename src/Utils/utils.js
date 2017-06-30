@@ -142,6 +142,7 @@ export function loadPriorities() {
 
 export function loadPeriodicities() {
   return axios.get('/api/periodicities').then((response) => {
+    console.log("ok per");
     return response.data;
   }).catch((err => {
     console.log('failed to get periodicities :::', err);

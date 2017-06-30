@@ -16,7 +16,7 @@ import {loadContacts} from '../Contact/libContact.js';
 import {loadPeriodicities} from './libEvent.js';
 import {loadPriorities} from './libEvent.js';
 
-class ModalNewEventIcon extends Component {
+class ModalNewEvent extends Component {
 
   constructor(props) {
         super(props);
@@ -384,8 +384,9 @@ class ModalNewEventIcon extends Component {
     const { open, dimmer, closeOnEscape, closeOnRootNodeClick  } = this.state;
 
     return (
-      <div>        
-        <Popup trigger={<Icon link color='orange' name='calendar plus' size='huge' onClick={this.show(true)}/>}>
+      <div>
+        Les évènements
+        <Popup trigger={<Icon link name='plus' size='large' onClick={this.show(true)}/>}>
           <Popup.Header>Créer un événement</Popup.Header>
           <Popup.Content>
             En cliquant sur ce bouton, vous créez un nouvel événement pour un membre de votre famille.
@@ -466,6 +467,6 @@ class ModalNewEventIcon extends Component {
   }
 }
 
-export default ModalNewEventIcon
+export default ModalNewEvent
 
  

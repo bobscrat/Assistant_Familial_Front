@@ -30,6 +30,8 @@ class Modal5 extends Component {
                         <label>Budget prévisionnel</label>
                         <Input 
                             fluid 
+                            type='number'
+                            min='0'
                             name='budget' 
                             value={this.props.myBudgetEvent} 
                             placeholder="budget previsionnel en €" 
