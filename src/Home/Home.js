@@ -216,7 +216,6 @@ class Home extends Component {
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
               <div className="plus">
                 {/* Modale Sélection des Projets */}
-                {/* <Icon link color='orange' size='huge' name='folder'/> */}
                 <ModalSelectProject projects={this.state.projects} family={this.state.family} selectedId={this.state.selectedProjectId} select={this.updateSelectedId} rload={this.reloadProjects} msgHidden={this.state.msgNoProjectHidden} />
               </div>
             </Grid.Column>
@@ -230,7 +229,7 @@ class Home extends Component {
           <Grid.Row>
             <Grid.Column tablet={6} computer={4} only='tablet computer'>
               {/* LES MEMBRES */}
-              <Member members={this.state.members} family={this.state.family} selectedId={this.state.selectedMemberId} select={this.updateSelectedId}/>
+              <Member members={this.state.members} family={this.state.family} selectedId={this.state.selectedMemberId} select={this.updateSelectedId} rload={this.reloadMembers}/>
             </Grid.Column>
             <Grid.Column mobile={16} tablet={10} computer={7}>
               {/* LES EVENEMENTS */}
