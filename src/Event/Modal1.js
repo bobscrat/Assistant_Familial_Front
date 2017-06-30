@@ -87,12 +87,13 @@ class Modal1 extends Component {
                 activePriseRDV: !this.state.activePriseRDV
             })
             this.props.addPrefixeProp(thePrefixe);
-        }  
-        
+        }          
     }
 
     handleChange = (date) => {
-        this.props.updateStateDateEventProp(date.format('YYYY-MM-DD'));
+        if (date !== null) {
+            this.props.updateStateDateEventProp(date);
+        }
         this.setState({
             startDate: date
         });
@@ -116,7 +117,8 @@ class Modal1 extends Component {
                                 <Divider hidden />  
                                 
                                 <Form.Field>
-                                    <label>Nom de l'événement<span className='fieldRequired'> *</span></label>                                    
+                                    <label>Nom de l'événement<span className='fieldRequired'> *   </span><span style={{display: this.props.aMess1M1, color: 'red'}}>Saisir un nom d'événement de 2 à 45 caractères</span></label>                                     
+                     
                                     <Popup
                                         trigger={ <Input 
                                             fluid                                         
@@ -126,22 +128,20 @@ class Modal1 extends Component {
                                             onChange={this.props.updateStateNameEventProp} 
                                         />}
                                         header="Nom de l'événement"
-                                        content='Vous devez saisir entre 2 et 45 caractères'
+                                        content="Vous devez saisir un nom d'événement de 2 à 45 caractères"
                                         on='focus'
-                                    />                                    
+                                    />  
+                                                                      
                                 </Form.Field>                               
                                                                                             
                                 <Form.Field>
-                                    <label>Date de l'évènement<span className='fieldRequired'> *</span></label>                                    
+                                    <label>Date de l'évènement<span className='fieldRequired'> *   </span><span style={{display: this.props.aMess2M1, color: 'red'}}>Saisir une date pour l'événement</span></label>                                                                         
                                     <DatePicker
                                         selected={this.state.startDate}
                                         onChange={this.handleChange}
-                                        placeholderText="Cliquer pour choisir une date" 
-                                        popoverAttachment="bottom right"
-                                        popoverTargetAttachment="top right"
-                                        popoverTargetOffset="0px 0px"                                   
+                                        placeholderText="Cliquer pour choisir une date"                                             
                                         showWeekNumbers
-                                        isClearable={true}
+                                        withPortal
                                         className='datePicker'
                                         value={this.state.startDate}
                                     />
@@ -149,13 +149,13 @@ class Modal1 extends Component {
                                                               
                                 <Form.Group widths='equal' >
                                     <Form.Field>            
-                                        <label>Heure</label>
+                                        <label>Heure  <span style={{display: this.props.aMess3M1, color: 'red'}}>Sélectionner une heure</span></label>
                                         <select name='hourChoice' value={this.props.myHour} onChange={this.props.updateStateHourEventProp}>
                                             {optionsHours}
                                         </select>
                                     </Form.Field>
                                     <Form.Field>            
-                                        <label>Minutes</label>
+                                        <label>Minutes  <span style={{display: this.props.aMess4M1, color: 'red'}}>Sélectionner les minutes</span></label>
                                         <select name='minuteChoice' value={this.props.myMinute} onChange={this.props.updateStateMinuteEventProp}>
                                             {optionsMinutes}
                                         </select>
@@ -163,7 +163,7 @@ class Modal1 extends Component {
                                 </Form.Group>
                             </Form>
                         </Grid.Column>                        
-                        <Grid.Column width={3} />
+                        <Grid.Column width={3} />                   
                     </Grid.Row>
                 </Grid>                               
             </div>

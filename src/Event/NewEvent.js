@@ -9,36 +9,105 @@ import Modal3 from './Modal3.js';
 import Modal4 from './Modal4.js';
 import Modal5 from './Modal5.js';
 
+import {loadMembers} from '../Member/libMember.js';
+import {loadCategories} from '../Category/libCategory.js';
+import {loadProjects} from '../Project/libProject.js';
+import {loadContacts} from '../Contact/libContact.js';
+import {loadPeriodicities} from './libEvent.js';
+import {loadPriorities} from './libEvent.js';
+
 class ModalNewEvent extends Component {
 
   constructor(props) {
         super(props);
         this.state = {
             events: [],
-            open : false,
+            open : false,      
+            addedEvent: {},
             numero: 1,
             nbModal: 5,
             listModal: ['showModal1', 'showModal2', 'showModal3', 'showModal4', 'showModal5'],
             showModal: [true, false, false, false, false],
-            prefixe: 'RDV_',
+            prefixe: '',
             nameEvent: '',
             dateEvent: '',
-            nameUser: '',
+            hourEvent: 'x',
+            minuteEvent: 'x',
+            nameMember: '',
             nameCategory: '',
             nameProject: '',
-            priority: 1,
-            valuePeriodicity:0,
-            periodicity: 1,
+            priorityName: 'Aucune', 
+            valuePeriodicity: 0,
+            periodicityName: 'Aucune',
             contactEvent: '',
-            budgetEvent: '',
+            budgetEvent: 0,
             commentEvent: '',
+            members: [],
+            categories: [],
+            projects: [],
+            contacts: [],
+            priorities: [],
+            periodicities: [],
             family: {},
-            event: {}
-         }
+            member: {},
+            category: {},
+            project: null,
+            priority: {id: 1, name: 'Aucune'},
+            periodicity: {id: 1, name: 'Aucune'},
+            contact: null,
+            deadline: '',
+            mess1M1: 'none',
+            mess2M1: 'none',
+            mess3M1: 'none',
+            mess4M1: 'none',
+            mess1M2: 'none',
+            mess2M2: 'none',
+            mess1M3: true
+         } 
     };
 
+  componentWillMount() {
+   
+    let members = [];
+    let categories = [];
+    let projects = [];
+    let contacts = [];
+    let periodicities = [];
+    let priorities = [];
+    
+    loadMembers(2, true) // must replace 2 by family.id in prod
+      .then((response) => {
+        members = response;
+        return loadCategories(2, true);
+      }).then((response) => {
+          categories = response;
+          return loadProjects(2, true);
+      }).then((response) => {
+          projects = response;
+          return loadPeriodicities();
+      }).then((response) => {
+          periodicities = response;
+          return loadPriorities();
+      }).then((response) => {
+          priorities = response;
+          return loadContacts(2,false);
+      }).then((response) => {
+          contacts = response
+          this.setState({
+            members: members,
+            categories: categories,
+            projects: projects,
+            priorities: priorities,
+            periodicities: periodicities,
+            contacts: contacts
+        });
+      }).catch((err => {
+        console.log('failed to get Home data :::', err);
+      }));
+  }
+
   addPrefixe = (myPrefixe) => {
-      console.log('test ' + myPrefixe);
+    console.log("pref " + myPrefixe);
         this.setState({prefixe: myPrefixe});
   }
 
@@ -54,56 +123,111 @@ class ModalNewEvent extends Component {
         this.setState({
           nameEvent: e.target.value,
         });
-        // this.state.event.name = this.state.prefixe + this.state.nameEvent
-        console.log("valid : " + validNameEvent + ' ' + this.state.nameEvent + ' ' + this.state.event.name);
   }
 
-  updateStateDateEvent = (e) => {
-        this.state.event.deadline = e.target.value;
-        this.setState({dateEvent: e.target.value});
+  updateStateDateEvent = (laDate) => {
+    console.log('ld : ' + laDate);
+        this.setState({dateEvent: laDate});        
   }
 
-  updateStateNameUser = (e) => {
-      this.state.event.user_id = 2
-      this.setState({nameUser: e.target.value});
+  updateStateHourEvent = (e) => {
+        this.setState({hourEvent: e.target.value});
+  }
+
+  updateStateMinuteEvent = (e) => {
+        this.setState({minuteEvent: e.target.value });
+  }
+
+  updateStateNameMember = (e) => {
+    let memberSelected = {};
+    for (var i=0; i < this.state.members.length; i++) {
+      if (this.state.members[i].firstName === e.target.value) {
+        memberSelected = this.state.members[i];
+      } 
+    }
+    this.setState({
+      nameMember: e.target.value,
+      member: memberSelected
+    });
   }
 
   updateStateNameCategory = (e) =>{
-        this.state.event.category_id = 2
-        this.setState({nameCategory: e.target.value});
+    let categorySelected = {};
+    for (var i=0; i < this.state.categories.length; i++) {
+      if (this.state.categories[i].name === e.target.value) {
+        categorySelected = this.state.categories[i];        
+      } 
+    }
+    this.setState({
+      nameCategory: e.target.value,
+      category: categorySelected
+    });
   }
 
-  updateStateNameProject = (e) => {
-        this.state.event.project_id = 1
-        this.setState({nameProject: e.target.value});
+  updateStateNameProject = (e) =>{
+    let projectSelected = {};
+    for (var i=0; i < this.state.projects.length; i++) {
+      if (this.state.projects[i].name === e.target.value) {
+        projectSelected = this.state.projects[i];        
+      } 
+    }
+    this.setState({
+      nameProject: e.target.value,
+      project: projectSelected
+    });
   }
 
   updateStatePeriodicity = (mesure) => {
-        this.state.event.periodicity_id = mesure
-        this.setState({periodicity: mesure});
+    let periodicitySelected = {};
+    for (var i=0; i < this.state.periodicities.length; i++) {
+      if (this.state.periodicities[i].name === mesure) {
+        periodicitySelected = this.state.periodicities[i];        
+      } 
+    }
+    this.setState({
+      periodicityName: mesure,
+      periodicity: periodicitySelected
+    });    
   }
 
   updateStateValuePeriodicity = (mesure) => {
-      this.state.event.periodicityValue = mesure
-     console.log('mesure : ' + mesure)
-        // if (mesure >= 0) {
-          this.setState({valuePeriodicity: mesure});
-        // }
-        console.log('valuePeriodicity = ' + this.state.valuePeriodicity);
+      // this.state.event.periodicityValue = mesure
+      this.setState({valuePeriodicity: mesure});
   }
 
   updateStatePriority = (mesure) => {
-        this.state.event.priority_id = mesure
-        this.setState({priority: mesure});
+    let prioritySelected = {};
+    for (var i=0; i < this.state.priorities.length; i++) {
+      if (this.state.priorities[i].name === mesure) {
+        prioritySelected = this.state.priorities[i];        
+      } 
+    }
+    this.setState({
+      priorityName: mesure,
+      priority: prioritySelected
+    }); 
   }
 
-  updateStateContactEvent = (contact) =>{
-      this.state.event.contact_id = 2;
-      this.setState({contactEvent: contact});
+  updateStateContactEvent = (e) =>{
+    let contactSelected = {};
+    let aContact = ''; 
+    for (var i=0; i < this.state.contacts.length; i++) {
+      aContact = this.state.contacts[i].first_name + ' ' + this.state.contacts[i].name
+      if (null !== this.state.contacts[i].profession){
+        aContact = aContact + ' (' + this.state.contacts[i].profession + ')'; 
+      }
+      if (aContact === e.target.value) {
+        contactSelected = this.state.contacts[i];        
+      } 
+    }
+    this.setState({
+      contactEvent: e.target.value,
+      contact: contactSelected
+    });
   }
 
   updateStateBudgetEvent = (e) =>{
-      this.setState({budgetEvent: e.target.value});
+    this.setState({budgetEvent: e.target.value});
   }
 
   updateStateCommentEvent = (e) =>{
@@ -122,29 +246,78 @@ class ModalNewEvent extends Component {
     var valid = false;
     switch(this.state.numero)  {
       case 1: //Modal1
-        if (null != this.state.nameEvent && this.state.nameEvent.length > 2) {
+        if (null != this.state.nameEvent && this.state.nameEvent.length > 1 && this.state.nameEvent.length < 45) {
           valid = true;
-        }
-        if (null != this.state.dateEvent && this.state.dateEvent.length === 10 && valid === true) {
+          this.setState({ mess1M1: 'none'});
+          this.setState({ mess2M1: 'none'});
+        }else{
+          this.setState({ mess1M1: 'inline'});
+        }   
+        if (this.state.dateEvent !== '' && valid === true) {
           valid = true;
+          this.setState({ mess2M1: 'none'});
         }else{
           valid = false;
+          this.setState({ mess2M1: 'inline'});
+        }
+        if (valid === true){
+          if ((this.state.hourEvent === 'x' && this.state.minuteEvent !== 'x') || 
+              (this.state.hourEvent !== 'x' && this.state.minuteEvent === 'x')) {
+            valid = false;
+            console.log('hm ' + this.state.hourEvent + ':' + this.setState.minuteEvent);
+            if (this.state.hourEvent === 'x') {
+              this.setState({ mess3M1: 'inline'});
+            }else{
+              this.setState({ mess3M1: 'none'});
+            }
+            if (this.state.minuteEvent === 'x') {
+              this.setState({ mess4M1: 'inline'});
+            }else{
+              this.setState({ mess4M1: 'none'});
+            }
+          }else{
+            this.setState({ 
+              mess1M1: 'none',
+              mess2M1: 'none',
+              mess3M1: 'none',
+              mess4M1: 'none'
+            });
+          }
         }
         break;
       case 2: //Modal2
-        if (null != this.state.nameUser && this.state.nameUser.length > 2) {
+        if (this.state.nameMember.length > 0) {
           valid = true;
+          this.setState({ mess1M2: 'none'});
+        }else{
+          this.setState({ mess1M2: 'inline'});
         }
-        if (null != this.state.nameCategory && this.state.nameCategory.length > 2 && valid === true) {
+        if (this.state.nameCategory.length > 0 && valid === true) {
           valid = true;
+          this.setState({ mess2M2: 'none'});
         }else{
           valid = false;
+          this.setState({ mess2M2: 'inline'});
         }
+        break;
+      case 3: //Modal3
+        if ((this.state.periodicityName !== 'Aucune' && this.state.valuePeriodicity > 0) ||
+            this.state.periodicityName === 'Aucune') {
+          valid = true;
+          this.setState({ mess1M3: true});
+        }else{
+          this.setState({ mess1M3: false});
+        }
+        break;
+      case 4: //Modal4        
+        valid = true;           
+        break;
+      case 5: //Modal5        
+        valid = true;           
         break;
       default:
     }
-    console.log('valid = ' + valid);
-    valid = true;
+    // valid = true;
     if (valid === true) {
       if (this.state.numero < this.state.nbModal) {
         e.preventDefault();
@@ -152,8 +325,18 @@ class ModalNewEvent extends Component {
         for (var i = 0; i < this.state.nbModal; i++){
           if (trouve === 1) { //si le component est trouvé le suivant est true
           //if (trouve === 1 && valid === 1) { //si le component est trouvé le suivant est true
-              this.state.showModal[i] = true;
-              this.state.numero = i + 1;
+              let tabTransfert = [];
+              for (var j=1; j < this.state.nbModal; j++) {
+                if (j === i) {
+                  tabTransfert[j] = true;
+                }else{
+                tabTransfert[j] = this.state.showModal[j];
+                }
+              }              
+              this.setState({
+                numero: i + 1,
+                showModal: tabTransfert
+              });
               trouve = 0;
           }else{
               if (this.state.showModal[i] === true && trouve === 0) { //si le component n'est pas trouvé le component est false
@@ -162,22 +345,11 @@ class ModalNewEvent extends Component {
               }
           }
         }
-        console.log('name = ' + this.state.prefixe + this.state.nameEvent);
-        console.log('date = ' + this.state.dateEvent);
-        console.log('user = ' + this.state.nameUser);
-        console.log('category = ' + this.state.nameCategory);
-        console.log('project = ' + this.state.nameProject);
-        console.log('value periodicity = ' + this.state.valuePeriodicity);
-        console.log('periodicity = ' + this.state.periodicity);
-        console.log('priority = ' + this.state.priority);
-        console.log('contact = ' + this.state.contactEvent);
-        console.log('budget = ' + this.state.budgetEvent);
-        console.log('comment = ' + this.state.commentEvent);
-        console.log('family = ' + this.props.family.id);
+        
         this.setState({})
       }
     }
-  }
+  }    
 
   onClickPrevious(e){
     if (this.state.numero > 1) {
@@ -185,8 +357,10 @@ class ModalNewEvent extends Component {
       var trouve=0;
       for (var i = this.state.nbModal; i >= 0; i--){
         if (trouve === 1) {
-            this.state.showModal[i]= true;
-            this.state.numero = i + 1;
+            this.state.showModal[i]= true;            
+            this.setState({
+              numero: i + 1
+            });
             trouve = 0;
         }else{
             if (this.state.showModal[i] === true && trouve === 0) {
@@ -199,80 +373,126 @@ class ModalNewEvent extends Component {
     }
   }
 
-  createEvent = (myEvent) => {
+  createEvent = () => {
 
+    let newEvent = this.state.addedEvent;
+    
+    newEvent.name = this.state.prefixe + this.state.nameEvent;
+    newEvent.done = false;
+    newEvent.comment = this.state.commentEvent;
+    newEvent.periodicityValue = this.state.valuePeriodicity;
+    newEvent.periodicity = this.state.periodicity;
+    newEvent.priority = this.state.priority;
+    newEvent.user = this.state.member;
+    newEvent.category = this.state.category;
+    newEvent.project = this.state.project;
+    newEvent.family = this.props.family;
+    newEvent.contact = this.state.contact;
+    newEvent.hasChild = false;
+    newEvent.estimatedBudget = this.state.budgetEvent;
 
-    console.log('create ' + myEvent.name)
-      axios.post('/api/events', myEvent)
-        .then((response) => {
-          const myEvent= response.data;
-          console.log('post');
-          this.setState({event: myEvent})
+    let hours, minutes, timeRDV;
+    if (this.state.hourEvent === 'x' && this.state.minuteEvent === 'x') {
+      timeRDV = '00:00:11';
+    }else{
+      if (this.state.hourEvent - 1 < 10){
+        hours = '0' + this.state.hourEvent - 1;
+      }else{
+        hours = this.state.hourEvent - 1;
+      }
+      if ((this.state.minuteEvent - 1) * 5 < 10){
+        minutes = '0' + (this.state.minuteEvent - 1) * 5;
+      }else{
+        minutes = (this.state.minuteEvent - 1) * 5;
+      }
+      timeRDV = hours + ':' + minutes + ':00';
+    }        
 
-
-          // this.props.test(true);
-          this.close();
-        })
-        .catch((err) => {
-          console.log('Failed to create Event : ', err);
+    newEvent.deadline = this.state.dateEvent.format('YYYY-MM-DD') + 'T' + timeRDV;    
+    this.setState({addedEvent: newEvent});
+  
+    axios.post('/api/events', this.state.addedEvent)
+      .then((response) => {
+        this.close(); 
+        this.props.rload();
       })
-    }
+      .catch((err) => {
+        console.log('Failed to create Event : ', err);
+    })
+  }
 
   render() {
     const { open, dimmer, closeOnEscape, closeOnRootNodeClick  } = this.state;
 
     return (
       <div>
-        Les évènements
+        Les événements
         <Popup trigger={<Icon link name='plus' size='large' onClick={this.show(true)}/>}>
-          <Popup.Header>Créer un évènement</Popup.Header>
+          <Popup.Header>Créer un événement</Popup.Header>
           <Popup.Content>
-            En cliquant sur ce bouton, vous créez un nouvel évènement pour un membre de votre famille.
+            En cliquant sur ce bouton, vous créez un nouvel événement pour un membre de votre famille.
           </Popup.Content>
         </Popup>
-        <Modal
-          dimmer={dimmer}
-          closeOnRootNodeClick={closeOnRootNodeClick}
-          closeOnEscape={closeOnEscape}
-          open={open}
-          onClose={this.close}
+        <Modal 
+          dimmer={dimmer} 
+          closeOnRootNodeClick={closeOnRootNodeClick} 
+          closeOnEscape={closeOnEscape} 
+          open={open} 
+          onClose={this.close} 
           closeIcon='close'
-        >
+        >          
             <Modal.Header>
-              Ajouter un nouvel évènement {this.state.numero}/{this.state.nbModal}
+              Ajouter un nouvel événement {this.state.numero}/{this.state.nbModal}
             </Modal.Header>
 
-            <Modal.Content>
+            <Modal.Content>            
               <Modal.Description>
-                {this.state.showModal[0] && < Modal1
+                {this.state.showModal[0] && < Modal1 
                   myPrefixe={this.state.prefixe}
                   addPrefixeProp={this.addPrefixe}
-                  myNameEvent={this.state.nameEvent}
-                  updateStateNameEventProp={this.updateStateNameEvent}
-                  myDateEvent={this.state.dateEvent}
+                  myNameEvent={this.state.nameEvent} 
+                  updateStateNameEventProp={this.updateStateNameEvent} 
+                  myDateEvent={this.state.dateEvent} 
                   updateStateDateEventProp={this.updateStateDateEvent}
+                  myHour={this.state.hourEvent}
+                  updateStateHourEventProp={this.updateStateHourEvent}
+                  myMinute={this.state.minuteEvent}
+                  updateStateMinuteEventProp={this.updateStateMinuteEvent}
+                  aMess1M1={this.state.mess1M1}
+                  aMess2M1={this.state.mess2M1}
+                  aMess3M1={this.state.mess3M1}
+                  aMess4M1={this.state.mess4M1}
                 />}
-                {this.state.showModal[1] && < Modal2
-                  myNameUser={this.state.nameUser}
-                  updateStateNameUserProp={this.updateStateNameUser}
-                  myNameCategory={this.state.nameCategory}
-                  updateStateNameCategoryProp={this.updateStateNameCategory}
-                  myNameProject={this.state.nameProject}
+                {this.state.showModal[1] && < Modal2 
+                  myNameMember={this.state.nameMember} 
+                  updateStateNameMemberProp={this.updateStateNameMember}
+                  myNameCategory={this.state.nameCategory} 
+                  updateStateNameCategoryProp={this.updateStateNameCategory} 
+                  myNameProject={this.state.nameProject} 
                   updateStateNameProjectProp={this.updateStateNameProject}
+                  theMembers={this.state.members}
+                  theCategories={this.state.categories}
+                  theProjects={this.state.projects}
+                  aMess1M2={this.state.mess1M2}
+                  aMess2M2={this.state.mess2M2}
                 />}
-                {this.state.showModal[2] && < Modal3
-                  myPriority={this.state.priority}
+                {this.state.showModal[2] && < Modal3 
+                  myPriority={this.state.priorityName}
                   updateStatePriorityProp={this.updateStatePriority}
-                  myPeriodicity={this.state.periodicity}
+                  myPeriodicity={this.state.periodicityName}
                   updateStatePeriodicityProp={this.updateStatePeriodicity}
                   myValuePeriodicity={this.state.valuePeriodicity}
-                  updateStateValuePeriodicityProp={this.updateStateValuePeriodicity}
+                  updateStateValuePeriodicityProp={this.updateStateValuePeriodicity}    
+                  thePeriodicities={this.state.periodicities}
+                  thePriorities={this.state.priorities} 
+                  aMess1M3={this.state.mess1M3}     
                 />}
-                {this.state.showModal[3] && < Modal4
+                {this.state.showModal[3] && < Modal4 
                   myContactEvent={this.state.contactEvent}
-                  updateStateContactEventProp={this.updateStateContactEvent}
+                  updateStateContactEventProp={this.updateStateContactEvent}               
+                  theContacts={this.state.contacts}
                 />}
-                {this.state.showModal[4] && < Modal5
+                {this.state.showModal[4] && < Modal5 
                   myBudgetEvent={this.state.budgetEvent}
                   updateStateBudgetEventProp={this.updateStateBudgetEvent}
                   myCommentEvent={this.state.commentEvent}
@@ -288,11 +508,13 @@ class ModalNewEvent extends Component {
               </Button>
               {this.state.numero < 5 && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
               {this.state.numero === 5 && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
-            </Modal.Actions>
-        </Modal>
+            </Modal.Actions>         
+        </Modal>        
       </div>
     )
   }
 }
 
 export default ModalNewEvent
+
+ 

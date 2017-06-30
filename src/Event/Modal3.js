@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Divider, Grid, Label, Checkbox, Segment, Input } from 'semantic-ui-react';
+import { Form, Divider, Grid, Label, Checkbox, Segment, Input, Message } from 'semantic-ui-react';
 import'./event.css';
 
 class Modal3 extends Component {
@@ -36,6 +36,9 @@ class Modal3 extends Component {
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={3}>
+                        <Message negative hidden={this.props.aMess1M3}>
+                            Sélectionner une valeur différente de O
+                        </Message>
                     </Grid.Column>
                     <Grid.Column width={5}>
                         <Segment>

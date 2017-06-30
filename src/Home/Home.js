@@ -233,7 +233,7 @@ class Home extends Component {
             </Grid.Column>
             <Grid.Column mobile={16} tablet={10} computer={7}>
               {/* LES EVENEMENTS */}
-              <Event events={this.state.events} family={this.state.family} msgHidden={this.state.msgNoEventHidden} />
+              <Event events={this.state.events} family={this.state.family} msgHidden={this.state.msgNoEventHidden} rload={this.reloadEvents}/>
             </Grid.Column>
             <Grid.Column width={5} only='computer'>
               {/* LES PROJETS */}

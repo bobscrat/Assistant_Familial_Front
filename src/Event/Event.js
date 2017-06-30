@@ -54,13 +54,16 @@ class Event extends Component {
                                 <List.Item>Membre : {event.user.firstName}.</List.Item>
                                 <List.Item>Catégorie : {event.category.name}.</List.Item>
                                 {event.project && <List.Item>Projet : {event.project.name}</List.Item>}
-                                {event.estimatedBudget && <List.Item>Budget prévisionnel : {event.estimatedBudget}
+                                {(event.estimatedBudget > 0) && <List.Item>Budget prévisionnel : {event.estimatedBudget}
                                   €</List.Item>}
                                 {event.realizedBudget && <List.Item>Budget réalisé : {event.realizedBudget}
                                   €</List.Item>}
                                 {event.comment && <List.Item>Commentaire : {event.comment}</List.Item>}
                               </List>
                             </Popup.Content>
+                          </Popup>
+                          <Popup trigger={<List.Icon name='tag' style={{'color': event.category.color}} />}>
+                            {event.category.name}
                           </Popup>
                           <Popup trigger={event.priority.id === 2 && <List.Icon name='attention' color='orange'/>}>
                             Important
