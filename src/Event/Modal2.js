@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Divider, Grid } from 'semantic-ui-react';
+import { Form, Divider, Grid, Icon, Popup } from 'semantic-ui-react';
 
 import'./event.css';
 
@@ -53,34 +53,48 @@ class Modal2 extends Component {
         <div className='heightModal'>        
             <Grid>
                 <Grid.Row>
-                <Grid.Column width={3}>
-                </Grid.Column>
-                <Grid.Column width={10}>
-                    <Form>
-                        <Form.Field>                
-                            <label>Choix du membre<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess1M2, color: 'red'}}>Sélectionner un membre</span></label>
-                            <select name='memberChoice' value={this.props.myNameMember} onChange={this.props.updateStateNameMemberProp}>
-                                {optionsMembers}
-                            </select>
-                        </Form.Field>
+                    <Grid.Column width={3} />
+                    <Grid.Column width={8}>
+                        <Form>
+                            <Form.Field>                
+                                <label>Choix du membre<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess1M2, color: 'red'}}>Sélectionner un membre</span></label>
+                                <select name='memberChoice' value={this.props.myNameMember} onChange={this.props.updateStateNameMemberProp}>
+                                    {optionsMembers}
+                                </select>
+                            </Form.Field>                        
+                            <Divider hidden />
+                            <Form.Field>            
+                                <label>Choix de la catégorie<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess2M2, color: 'red'}}>Sélectionner une catégorie</span></label>
+                                <select name='categoryChoice' value={this.props.myNameCategory} onChange={this.props.updateStateNameCategoryProp}>
+                                    {optionsCategories}
+                                </select>
+                            </Form.Field>
+                            <Divider hidden />
+                            <Form.Field>            
+                                <label>Choix du project</label>
+                                <select name='projectChoice' value={this.props.myNameProject} onChange={this.props.updateStateNameProjectProp}>
+                                    {optionsProjects}
+                                </select>
+                            </Form.Field>
+                        </Form>
+                    </Grid.Column>
+                    <Grid.Column width={2}>
+                        <Popup trigger={<Icon link className='margePlusTop' name='plus' size='big' color='orange' />}>
+                            <Popup.Header>Ajouter un nouveau membre</Popup.Header>
+                            <Popup.Content>En cliquant sur ce bouton vous pouvez créer un nouveau membre</Popup.Content>
+                        </Popup>                        
                         <Divider hidden />
-                        <Form.Field>            
-                            <label>Choix de la catégorie<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess2M2, color: 'red'}}>Sélectionner une catégorie</span></label>
-                            <select name='categoryChoice' value={this.props.myNameCategory} onChange={this.props.updateStateNameCategoryProp}>
-                                {optionsCategories}
-                            </select>
-                        </Form.Field>
+                        <Popup trigger={<Icon link className='margePlusCenter' name='plus' size='big' color='orange' />}>
+                            <Popup.Header>Ajouter une nouvelle catégorie</Popup.Header>
+                            <Popup.Content>En cliquant sur ce bouton vous pouvez créer une nouvelle catégorie</Popup.Content>
+                        </Popup>                        
                         <Divider hidden />
-                        <Form.Field>            
-                            <label>Choix du project</label>
-                            <select name='projectChoice' value={this.props.myNameProject} onChange={this.props.updateStateNameProjectProp}>
-                                {optionsProjects}
-                            </select>
-                        </Form.Field>
-                    </Form>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                </Grid.Column>
+                        <Popup trigger={<Icon link className='margePlusBottom' name='plus' size='big' color='orange' />}>
+                            <Popup.Header>Ajouter un nouveau projet</Popup.Header>
+                            <Popup.Content>En cliquant sur ce bouton vous pouvez créer un nouveau projet</Popup.Content>
+                        </Popup>                        
+                    </Grid.Column>
+                    <Grid.Column width={3} />                    
                 </Grid.Row>
             </Grid>                               
         </div>

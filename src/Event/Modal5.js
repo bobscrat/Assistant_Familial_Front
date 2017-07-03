@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Divider, Grid, Input, TextArea } from 'semantic-ui-react';
+import { Form, Divider, Grid, Input, TextArea, Message } from 'semantic-ui-react';
 
 import'./event.css';
 
@@ -45,11 +45,11 @@ class Modal5 extends Component {
                             className='myTextArea'
                             name='comment' 
                             placeholder='vous pouvez ajouter un commentaire ...' 
-                            value={this.props.myCommentEvent} 
-                            
+                            value={this.props.myCommentEvent}                             
                             onChange={this.props.updateStateCommentEventProp}
                         />
                     </Form.Field>
+                    <Message positive hidden={this.props.aMessM5}>L'événement a bien été enregistré !</Message>
                 </Grid.Column>
                 
                 <Grid.Column width={3} />

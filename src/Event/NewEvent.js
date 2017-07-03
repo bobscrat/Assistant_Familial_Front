@@ -62,7 +62,8 @@ class ModalNewEvent extends Component {
             mess4M1: 'none',
             mess1M2: 'none',
             mess2M2: 'none',
-            mess1M3: true
+            mess1M3: true,
+            messM5: true
          } 
     };
 
@@ -106,6 +107,15 @@ class ModalNewEvent extends Component {
       }));
   }
 
+  reloadContacts = () => {
+    loadContacts(this.props.family.id, true).then((response) => {
+        this.setState({contacts: response})
+    })
+    .catch((err) => {
+    console.log('failed to get Contacts :::', err);
+    })
+  }
+
   addPrefixe = (myPrefixe) => {
     console.log("pref " + myPrefixe);
         this.setState({prefixe: myPrefixe});
@@ -116,26 +126,43 @@ class ModalNewEvent extends Component {
   }
 
   updateStateNameEvent = (e) => {
-      var validNameEvent = false
-        if (e.target.value.length > 2) {
-          validNameEvent = true;
-        }
-        this.setState({
-          nameEvent: e.target.value,
-        });
+    var validNameEvent = false
+    if (e.target.value.length > 2 && e.target.value.length <= 45) {
+      validNameEvent = true;
+      this.setState({
+        mess1M1: 'none'
+      });
+    }
+    this.setState({
+      nameEvent: e.target.value,
+    });
   }
 
   updateStateDateEvent = (laDate) => {
-    console.log('ld : ' + laDate);
-        this.setState({dateEvent: laDate});        
+    if (null !== laDate) {
+      this.setState({
+        mess2M1: 'none'
+      });
+    }
+    this.setState({dateEvent: laDate});        
   }
 
   updateStateHourEvent = (e) => {
-        this.setState({hourEvent: e.target.value});
+    if (null !== e.target.value) {
+      this.setState({
+        mess3M1: 'none'
+      });
+    }
+    this.setState({hourEvent: e.target.value});
   }
 
   updateStateMinuteEvent = (e) => {
-        this.setState({minuteEvent: e.target.value });
+    if (null !== e.target.value) {
+      this.setState({
+        mess4M1: 'none'
+      });
+    }
+    this.setState({minuteEvent: e.target.value });
   }
 
   updateStateNameMember = (e) => {
@@ -144,6 +171,11 @@ class ModalNewEvent extends Component {
       if (this.state.members[i].firstName === e.target.value) {
         memberSelected = this.state.members[i];
       } 
+    }
+    if (null !== e.target.value) {
+      this.setState({
+        mess1M2: 'none'
+      });
     }
     this.setState({
       nameMember: e.target.value,
@@ -157,6 +189,11 @@ class ModalNewEvent extends Component {
       if (this.state.categories[i].name === e.target.value) {
         categorySelected = this.state.categories[i];        
       } 
+    }
+    if (null !== e.target.value) {
+      this.setState({
+        mess2M2: 'none'
+      });
     }
     this.setState({
       nameCategory: e.target.value,
@@ -191,8 +228,12 @@ class ModalNewEvent extends Component {
   }
 
   updateStateValuePeriodicity = (mesure) => {
-      // this.state.event.periodicityValue = mesure
-      this.setState({valuePeriodicity: mesure});
+    if (null !== mesure) {
+      this.setState({
+        mess1M3: 'none'
+      });
+    }
+    this.setState({valuePeriodicity: mesure});
   }
 
   updateStatePriority = (mesure) => {
@@ -413,6 +454,10 @@ class ModalNewEvent extends Component {
   
     axios.post('/api/events', this.state.addedEvent)
       .then((response) => {
+        this.setState({ messM5: false});
+        // this.timeout = setTimeout(() => {
+        //   this.setState({ messM5: false});
+        // }, 2500);
         this.close(); 
         this.props.rload();
       })
@@ -491,12 +536,15 @@ class ModalNewEvent extends Component {
                   myContactEvent={this.state.contactEvent}
                   updateStateContactEventProp={this.updateStateContactEvent}               
                   theContacts={this.state.contacts}
+                  family={this.props.family}
+                  reloadContacts={this.reloadContacts}
                 />}
                 {this.state.showModal[4] && < Modal5 
                   myBudgetEvent={this.state.budgetEvent}
                   updateStateBudgetEventProp={this.updateStateBudgetEvent}
                   myCommentEvent={this.state.commentEvent}
-                  updateStateCommentEventProp={this.updateStateCommentEvent}
+                  updateStateCommentEventProp={this.updateStateCommentEvent}     
+                  aMessM5={this.state.messM5}             
                 />}
               </Modal.Description>
             </Modal.Content>

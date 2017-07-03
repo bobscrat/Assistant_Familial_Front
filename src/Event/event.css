@@ -34,6 +34,15 @@
     color: rgba(0,0,0,.87);
 }
 
-/*.ui.grid>.row {
-    align-items: center!important;
-}*/
+.margePlusTop {
+    margin-top: 26px!important;
+}
+
+.margePlusCenter {
+    margin-top: 32px!important;
+}
+
+.margePlusBottom {
+    margin-top: 34px!important;
+}
+

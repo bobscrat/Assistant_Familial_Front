@@ -1,0 +1,19 @@
+.event {
+    min-height: 300px;
+}
+
+.buttonSuivant {
+    display: inline-block;
+}
+
+.fieldRequired {
+    color: red;
+}
+
+.heightModal {
+    height: 300px;
+}
+
+.newContact {
+    margin-top: 80px!important;
+}
