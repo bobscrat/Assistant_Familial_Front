@@ -63,7 +63,8 @@ class ModalNewEvent extends Component {
             mess1M2: 'none',
             mess2M2: 'none',
             mess1M3: true,
-            messM5: true
+            messM5: true,
+            messClose: false
          } 
     };
 
@@ -447,10 +448,13 @@ class ModalNewEvent extends Component {
         minutes = (this.state.minuteEvent - 1) * 5;
       }
       timeRDV = hours + ':' + minutes + ':00';
-    }        
+    }         
 
     newEvent.deadline = this.state.dateEvent.format('YYYY-MM-DD') + 'T' + timeRDV;    
-    this.setState({addedEvent: newEvent});
+    this.setState({
+      addedEvent: newEvent,
+      messClose: true
+  });
   
     axios.post('/api/events', this.state.addedEvent)
       .then((response) => {
@@ -458,7 +462,7 @@ class ModalNewEvent extends Component {
         // this.timeout = setTimeout(() => {
         //   this.setState({ messM5: false});
         // }, 2500);
-        this.close(); 
+        // this.close(); 
         this.props.rload();
       })
       .catch((err) => {
@@ -549,13 +553,16 @@ class ModalNewEvent extends Component {
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
-              {this.state.numero > 1 && <Button content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
-              {this.state.numero === 1 && <Button disabled content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
-              <Button color='orange' onClick={this.close}>
+              {(this.state.numero > 1 && this.state.messClose === false) && <Button content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
+              {(this.state.numero === 1 && this.state.messClose === false) && <Button disabled content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
+              {this.state.messClose === false && <Button color='orange' onClick={this.close}>
                 Annuler
-              </Button>
-              {this.state.numero < 5 && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
-              {this.state.numero === 5 && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
+              </Button>}
+              {(this.state.numero < 5 && this.state.messClose === false) && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
+              {(this.state.numero === 5 && this.state.messClose === false) && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
+              {this.state.messClose === true && <Button color='green' onClick={this.close}>
+                Fermer
+              </Button>}
             </Modal.Actions>         
         </Modal>        
       </div>
