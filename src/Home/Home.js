@@ -222,7 +222,7 @@ class Home extends Component {
 
             <Grid.Column computer={12} only='computer'>
               {/* LES CATEGORIES */}
-              <Category categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId}/>
+              <Category categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadCategories} />
             </Grid.Column>
           </Grid.Row>
 
