@@ -29,6 +29,8 @@ class ModalNewContact extends Component {
         mess1M2: 'none',
         mess2M2: 'none',
         mess3M2: 'none',
+        mess4M2: true,
+        messClose: false
     }      
 
     show = (dimmer) => () => this.setState({ dimmer, open: true });
@@ -195,11 +197,14 @@ class ModalNewContact extends Component {
             newContact.comment = this.state.commentContact;
             newContact.family = this.props.family;
     
-            this.setState({addedContact: newContact});
+            this.setState({
+                addedContact: newContact,
+                messClose: true
+            });
     
             axios.post('/api/contacts', this.state.addedContact)
                 .then((response) => {
-                    this.close(); 
+                    this.setState({ mess4M2: false});
                     this.props.rload();
                 })
                 .catch((err) => {
@@ -265,18 +270,22 @@ class ModalNewContact extends Component {
                                 updateStateCommentContactProp={this.updateStateCommentContact}   
                                 aMess1M2={this.state.mess1M2}
                                 aMess2M2={this.state.mess2M2}
-                                aMess3M2={this.state.mess3M2}                     
+                                aMess3M2={this.state.mess3M2}    
+                                aMess4M2={this.state.mess4M2}                     
                             />}                                                    
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>
-                        {this.state.numero > 1 && <Button content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
-                        {this.state.numero === 1 && <Button disabled content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
-                        <Button color='orange' onClick={this.close}>
+                        {(this.state.numero > 1 && this.state.messClose === false) && <Button content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
+                        {(this.state.numero === 1 && this.state.messClose === false) && <Button disabled content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
+                        {this.state.messClose === false && <Button color='orange' onClick={this.close}>
                             Annuler
-                        </Button>
-                        {this.state.numero < 2 && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
-                        {this.state.numero === 2 && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createContact} />}
+                        </Button>}
+                        {(this.state.numero < 2 && this.state.messClose === false) && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
+                        {(this.state.numero === 2 && this.state.messClose === false) && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createContact} />}
+                        {this.state.messClose === true && <Button color='green' onClick={this.close}>
+                            Fermer
+                        </Button>}
                     </Modal.Actions>         
                 </Modal>        
             </div>
