@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import { Popup, Button, Input, Modal, Icon, Container, Message, Form, Grid } from 'semantic-ui-react'
+import { Popup, Button, Input, Modal, Icon, Container, Message, Form, Grid, Divider } from 'semantic-ui-react'
 import { loadCategories, saveCategory, updateCategory} from './libCategory.js'
 import '../Home/olga.css';
 import { CirclePicker} from 'react-color';
 import ToggleDisplay from 'react-toggle-display';
 
-import CategoryItem from './CategoryItem.js';
+//import CategoryItem from './CategoryItem.js';
 import AddCategoryItem from './AddCategoryItem.js';
 import EditCategoryInput from './EditCategoryInput.js';
 
@@ -64,7 +64,7 @@ componentWillMount() {
 
   close = () => this.setState({ open: false })
   //add category
-  handleChangeAdd = (evt, color) => {
+  handleChangeAddInput = (evt, color) => {
     let newCategory = this.state.addedCategory;
     if ( '' !== evt.target.value) {
       newCategory.name = evt.target.value;
@@ -73,6 +73,16 @@ componentWillMount() {
       this.setState({addedCategory: newCategory, isCategoryAdded: true});
     }
   }
+  handleChangeAddColor= (name, color) => {
+    let newCategory = this.state.addedCategory;
+      newCategory.name = name;
+      newCategory.color = color;
+      newCategory.family= this.props.family;
+      this.setState({addedCategory: newCategory, isCategoryAdded: true});    
+  }
+
+
+
   //update category
   handleChangeEdit = (evt, modif, index) => {
     let newCategories = this.state.categories;
@@ -158,17 +168,17 @@ componentWillMount() {
           </Modal.Header>
           <Modal.Content>
             <Form success error>
-                <Form.Group>
-                    
-                  <Container textAlign='center'>
-                      
-                    <AddCategoryItem  change={(evt, colorCate) => this.handleChangeAdd(evt, colorCate)} />
-                    
+                <Form.Group>                    
+                  <Container style = {{width:'auto',height:'auto', alignItems:'center',flexDirection:'row'}}>                      
+                    <AddCategoryItem  changeInput={(evt, colorCate) => this.handleChangeAddInput(evt, colorCate)} 
+                                      changeColor={(name, colorCate) => this.handleChangeAddColor(name, colorCate)}
+                    />                    
                   </Container>
                 </Form.Group>
 
-                <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess}/>
+                <Divider horizontal >Liste modifiable</Divider>
 
+                <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess}/>
                 <Message error hidden={this.state.msgErrorHidden} list={this.state.msgError}/>
 
                 <Grid stackable doubling columns={3}>

@@ -4,7 +4,7 @@ import {Label, Form, Popup} from 'semantic-ui-react';
 import { CirclePicker} from 'react-color';
 import ToggleDisplay from 'react-toggle-display';
 
-class CategoryItem extends Component {  
+class EditCategoryInput extends Component {  
 
     state = { 
         colorLabel: this.props.color,
@@ -70,4 +70,4 @@ class CategoryItem extends Component {
   }
 }
 
-export default CategoryItem;
+export default EditCategoryInput;
