@@ -72,16 +72,14 @@ class ModalCategoryResponsive extends Component {
                     <Label color='orange' ribbon>
                       <ModalNewCategory family={this.props.family} rload={this.props.rload} />
                     </Label>
-                    <List verticalAlign='middle'>
-                      {this.props.categories.map((category, i) => <List.Item key={i}>
-                        {/* index = category's rank in the array, not his id */}
+                    <List celled verticalAlign='middle'> {/* index = category's rank in the array, not his id */}
+                      {this.props.categories.map((category, i) =>                        
                         <CategoryItem 
                             key={i} index={i} name={category.name} id={category.id} 
                             color={category.color} activeFilter={category.activeFilter} 
                             //size={(category.activeFilter)?'large':'medium'}
                             click={this.handleClickSelect}   
-                         />
-                        </List.Item>
+                         />                       
                       )}
                     </List>
                   </Segment>
