@@ -1,6 +1,6 @@
 // Didier Olga
 import React, {Component} from 'react';
-import {Container, Grid, Icon, Popup } from 'semantic-ui-react';
+import {Container, Grid, Icon} from 'semantic-ui-react';
 
 import {loadCategories} from '../Category/libCategory.js';
 import {loadMembers} from '../Member/libMember.js';
@@ -13,6 +13,7 @@ import Event from '../Event/Event.js';
 import Member from '../Member/Member.js';
 import Project from '../Project/Project.js';
 import ModalSelectProject from '../Project/ModalSelectProject.js';
+import ModalCategoryResponsive from '../Category/ModalCategoryResponsive.js';
 
 import Header from './Header.js';
 import Footer from './Footer.js';
@@ -191,46 +192,26 @@ class Home extends Component {
             </Grid.Column>
             <Grid.Column only='computer' width={2}>
               <div className="plus">
-                {/* Modale Recherche */}                
-                <Popup trigger={<Icon link color='orange' size='huge' name='search'/>}>
-                  <Popup.Header>Rechercher un événement</Popup.Header>
-                  <Popup.Content>
-                    En cliquant sur ce bouton, vous recherchez un événement particulier.
-                  </Popup.Content>
-                </Popup>
+                {/* Modale Recherche */}
+                <Icon link color='orange' size='huge' name='search'/>
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
               <div className="plus">
                 {/* Modale Recherche */}
-                <Popup trigger={<Icon link color='orange' size='huge' name='search'/>}>
-                  <Popup.Header>Rechercher un événement</Popup.Header>
-                  <Popup.Content>
-                    En cliquant sur ce bouton, vous recherchez un événement particulier.
-                  </Popup.Content>
-                </Popup>
+                <Icon link color='orange' size='huge' name='search'/>
               </div>
             </Grid.Column>
             <Grid.Column only='mobile' width={3}>
               <div className="plus">
-                {/* Modale Sélection des Membres */}                
-                <Popup trigger={<Icon link color='orange' size='huge' name='users'/>}>
-                  <Popup.Header>Les membres</Popup.Header>
-                  <Popup.Content>
-                    En cliquant sur ce bouton, vous pouvez sélectionner un membre pour filtrer les évènements, ajouter ou modifier des membres.
-                  </Popup.Content>
-                </Popup>
+                {/* Modale Sélection des Membres */}
+                <Icon link color='orange' size='huge' name='users'/>
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
               <div className="plus">
-                {/* Modale Sélection des Catégories */}                
-                <Popup trigger={<Icon link color='orange' size='huge' name='tag'/>}>
-                  <Popup.Header>Les catégories</Popup.Header>
-                  <Popup.Content>
-                    En cliquant sur ce bouton, vous pouvez sélectionner une catégorie pour filtrer les évènements, ajouter ou modifier des catégories.
-                  </Popup.Content>
-                </Popup>
+                {/* Modale Sélection des Catégories */}
+                <ModalCategoryResponsive categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadCategories} />               
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
