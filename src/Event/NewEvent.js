@@ -109,6 +109,7 @@ class ModalNewEvent extends Component {
   }
 
   reloadContacts = () => {
+    console.log('reloadContacts');
     loadContacts(this.props.family.id, true).then((response) => {
         this.setState({contacts: response})
     })

@@ -57,14 +57,14 @@ class Modal2 extends Component {
                     <Grid.Column width={8}>
                         <Form>
                             <Form.Field>                
-                                <label>Choix du membre<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess1M2, color: 'red'}}>Sélectionner un membre</span></label>
+                                <label>Choix du membre<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess1M2, color: 'orange'}}>Sélectionner un membre</span></label>
                                 <select name='memberChoice' value={this.props.myNameMember} onChange={this.props.updateStateNameMemberProp}>
                                     {optionsMembers}
                                 </select>
                             </Form.Field>                        
                             <Divider hidden />
                             <Form.Field>            
-                                <label>Choix de la catégorie<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess2M2, color: 'red'}}>Sélectionner une catégorie</span></label>
+                                <label>Choix de la catégorie<span className='fieldRequired'> *  </span><span style={{display: this.props.aMess2M2, color: 'orange'}}>Sélectionner une catégorie</span></label>
                                 <select name='categoryChoice' value={this.props.myNameCategory} onChange={this.props.updateStateNameCategoryProp}>
                                     {optionsCategories}
                                 </select>

@@ -43,7 +43,7 @@ class Modal1 extends Component {
                                             content="Vous devez saisir un nom pour ce contact"
                                             on='focus'
                                         />       
-                                        <span style={{display: this.props.aMess1M1, color: 'red'}}>La saisie est obligatoire</span>                                                                 
+                                        <span style={{display: this.props.aMess1M1, color: 'orange'}}>La saisie est obligatoire</span>                                                                 
                                     </Form.Field> 
                                     <Divider />
                                     <Form.Field>
@@ -60,7 +60,7 @@ class Modal1 extends Component {
                                             content="Vous devez saisir un prénom pour ce contact"
                                             on='focus'
                                         />    
-                                        <span style={{display: this.props.aMess2M1, color: 'red'}}>La saisie est obligatoire</span>                                                                    
+                                        <span style={{display: this.props.aMess2M1, color: 'orange'}}>La saisie est obligatoire</span>                                                                    
                                     </Form.Field>                              
                                 </Form.Group>                                                           
                                 <Form.Field>
@@ -77,7 +77,7 @@ class Modal1 extends Component {
                                         content="Vous devez saisir une profession pour ce contact"
                                         on='focus'
                                     />     
-                                    <span style={{display: this.props.aMess3M1, color: 'red'}}>La saisie est obligatoire</span>                                                                   
+                                    <span style={{display: this.props.aMess3M1, color: 'orange'}}>La saisie est obligatoire</span>                                                                   
                                 </Form.Field>                                                                                               
                             </Form>
                         </Grid.Column>                        

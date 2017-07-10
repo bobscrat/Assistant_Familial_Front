@@ -36,7 +36,7 @@ class Modal2 extends Component {
                                     content="Vous devez saisir un numéro de téléphone pour ce contact"
                                     on='focus'
                                 />  
-                                <span style={{display: this.props.aMess1M2, color: 'red'}}>La saisie est obligatoire</span>                                                                      
+                                <span style={{display: this.props.aMess1M2, color: 'orange'}}>La saisie est obligatoire</span>                                                                      
                             </Form.Field> 
                             <Form.Field>
                                 <label>Email du contact<span className='fieldRequired'> *</span></label>                                                          
@@ -51,7 +51,7 @@ class Modal2 extends Component {
                                     header="Email du contact"
                                     content="Vous devez saisir une adresse email pour ce contact"                           on='focus'
                                 />       
-                                <span style={{display: this.props.aMess2M2, color: 'red'}}>La saisie est obligatoire</span>                                                                 
+                                <span style={{display: this.props.aMess2M2, color: 'orange'}}>La saisie est obligatoire</span>                                                                 
                             </Form.Field>                              
                         </Form.Group>
                         <Form.Group widths='equal' >                              
@@ -69,7 +69,7 @@ class Modal2 extends Component {
                                     content="Vous devez saisir une adresse pour ce contact"
                                     on='focus'
                                 />              
-                                <span style={{display: this.props.aMess3M2, color: 'red'}}>La saisie est obligatoire</span>                                                          
+                                <span style={{display: this.props.aMess3M2, color: 'orange'}}>La saisie est obligatoire</span>                                                          
                             </Form.Field> 
                             <Form.Field>
                                 <label>Commentaire</label>                                                          

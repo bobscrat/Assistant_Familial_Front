@@ -18,7 +18,7 @@ class Modal4 extends Component {
 
     componentWillMount() {
         optionsContacts.length = 0;               
-        console.log('passe dans le willmount modal 4');
+        console.log('passe dans le willmount modal 4 ' + this.props.theContacts.length);
         for (var i=0; i < this.props.theContacts.length; i++) {                
             var aContact = {};
             aContact.key = this.props.theContacts[i].id;
@@ -26,15 +26,15 @@ class Modal4 extends Component {
             if (null !== this.props.theContacts[i].profession) {
                 profession = ' (' + this.props.theContacts[i].profession + ')';
             }
-            aContact.name = this.props.theContacts[i].first_name + ' ' 
-                + this.props.theContacts[i].name +  profession; 
+            aContact.name = this.props.theContacts[i].name.toUpperCase() + ' ' 
+                + this.props.theContacts[i].first_name +  profession; 
             optionsContacts.push(<option key={aContact.key} value={aContact.name} >{aContact.name}</option>);                
         }              
     };
 
     componentWillUpdate() {
         optionsContacts.length = 0;               
-        console.log('passe dans le willUpdate modal 4');
+        console.log('passe dans le willUpdate modal 4 ' + this.props.theContacts.length);
         for (var i=0; i < this.props.theContacts.length; i++) {                
             var aContact = {};
             aContact.key = this.props.theContacts[i].id;
@@ -42,8 +42,8 @@ class Modal4 extends Component {
             if (null !== this.props.theContacts[i].profession) {
                 profession = ' (' + this.props.theContacts[i].profession + ')';
             }
-            aContact.name = this.props.theContacts[i].first_name + ' ' 
-                + this.props.theContacts[i].name +  profession; 
+            aContact.name = this.props.theContacts[i].name.toUpperCase() + ' ' 
+                + this.props.theContacts[i].first_name +  profession;  
             optionsContacts.push(<option key={aContact.key} value={aContact.name} >{aContact.name}</option>);                
         }              
     };
