@@ -84,10 +84,20 @@ componentWillMount() {
 
 
   //update category
-  handleChangeEdit = (evt, modif, index) => {
+  handleChangeEdit = (evt, index) => {
     let newCategories = this.state.categories;
     let newChanges = this.state.changes;
     newCategories[index].name = evt.target.value;
+
+    // passe à true pour informer la fonction validate
+    newChanges[index] = true;
+    this.setState({categories: newCategories, changes : newChanges });
+  }
+  handleChangeEditColor = (name, index, color) => {
+    let newCategories = this.state.categories;
+    let newChanges = this.state.changes;
+    newCategories[index].name = name;
+    newCategories[index].color = color;
 
     // passe à true pour informer la fonction validate
     newChanges[index] = true;
@@ -188,7 +198,9 @@ componentWillMount() {
                     (category, i) => 
                         <EditCategoryInput 
                             key={i} index={i} id={category.id} 
-                            name={category.name} change={this.handleChangeEdit}
+                            name={category.name} 
+                            changeInput={this.handleChangeEdit}
+                            changeColor={this.handleChangeEditColor}
                             colorPaletteShow={this.state.colorPaletteShow}
                             color={category.color}
                         />
