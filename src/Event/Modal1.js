@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import'./event.css';
+import ModalSuccess from './ModalSuccess.js';
 
 const optionsHours = [];
 const optionsMinutes = [];
@@ -114,6 +115,7 @@ class Modal1 extends Component {
                                 <Button toggle name='PRV_' active={activePriseRDV} onClick={this.handleClick}>Prise de RDV</Button>
                             </Button.Group>
                             <Form>
+                                <ModalSuccess />
                                 <Divider hidden />  
                                 
                                 <Form.Field>

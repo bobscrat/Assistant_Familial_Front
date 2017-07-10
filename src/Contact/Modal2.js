@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Popup, Input, Grid } from 'semantic-ui-react';
+import { Form, Popup, Input, Message, Icon, Grid } from 'semantic-ui-react';
 
 import'./contact.css';
 
@@ -88,6 +88,12 @@ class Modal2 extends Component {
                             </Form.Field>                              
                         </Form.Group>
                     </Form>
+                    <Message icon positive hidden={this.props.aMess4M2}>
+                        <Icon name='check circle' />
+                        <Message.Content>
+                            Le contact a bien été enregistré !
+                        </Message.Content>
+                    </Message>
                 </Grid.Column>
                 <Grid.Column width={3}>
                 </Grid.Column>
