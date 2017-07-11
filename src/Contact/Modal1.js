@@ -64,7 +64,7 @@ class Modal1 extends Component {
                                     </Form.Field>                              
                                 </Form.Group>                                                           
                                 <Form.Field>
-                                    <label>Profession du contact<span className='fieldRequired'> *</span></label>                                                          
+                                    <label>Profession du contact</label>                                                          
                                     <Popup
                                         trigger={ <Input 
                                             fluid                                         

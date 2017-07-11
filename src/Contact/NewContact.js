@@ -113,7 +113,7 @@ class ModalNewContact extends Component {
 
     onClickNext(e){
         //Validation
-        var valid = false, valid1 = false, valid2 = false, valid3 = false;
+        var valid = false, valid1 = false, valid2 = false, valid3 = true;
         
         if (null != this.state.nameContact && this.state.nameContact.length > 1 && this.state.nameContact.length < 45) {
             valid1 = true;
@@ -131,13 +131,13 @@ class ModalNewContact extends Component {
             valid2 = false;
             this.setState({ mess2M1: 'inline'});
         }
-        if (null != this.state.professionContact && this.state.professionContact.length > 1 && this.state.professionContact.length < 45) {
-            valid3 = true;
-            this.setState({ mess3M1: 'none'});
-        }else{
-            valid3 = false;
-            this.setState({ mess3M1: 'inline'});
-        }
+        // if (null != this.state.professionContact && this.state.professionContact.length > 1 && this.state.professionContact.length < 45) {
+        //     valid3 = true;
+        //     this.setState({ mess3M1: 'none'});
+        // }else{
+        //     valid3 = false;
+        //     this.setState({ mess3M1: 'inline'});
+        // }
         if (valid1 && valid2 && valid3){
             valid = true;
         }else{
@@ -160,33 +160,33 @@ class ModalNewContact extends Component {
     }; 
 
     createContact = () => {
-        var valid = false, valid1 = false, valid2 = false, valid3 = false;
-        if (null != this.state.phoneContact && this.state.phoneContact.length === 10 ) {
-            valid1 = true;
-            this.setState({ mess1M2: 'none'});                
-        }else{
-            valid1 = false
-            this.setState({ mess1M2: 'inline'});
-        }           
-        if (null != this.state.emailContact && this.state.emailContact.length > 5 && this.state.emailContact.length < 45) {
-            valid2 = true;
-            this.setState({ mess2M2: 'none'});
-        }else{
-            valid2 = false;
-            this.setState({ mess2M2: 'inline'});
-        }
-        if (null != this.state.addressContact && this.state.addressContact.length > 15) {
-            valid3 = true;
-            this.setState({ mess3M2: 'none'});
-        }else{
-            valid3 = false;
-            this.setState({ mess3M2: 'inline'});
-        }
-        if (valid1 && valid2 && valid3){
-            valid = true;
-        }else{
-            valid = false;
-        }
+        var valid = true, valid1 = true, valid2 = true, valid3 = true;
+        // if (null != this.state.phoneContact && this.state.phoneContact.length === 10 ) {
+        //     valid1 = true;
+        //     this.setState({ mess1M2: 'none'});                
+        // }else{
+        //     valid1 = false
+        //     this.setState({ mess1M2: 'inline'});
+        // }           
+        // if (null != this.state.emailContact && this.state.emailContact.length > 5 && this.state.emailContact.length < 45) {
+        //     valid2 = true;
+        //     this.setState({ mess2M2: 'none'});
+        // }else{
+        //     valid2 = false;
+        //     this.setState({ mess2M2: 'inline'});
+        // }
+        // if (null != this.state.addressContact && this.state.addressContact.length > 15) {
+        //     valid3 = true;
+        //     this.setState({ mess3M2: 'none'});
+        // }else{
+        //     valid3 = false;
+        //     this.setState({ mess3M2: 'inline'});
+        // }
+        // if (valid1 && valid2 && valid3){
+        //     valid = true;
+        // }else{
+        //     valid = false;
+        // }
         if (valid) {
         
             let newContact = this.state.addedContact;

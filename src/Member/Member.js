@@ -43,7 +43,7 @@ class Member extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Segment raised className='member'>
-                <Label color='orange' ribbon>Les membres
+                <Label color='orange' ribbon>{this.props.family.name}
                   {/*<ModalNewMember/>*/}
                   <ModalEditMember family={this.props.family} rload={this.props.rload}/></Label>
                 <List verticalAlign='middle' className='listMember' size='big'>

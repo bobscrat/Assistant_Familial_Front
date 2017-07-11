@@ -23,7 +23,7 @@ class Modal2 extends Component {
                     <Form>
                         <Form.Group widths='equal' >                              
                             <Form.Field>
-                                <label>Téléphone du contact<span className='fieldRequired'> *</span></label>                                                          
+                                <label>Téléphone du contact</label>                                                          
                                 <Popup
                                     trigger={ <Input 
                                         fluid                                         
@@ -39,7 +39,7 @@ class Modal2 extends Component {
                                 <span style={{display: this.props.aMess1M2, color: 'orange'}}>La saisie est obligatoire</span>                                                                      
                             </Form.Field> 
                             <Form.Field>
-                                <label>Email du contact<span className='fieldRequired'> *</span></label>                                                          
+                                <label>Email du contact</label>                                                          
                                 <Popup
                                     trigger={ <Input 
                                         fluid                                         
@@ -56,7 +56,7 @@ class Modal2 extends Component {
                         </Form.Group>
                         <Form.Group widths='equal' >                              
                             <Form.Field>
-                                <label>Adresse du contact<span className='fieldRequired'> *</span></label>                                                          
+                                <label>Adresse du contact</label>                                                          
                                 <Popup
                                     trigger={ <Input 
                                         fluid                                         

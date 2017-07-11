@@ -71,7 +71,7 @@ class Modal2 extends Component {
                             </Form.Field>
                             <Divider hidden />
                             <Form.Field>            
-                                <label>Choix du project</label>
+                                <label>Choix du project (optionnel)</label>
                                 <select name='projectChoice' value={this.props.myNameProject} onChange={this.props.updateStateNameProjectProp}>
                                     {optionsProjects}
                                 </select>
