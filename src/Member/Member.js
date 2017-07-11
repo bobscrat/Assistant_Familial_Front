@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Grid, Label, List, Segment, Image} from 'semantic-ui-react';
 
-import ModalNewMember from './ModalNewMember.js';
+// import ModalNewMember from './ModalNewMember.js';
 import ModalEditMember from './ModalEditMember.js';
 import MemberItem from './MemberItem.js';
 
@@ -43,8 +43,8 @@ class Member extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Segment raised className='member'>
-                <Label color='orange' ribbon>{this.props.family.name}
-                  <ModalNewMember/>
+                <Label color='orange' ribbon>Les membres
+                  {/*<ModalNewMember/>*/}
                   <ModalEditMember family={this.props.family} rload={this.props.rload}/></Label>
                 <List verticalAlign='middle' className='listMember' size='big'>
                   {

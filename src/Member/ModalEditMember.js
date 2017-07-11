@@ -23,7 +23,8 @@ class ModalEditMember extends Component {
             role: {
               id:1,
               name:'Admin Familial'
-            }
+            }, 
+            image: ''
   }
 
   show = () => () => {
@@ -47,7 +48,10 @@ class ModalEditMember extends Component {
       })
   }  
 
-  close = () => this.setState({ open: false })
+  close = () => {
+    this.setState({ open: false });
+    this.props.rload()
+  }
   //add member
   handleChangeAdd = (evt) => {
     let newMember = this.state.addedMember;
@@ -63,10 +67,21 @@ class ModalEditMember extends Component {
     let newMembers = this.state.members;
     let newChanges = this.state.changes;
     newMembers[index].firstName = evt.target.value;
-   // newMembers[index].image = evt.target.value;
+    //newMembers[index].image = this.state.image;
     // passe à true pour informer la fonction validate
     newChanges[index] = true;
     this.setState({members: newMembers, changes : newChanges });
+  }
+
+  changeImage = (newImage, index) => {
+let newMembers = this.state.members;
+    let newChanges = this.state.changes;
+    newMembers[index].image = newImage;
+    console.log("modal Edit Member changeImage = " + newMembers[index])
+    newChanges[index] = true;
+    
+    this.setState({members: newMembers, changes : newChanges });
+    
   }
 
   validate = () => {
@@ -96,10 +111,11 @@ class ModalEditMember extends Component {
     //Update member
     for( let i = 0; i < changes.length; i++){
       if(changes[i]){
+        console.log('member i :' + members[i].image.name)
         updateMember(members[i], i).then((response) =>{
           members[i].firstName = response.firstName;
           members[i].image = response.image;
-          msgSuccess.push(members[i].firstName + ' : Modification effectuée avec succès');
+          msgSuccess.push(members[i].firstName +' : Modification effectuée avec succès');
           msgSuccessHidden = false;
           this.setState({members: members, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess});
         }).catch((err) => {
@@ -122,9 +138,9 @@ class ModalEditMember extends Component {
         
         <Popup trigger={<Icon link size='large' name='pencil' onClick={this.show(true)}/>}>
         {/*<Popup trigger={<Button color='orange' onClick={this.show(false)}>None</Button>}>*/}
-          <Popup.Header>Modifier les membres</Popup.Header>
+          <Popup.Header>Ajouter ou modifier un membre</Popup.Header>
           <Popup.Content>
-            En cliquant sur ce bouton, vous modifiez les membres de votre famille.
+            En cliquant sur ce bouton, vous ajoutez et/ou modifiez les membres de votre famille.
           </Popup.Content>
         </Popup>
 
@@ -139,7 +155,7 @@ class ModalEditMember extends Component {
                   <Container textAlign='center'>
                     <Input focus label='Nouveau membre' placeholder='Nom du nouveau membre' onChange={(evt) => this.handleChangeAdd(evt)} />
                   </Container>
-                </Form.Group>
+                </Form.Group><br />
 
                 <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess}/>
 
@@ -148,7 +164,8 @@ class ModalEditMember extends Component {
                 <Grid stackable doubling columns={3}>
                 {/* index = project's rank in the array, not his id */}
                 {
-                  this.state.members.map((member, i) => <EditMemberInput key={i} index={i} id={member.id} name={member.firstName} image={member.image} change={this.handleChangeEdit}/>)
+                  this.state.members.map((member, i) => <EditMemberInput key={i} index={i} id={member.id} name={member.firstName} image={member.image} change={this.handleChangeEdit} 
+                  imageChange={this.changeImage} />)
                 }
                 </Grid>
             </Form>
