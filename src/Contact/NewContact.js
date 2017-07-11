@@ -34,7 +34,10 @@ class ModalNewContact extends Component {
     }      
 
     show = (dimmer) => () => this.setState({ dimmer, open: true });
-    close = () => this.setState({ open: false });
+    close = () => {
+        this.setState({ open: false });
+        this.props.rload();
+    }
 
     updateStateNameContact = (e) => {        
         if (e.target.value.length > 2 && e.target.value.length <= 45) {

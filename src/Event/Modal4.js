@@ -32,6 +32,13 @@ class Modal4 extends Component {
         }              
     };
 
+    componentWillReceiveProps(newProps) {
+      this.setState({
+        contacts: newProps.contacts
+      })
+      //console.log('receive props ' + this.state.contacts.length);
+    }
+
     componentWillUpdate() {
         optionsContacts.length = 0;               
         console.log('passe dans le willUpdate modal 4 ' + this.props.theContacts.length);
