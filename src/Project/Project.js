@@ -49,7 +49,8 @@ render() {
                 Aucun projet
               </Message>
               <List verticalAlign='middle'>
-                {this.props.projects.map((project, i) => <List.Item key={i}>
+                {this.props.projects.map((project, i) =>
+                  <List.Item key={i}>
                   {/* index = project's rank in the array, not his id */}
                   <ProjectItem index={i} name={project.name} id={project.id} activeFilter={project.activeFilter} click={this.handleClickSelect}  color={(project.activeFilter)?'orange':'grey'} />
                   </List.Item>

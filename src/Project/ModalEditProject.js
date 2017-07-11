@@ -53,6 +53,8 @@ class ModalEditProject extends Component {
 
   close = () => {
     this.setState({open: false});
+    // reload projects in Home
+    this.props.rload();
   }
 
   validate = () => {
@@ -94,8 +96,6 @@ class ModalEditProject extends Component {
         })
       }
     }
-    // reload projects in Home
-    this.props.rload();
   }
 
   // add project
@@ -121,7 +121,9 @@ class ModalEditProject extends Component {
     return (
       <div className='ribbonOrange'>
         Les projets
-        <Popup trigger={<span><Icon link size='large' name='plus' onClick={this.show(true)} /> <Icon link size='large' name='pencil' onClick={this.show(true)} /></span>}>
+        <Popup trigger={
+            <span><Icon link size='large' name='pencil' onClick={this.show(true)} /></span>
+          }>
           <Popup.Header>Ajouter ou modifier un projet</Popup.Header>
           <Popup.Content>
             En cliquant sur ce bouton, vous créez ou modifiez vos projets.
