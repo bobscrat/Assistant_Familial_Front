@@ -160,6 +160,7 @@ class Home extends Component {
       if (response.length < 1) {msgNoEventHidden = false;}
       else {msgNoEventHidden = true;}
       this.setState({events: response, msgNoEventHidden: msgNoEventHidden})
+      console.log('reloadEvents');
     })
     .catch((err) => {
       console.log('failed to get Events :::', err);

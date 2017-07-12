@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Popup, Button, Input, Modal, Icon, Container, Message, Form, Grid } from 'semantic-ui-react'
+import { Popup, Button, Input, Modal, Icon, Container, Message, Form, Grid, Divider } from 'semantic-ui-react'
 import { loadMembers, saveMember, updateMember} from './libMember.js'
 import '../Home/olga.css';
 
@@ -24,7 +24,8 @@ class ModalEditMember extends Component {
               id:1,
               name:'Admin Familial'
             }, 
-            image: ''
+            image: '',
+            msgClose: false
   }
 
   show = () => () => {
@@ -93,7 +94,7 @@ let newMembers = this.state.members;
     let msgSuccessHidden = true;
     let msgErrorHidden = true;
     let msgError= [];
-    let role = this.state.role;
+    let role = this.state.role;    
     //Member added
     if(isMemberAdded) {
       saveMember(newMember).then((response) => {
@@ -128,7 +129,9 @@ let newMembers = this.state.members;
     }
     //reload members in Home
     this.props.rload();
-    this.props.rloadEvents();
+    this.props.rloadEvents();    
+    this.setState({msgClose: true})
+    
   }
 
   render() {
@@ -156,12 +159,10 @@ let newMembers = this.state.members;
                   <Container textAlign='center'>
                     <Input focus label='Nouveau membre' placeholder='Nom du nouveau membre' onChange={(evt) => this.handleChangeAdd(evt)} />
                   </Container>
-                </Form.Group><br />
-
+                </Form.Group>
                 <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess}/>
-
                 <Message error hidden={this.state.msgErrorHidden} list={this.state.msgError}/>
-
+                <Divider hidden/>
                 <Grid stackable doubling columns={3}>
                 {/* index = project's rank in the array, not his id */}
                 {
@@ -173,8 +174,9 @@ let newMembers = this.state.members;
           </Modal.Content>
 
           <Modal.Actions>
-             <Button content='Quitter' color='orange' onClick={this.close} />
-             <Button positive content='Valider' onClick={this.validate} />
+            {this.state.msgClose === true && <Button color='green' onClick={this.close}>Fermer</Button>}
+            {this.state.msgClose === false && <Button content='Quitter' color='orange' onClick={this.close} />}
+            {this.state.msgClose === false && <Button positive content='Valider' onClick={this.validate} />}
           </Modal.Actions>
         </Modal>
       </div>
