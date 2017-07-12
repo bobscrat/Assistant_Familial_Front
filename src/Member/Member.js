@@ -45,7 +45,7 @@ class Member extends Component {
               <Segment raised className='member'>
                 <Label color='orange' ribbon>{this.props.family.name}
                   {/*<ModalNewMember/>*/}
-                  <ModalEditMember family={this.props.family} rload={this.props.rload}/></Label>
+                  <ModalEditMember family={this.props.family} rload={this.props.rload} rloadEvents={this.props.rloadEvents}/></Label>
                 <List verticalAlign='middle' className='listMember' size='big'>
                   {
                     this.props.members.map(

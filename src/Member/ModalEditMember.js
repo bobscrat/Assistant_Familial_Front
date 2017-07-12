@@ -128,6 +128,7 @@ let newMembers = this.state.members;
     }
     //reload members in Home
     this.props.rload();
+    this.props.rloadEvents();
   }
 
   render() {

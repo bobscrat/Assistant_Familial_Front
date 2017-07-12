@@ -17,6 +17,13 @@ class Event extends Component {
   componentWillMount() {
     this.setState({events: this.props.events});
   }  
+
+  componentWillReceiveProps(newProps) {
+      this.setState({
+        events: newProps.events
+      })
+      //console.log('receive props ' + this.state.contacts.length);
+    }
   
   render() {
 

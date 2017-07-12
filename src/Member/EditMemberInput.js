@@ -19,8 +19,7 @@ class EditMemberInput extends Component {
 
 
 tiClick = (newImage) => {
-  this.setState({image: newImage})
-  console.log('test ticlick = ' + newImage)
+  this.setState({image: newImage})  
   this.props.imageChange(newImage, this.props.index);
 
   }
@@ -28,8 +27,7 @@ tiClick = (newImage) => {
 
   render() {
     const { open } = this.state;
-console.log('modal edit member ********  ' +this.state.image)
-console.log('modal edit member ********  ' +this.state.member)
+
     return (
       <div>
       <Grid columns={3}>
