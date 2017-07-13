@@ -11,7 +11,7 @@ import ModalSuccess from './ModalSuccess.js';
 const optionsHours = [];
 const optionsMinutes = [];
 
-class Modal1 extends Component {
+class Modal1Edit extends Component {
 
      constructor(props) {
         super(props);
@@ -173,4 +173,4 @@ class Modal1 extends Component {
     }
 }
 
-export default Modal1
+export default Modal1Edit

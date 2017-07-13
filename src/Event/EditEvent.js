@@ -29,19 +29,19 @@ class ModalEditEvent extends Component {
             listModal: ['showModal1', 'showModal2', 'showModal3', 'showModal4', 'showModal5'],
             showModal: [true, false, false, false, false],
             prefixe: '',
-            nameEvent: '',
+            nameEvent: this.props.myEvent.name,
             dateEvent: '',
             hourEvent: 'x',
             minuteEvent: 'x',
-            nameMember: '',
-            nameCategory: '',
+            nameMember: this.props.myEvent.user.firstName,
+            nameCategory: this.props.myEvent.category.name,
             nameProject: '',
             priorityName: 'Aucune', 
             valuePeriodicity: 0,
-            periodicityName: 'Aucune',
+            periodicityName: this.props.myEvent.periodicity.name,
             contactEvent: '',
-            budgetEvent: 0,
-            commentEvent: '',
+            budgetEvent: this.props.myEvent.estimatedBudget,
+            commentEvent: this.props.myEvent.comment,
             members: [],
             categories: [],
             projects: [],
@@ -69,7 +69,7 @@ class ModalEditEvent extends Component {
     };
 
   componentWillMount() {
-   
+
     let members = [];
     let categories = [];
     let projects = [];
@@ -105,7 +105,19 @@ class ModalEditEvent extends Component {
         });
       }).catch((err => {
         console.log('failed to get Home data :::', err);
-      }));
+    }));
+  
+    let tabDeadLine = [];
+    tabDeadLine = this.props.myEvent.deadline;
+    let dateEvent = tabDeadLine[2] + '/' + tabDeadLine[1] + '/' + tabDeadLine[0];
+    let hourEvent = tabDeadLine[3] + 1;
+    let minuteEvent = tabDeadLine[4];
+    console.log('minutes ' + minuteEvent + ' / ' + tabDeadLine[4]);
+    this.setState({
+      dateEvent: dateEvent,
+      hourEvent: hourEvent,
+      minuteEvent: minuteEvent
+    })
   }
 
   reloadContacts = () => {
@@ -536,7 +548,7 @@ class ModalEditEvent extends Component {
           closeIcon='close'
         >          
             <Modal.Header>
-              Ajouter un nouvel événement {this.state.numero}/{this.state.nbModal}
+              Modifier l'événement {this.state.numero}/{this.state.nbModal}
             </Modal.Header>
 
             <Modal.Content>            

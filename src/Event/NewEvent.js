@@ -252,17 +252,19 @@ class ModalNewEvent extends Component {
   }
 
   updateStateContactEvent = (e) =>{
+    
     let contactSelected = {};
     let aContact = ''; 
     for (var i=0; i < this.state.contacts.length; i++) {
-      aContact = this.state.contacts[i].first_name + ' ' + this.state.contacts[i].name
+      aContact = this.state.contacts[i].name + ' ' + this.state.contacts[i].first_name
       if (null !== this.state.contacts[i].profession){
         aContact = aContact + ' (' + this.state.contacts[i].profession + ')'; 
       }
       if (aContact === e.target.value) {
-        contactSelected = this.state.contacts[i];        
+        contactSelected = this.state.contacts[i];     
       } 
     }
+    
     this.setState({
       contactEvent: e.target.value,
       contact: contactSelected
@@ -479,6 +481,7 @@ class ModalNewEvent extends Component {
     newEvent.project = this.state.project;
     newEvent.family = this.props.family;
     newEvent.contact = this.state.contact;
+    console.log('contact ' + newEvent.contact.name);
     newEvent.hasChild = false;
     newEvent.estimatedBudget = this.state.budgetEvent;
 
