@@ -22,8 +22,6 @@ class ForgetPassword extends Component{
                 <Form>
                     <Form.Input label="Nom de votre famille" type="text" name="name" />
                     <Form.Input label="Adresse e-mail" type="email" name="email" />
-                    <Form.Input label="Nouveau Mot de passe" type="password" name="password"/>
-                    <Form.Input label="Confirmation nouveau Mot de passe" type="password" name="password"/>
                 </Form>
               
             </Modal.Description>
