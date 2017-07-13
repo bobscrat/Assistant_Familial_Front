@@ -13,22 +13,31 @@ class ModalEditProfil extends Component {
       mess1: 'none',
       mess2: 'none',
       mess3: 'none',
-      messClose: false
+      messClose: false,
+      birthday: '08/07/1967'
     } 
   };
 
-    updateStateNameEvent = (e) => {
-        var validNameEvent = false
-        if (e.target.value.length > 2 && e.target.value.length <= 45) {
-        validNameEvent = true;
-        this.setState({
-            mess1M1: 'none'
-        });
-      }
+  // componentWillMount(){
+  //   let tabBirthDay = this.props.myProfil.birthday
+  //   console.log('tab ' + tabBirthDay);
+  //   this.setState({
+  //     birthday: tabBirthDay[2] + '/' + tabBirthDay[1] + '/' + tabBirthDay[0]
+  //   })
+  // }
+
+  updateStateNameEvent = (e) => {
+      var validNameEvent = false
+      if (e.target.value.length > 2 && e.target.value.length <= 45) {
+      validNameEvent = true;
       this.setState({
-      nameEvent: e.target.value,
+          mess1M1: 'none'
       });
     }
+    this.setState({
+    nameEvent: e.target.value,
+    });
+  }
 
   closeConfigShow = (closeOnEscape, closeOnRootNodeClick) => () => {
     this.setState({ closeOnEscape, closeOnRootNodeClick, open: true })
@@ -36,37 +45,6 @@ class ModalEditProfil extends Component {
 
   show = (dimmer) => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
-
-  createEvent = () => {
-
-    let newEvent = this.state.addedEvent;
-    
-    newEvent.name = this.state.prefixe + this.state.nameEvent;
-    newEvent.done = false;
-    newEvent.comment = this.state.commentEvent;
-    newEvent.periodicityValue = this.state.valuePeriodicity;
-    newEvent.periodicity = this.state.periodicity;
-    
-
-      
-    this.setState({
-    addedEvent: newEvent,
-    messClose: true
-  });
-  
-    axios.post('/api/events', this.state.addedEvent)
-      .then((response) => {
-        this.setState({ messM5: false});
-        // this.timeout = setTimeout(() => {
-        //   this.setState({ messM5: false});
-        // }, 2500);
-        // this.close(); 
-        this.props.rload();
-      })
-      .catch((err) => {
-        console.log('Failed to create Event : ', err);
-    })
-  }
 
   render() {
     const { open, dimmer, closeOnEscape, closeOnRootNodeClick  } = this.state;
@@ -125,7 +103,7 @@ class ModalEditProfil extends Component {
                           trigger={ <Input 
                               fluid                                         
                               name="birthday" 
-                              value={this.props.myProfil.birthday} 
+                              value={this.state.birthday} 
                               placeholder="votre date de naissance" 
                               onChange={this.props.updateStateNameEventProp} 
                           />}
