@@ -62,7 +62,10 @@ componentWillMount() {
       })
   }  
 
-  close = () => this.setState({ open: false })
+  close = () => {
+          this.setState({ open: false });
+          this.props.rload();
+  }
   //add category
   handleChangeAddInput = (evt, color) => {
     let newCategory = this.state.addedCategory;
