@@ -104,7 +104,7 @@ class ModalEditProject extends Component {
     if ('' !== evt.target.value) {
       newProject.name = evt.target.value;
       newProject.family = this.props.family;
-      this.setState({addedProject: newProject, isProjectAdded: true, value: evt.target.value});
+      this.setState({addedProject: newProject, isProjectAdded: true, value: evt.target.value, msgSuccessHidden: true, msgErrorHidden: true});
     }
   }
   // update project
@@ -113,7 +113,7 @@ class ModalEditProject extends Component {
     let newChanges = this.state.changes;
     newProjects[index].name = evt.target.value;
     newChanges[index] = true;
-    this.setState({projects: newProjects, changes: newChanges})
+    this.setState({projects: newProjects, changes: newChanges, msgSuccessHidden: true, msgErrorHidden: true})
   }
 
   render() {
