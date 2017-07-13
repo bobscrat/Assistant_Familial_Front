@@ -36,7 +36,34 @@ class ModalNewContact extends Component {
     show = (dimmer) => () => this.setState({ dimmer, open: true });
     close = () => {
         this.setState({ open: false });
+    }
+
+    closeAfterUpdate = () => {
         this.props.rload();
+        this.setState({ 
+            events: [],
+            open : false,      
+            addedContact: {},
+            numero: 1,
+            nbModal: 2,
+            listModal: ['showModal1', 'showModal2'],
+            showModal: [true, false],            
+            nameContact: '',
+            first_NameContact: '',
+            professionContact: '',
+            phoneContact: '',
+            emailContact: '',
+            addressContact: '',
+            commentContact: '',
+            mess1M1: 'none',
+            mess2M1: 'none',
+            mess3M1: 'none',       
+            mess1M2: 'none',
+            mess2M2: 'none',
+            mess3M2: 'none',
+            mess4M2: true,
+            messClose: false
+        });
     }
 
     updateStateNameContact = (e) => {        
@@ -200,22 +227,34 @@ class ModalNewContact extends Component {
             newContact.comment = this.state.commentContact;
             newContact.family = this.props.family;
     
-            this.setState({
-                addedContact: newContact,
-                messClose: true
-            });
+            // this.setState({
+            //     addedContact: newContact,
+            //     messClose: true
+            // });
     
-            axios.post('/api/contacts', this.state.addedContact)
+            // axios.post('/api/contacts', this.state.addedContact)
+            //     .then((response) => {
+            //         this.setState({ mess4M2: false});
+            //         this.props.rload();
+            //     })
+            //     .catch((err) => {
+            //         console.log('Failed to create Contact : ', err);
+            //     })
+            
+            axios.post('/api/contacts', newContact)
                 .then((response) => {
                     this.setState({ mess4M2: false});
-                    this.props.rload();
+                    return this.props.rload();
+                }).then((response) => {
+                    this.setState({ messClose: true});
                 })
                 .catch((err) => {
                     console.log('Failed to create Contact : ', err);
                 })
+
         }
     }      
-
+    
     render() {
         const { open, dimmer, closeOnEscape, closeOnRootNodeClick  } = this.state;
 
@@ -286,7 +325,7 @@ class ModalNewContact extends Component {
                         </Button>}
                         {(this.state.numero < 2 && this.state.messClose === false) && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
                         {(this.state.numero === 2 && this.state.messClose === false) && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createContact} />}
-                        {this.state.messClose === true && <Button color='green' onClick={this.close}>
+                        {this.state.messClose === true && <Button color='green' onClick={this.closeAfterUpdate}>
                             Fermer
                         </Button>}
                     </Modal.Actions>         
