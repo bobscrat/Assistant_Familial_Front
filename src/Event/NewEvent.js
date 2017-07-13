@@ -284,6 +284,54 @@ class ModalNewEvent extends Component {
   show = (dimmer) => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
 
+  closeAfterUpdate = () => this.setState({
+    events: [],
+    open : false,      
+    addedEvent: {},
+    numero: 1,
+    nbModal: 5,
+    listModal: ['showModal1', 'showModal2', 'showModal3', 'showModal4', 'showModal5'],
+    showModal: [true, false, false, false, false],
+    prefixe: '',
+    nameEvent: '',
+    dateEvent: '',
+    hourEvent: 'x',
+    minuteEvent: 'x',
+    nameMember: '',
+    nameCategory: '',
+    nameProject: '',
+    priorityName: 'Aucune', 
+    valuePeriodicity: 0,
+    periodicityName: 'Aucune',
+    contactEvent: '',
+    budgetEvent: 0,
+    commentEvent: '',
+    members: [],
+    categories: [],
+    projects: [],
+    contacts: [],
+    priorities: [],
+    periodicities: [],
+    family: {},
+    member: {},
+    category: {},
+    project: null,
+    priority: {id: 1, name: 'Aucune'},
+    periodicity: {id: 1, name: 'Aucune'},
+    contact: null,
+    deadline: '',
+    mess1M1: 'none',
+    mess2M1: 'none',
+    mess3M1: 'none',
+    mess4M1: 'none',
+    mess1M2: 'none',
+    mess2M2: 'none',
+    mess1M3: true,
+    messM5: true,
+    messClose: false
+  });
+
+
   onClickNext(e){
     //Validation
     var valid = false;
@@ -455,7 +503,7 @@ class ModalNewEvent extends Component {
     this.setState({
       addedEvent: newEvent,
       messClose: true
-  });
+    });
   
     axios.post('/api/events', this.state.addedEvent)
       .then((response) => {
@@ -561,7 +609,7 @@ class ModalNewEvent extends Component {
               </Button>}
               {(this.state.numero < 5 && this.state.messClose === false) && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
               {(this.state.numero === 5 && this.state.messClose === false) && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
-              {this.state.messClose === true && <Button color='green' onClick={this.close}>
+              {this.state.messClose === true && <Button color='green' onClick={this.closeAfterUpdate}>
                 Fermer
               </Button>}
             </Modal.Actions>         

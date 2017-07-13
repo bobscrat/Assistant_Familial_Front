@@ -160,7 +160,7 @@ class ModalNewContact extends Component {
     }; 
 
     createContact = () => {
-        var valid = true, valid1 = true, valid2 = true, valid3 = true;
+        var valid = true;
         // if (null != this.state.phoneContact && this.state.phoneContact.length === 10 ) {
         //     valid1 = true;
         //     this.setState({ mess1M2: 'none'});                
