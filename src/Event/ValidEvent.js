@@ -26,9 +26,7 @@ class ModalValidEvent extends Component {
   validate = () => {
     this.markAsDone(this.state.myEvent);
     if (this.state.myEvent.hasChild) {
-      let child = this.createEventChild(this.state.myEvent);
-      let budget = (child.estimatedBudget) ? child.estimatedBudget : 0;
-      this.setState({showForm: true, child: child, childName: child.name, childYear: '', childMonth: '', childDay: '', childHour: '', childMin: '', childComment: child.comment, childBudget: budget});
+      this.loadForm();
     } else {
       this.props.rload();
       this.close();
@@ -118,6 +116,12 @@ class ModalValidEvent extends Component {
     this.setState({[name]: value});
   }
 
+  loadForm = () => {
+    let child = this.createEventChild(this.state.myEvent);
+    let budget = (child.estimatedBudget) ? child.estimatedBudget : 0;
+    this.setState({showForm: true, child: child, childName: child.name, childYear: '', childMonth: '', childDay: '', childHour: '', childMin: '', childComment: child.comment, childBudget: budget});
+  }
+
   saveChild = () => {
     let eventChild = this.state.child;
     eventChild.deadline = new Date(Date.UTC(this.state.childYear, this.state.childMonth-1, this.state.childDay, this.state.childHour, this.state.childMin));
@@ -150,7 +154,11 @@ class ModalValidEvent extends Component {
         <Modal dimmer={dimmer} open={open} onClose={this.close}  closeIcon='close'>
           <Modal.Header>
             {(!this.state.showForm) && <p>Terminer cet événement</p>}
-            {(this.state.showForm) && <p>Enregistrer le rendez-vous associé</p>}
+            {(this.state.showForm) && <p>Enregistrer le rendez-vous associé pour {this.state.child.user.firstName} <br />(Catégorie: {this.state.child.category.name}
+            {(this.state.child.project) && <span>, Projet : {this.state.child.project.name}</span>}
+            {(this.state.child.priority) && <span>, Priorité : {this.state.child.priority.name}</span>}
+            {(this.state.child.contact) && <span>, Contact : {this.state.child.contact.first_name} {this.state.child.contact.name}</span>}
+            )</p>}
           </Modal.Header>
           <Modal.Content>
             {(!this.state.showForm) && <Modal.Description>
@@ -170,11 +178,6 @@ class ModalValidEvent extends Component {
                 <Form.Group inline>
                   <Form.Input label='Budget estimé (€)' name='childBudget' type='number' min='0' value={this.state.childBudget} onChange={this.handleChange} />
                 </Form.Group>
-                <p>Concerné : {this.state.child.user.firstName}</p>
-                <p>Catégorie : {this.state.child.category.name}</p>
-                {(this.state.child.project) && <p>Projet : {this.state.child.project.name}</p>}
-                {(this.state.child.priority) && <p>Priorité : {this.state.child.priority.name}</p>}
-                {(this.state.child.contact) && <p>Contact : {this.state.child.contact.first_name} {this.state.child.contact.name}</p>}
               </Form>}
           </Modal.Content>
           <Modal.Actions>
