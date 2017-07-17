@@ -64,7 +64,7 @@ class ModalSelectProject extends Component {
           </Popup.Content>
         </Popup>
 
-        <Modal dimmer open={open} onClose={this.close}>
+        <Modal dimmer open={open} onClose={this.close}  closeIcon='close'>
           <Modal.Content>
           <Container>
             <Grid>

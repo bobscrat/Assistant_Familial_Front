@@ -18,7 +18,7 @@ class Event extends Component {
 
   componentWillMount() {
     this.setState({events: this.props.events});
-  }  
+  }
 
   componentWillReceiveProps(newProps) {
       this.setState({
@@ -26,11 +26,11 @@ class Event extends Component {
       })
       //console.log('receive props ' + this.state.contacts.length);
     }
-  
+
   render() {
 
     var compareDate = function (dateEvent) {
-      return (dateEvent < new Date());     
+      return (dateEvent < new Date());
     }
 
     return (
@@ -49,17 +49,17 @@ class Event extends Component {
                   {this.props.events.map((event, i) =>
                     <List.Item key={i}>
                       <List.Content floated='right'>
-                        <ModalValidEvent/>                        
+                        <ModalValidEvent myEvent={event} rload={this.props.rload} />
                       </List.Content>
                       <List.Content floated='right'>
-                        <ModalEditEvent myEvent={event}/>                        
+                        <ModalEditEvent myEvent={event} />
                       </List.Content>
                       <Popup trigger={< Image src={require('../images/avatars/32x32/' + (event.user.image))} avatar />}>
                         {event.user.firstName}
                       </Popup>
                       <List.Content>
                         <List.Header>
-                           <Popup trigger={<a className={compareDate(event.convertedDate) ? 'fieldRequired' : '' } >{event.name}</a>} wide='very'> 
+                           <Popup trigger={<a className={compareDate(event.convertedDate) ? 'fieldRequired' : '' } >{event.name}</a>} wide='very'>
                             <Popup.Header>Détails de {event.name}</Popup.Header>
                             <Popup.Content>
                               <List>

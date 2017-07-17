@@ -1,105 +1,141 @@
+/*  footer always at the bottom of the page */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#root, #root>[data-reactroot], .home {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.home .header, .home .part1, .home .main, .home .footer {
+  display: table-row;
+}
+
+
+/* other css */
+
 .header {
-    max-height: 150px;
-    margin: 20px;
+  max-height: 150px;
+  margin: 20px;
 }
 
 .footer {
-    max-height: 150px;
-    margin: 20px;
-    text-align: center;
+  max-height: 150px;
+  margin: 20px 20px 0 20px;
+  text-align: center;
 }
 
 .ui.basic.button.profil {
-    color: white!important;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.9) inset;
-    opacity: 1;
+  color: white!important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .9) inset;
+  opacity: 1;
 }
 
 .ui.basic.label.profil {
-    color: orange!important;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.9) inset;
-    opacity: 1;
+  color: orange!important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .9) inset;
+  opacity: 1;
 }
 
 i.link.icon.connexion {
-    color: white!important;
-    opacity: 1;
-    border: 0;
+  color: white!important;
+  opacity: 1;
+  border: 0;
 }
+
 .citation {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .part1 {
-    max-height: 150px;
+  max-height: 150px;
 }
+
 .headerOlga {
-    background-color: orange;
-    color: white;
-    border-radius: 10px;
-    overflow: hidden;
-
+  background-color: orange;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.logo{
-    height: 80px;
+.logo {
+  height: 80px;
 }
-.logo-icone{
-    height: 50px;
+
+.logo-icone {
+  height: 50px;
 }
+
 .headerTitle {
-    text-align: center;
-    font-size: 32px;
+  text-align: center;
+  font-size: 32px;
 }
 
 .headerCenter {
-    text-align: center;
-    font-size: 20px;
-    
+  text-align: center;
+  font-size: 20px;
 }
 
 .headerLeft {
-    text-align: left;
-    font-size: 20px;
+  text-align: left;
+  font-size: 20px;
 }
 
 .headerRight {
-    text-align: right;
-    font-size: 20px;
-    color: white;
+  text-align: right;
+  font-size: 20px;
+  color: white;
 }
 
 .plus {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
+
 .memberOlga {
-    max-height: 600px;
-    width: 50px;
-    font-size: 24px;
-    padding: 10px;
+  max-height: 600px;
+  width: 50px;
+  font-size: 24px;
+  padding: 10px;
 }
 
 .heading {
-    padding: 10px;
+  padding: 10px;
 }
 
 .bouton {
-    width: 100px;
-    padding-top: 3px;
+  width: 100px;
+  padding-top: 3px;
 }
 
 .ribbonOrange {
-    display: inline-block;
+  display: inline-block;
 }
 
 .lienCategorie:link {
-    text-decoration: none;
-    color: white;
-
+  text-decoration: none;
+  color: white;
 }
 
-a:link {color: white;}
-a:visited {color: white;}
-a:hover {color: white;}
-a:active {color: white;}
+a:link {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
+
+a:active {
+  color: white;
+}

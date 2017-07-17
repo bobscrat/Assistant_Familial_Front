@@ -130,7 +130,7 @@ class ModalEditProject extends Component {
           </Popup.Content>
         </Popup>
 
-        <Modal dimmer open={open} onClose={this.close}>
+        <Modal dimmer open={open} onClose={this.close}  closeIcon='close'>
           <Modal.Header>
             <Icon name='folder' color='orange' />
             Ajouter ou modifier un projet

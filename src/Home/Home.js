@@ -169,8 +169,8 @@ class Home extends Component {
 
   render() {
     return (
-      <Container>
-        <Grid>
+      <Container className='home'>
+        <Grid className='home'>
 
           <Grid.Row className='header'>
             <Grid.Column width={16}>
@@ -212,7 +212,7 @@ class Home extends Component {
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
               <div className="plus">
                 {/* Modale Sélection des Catégories */}
-                <ModalCategoryResponsive categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadCategories} />               
+                <ModalCategoryResponsive categories={this.state.categories} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadCategories} />
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
@@ -228,7 +228,7 @@ class Home extends Component {
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row>
+          <Grid.Row className='main'>
             <Grid.Column tablet={6} computer={4} only='tablet computer'>
               {/* LES MEMBRES */}
               <Member members={this.state.members} family={this.state.family} selectedId={this.state.selectedMemberId} select={this.updateSelectedId} rload={this.reloadMembers} rloadEvents={this.reloadEvents}/>

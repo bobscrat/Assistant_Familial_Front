@@ -19,10 +19,9 @@ class Login extends Component{
                     <LoginIn getUser={this.props.getUser}/>
                     <SignUp/>
                 </Grid>
-                
+
             </Container>
         )
     }
 }
-
 export default Login;
