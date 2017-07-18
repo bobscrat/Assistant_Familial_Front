@@ -78,6 +78,9 @@ handleSubmit = (e) => {
                 self.setState({user: createdFamily.data, valideMsg: false});
                 console.log(createdFamily.data);
             })
+            .then( () => {
+                self.setState({familyName: '', firstName: '', email: '', password: '', confirmpassword: ''})
+            })
             .catch((err) => {
                 console.log('Failes to create family', err);
                 self.setState({errMsg: false})
