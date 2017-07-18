@@ -38,8 +38,8 @@ class Home extends Component {
 
   componentWillMount() {
     let user = this.props.user;
-    // let family = this.props.user.family;
-    let family = {id: 2, name: "Team ACDO"};
+    let family = this.props.user.family;
+    // let family = {id: 2, name: "Team ACDO"};
     let categories = [];
     let members = [];
     let projects = [];
