@@ -491,7 +491,7 @@ class ModalNewEvent extends Component {
       timeRDV = '00:00:11';
     }else{
       if (this.state.hourEvent - 1 < 10){
-        hours = '0' + this.state.hourEvent - 1;
+        hours = '0' + (this.state.hourEvent - 1);
       }else{
         hours = this.state.hourEvent - 1;
       }
