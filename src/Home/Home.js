@@ -14,6 +14,7 @@ import Member from '../Member/Member.js';
 import Project from '../Project/Project.js';
 import ModalSelectProject from '../Project/ModalSelectProject.js';
 import ModalCategoryResponsive from '../Category/ModalCategoryResponsive.js';
+import MemberMobile from '../Member/MemberMobile.js';
 
 import Header from './Header.js';
 import Footer from './Footer.js';
@@ -206,7 +207,7 @@ class Home extends Component {
             <Grid.Column only='mobile' width={3}>
               <div className="plus">
                 {/* Modale Sélection des Membres */}
-                <Icon link color='orange' size='huge' name='users'/>
+                 <MemberMobile members={this.state.members} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadMembers} /> 
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>

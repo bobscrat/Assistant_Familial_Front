@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import {Grid, Input, Icon, Image, Label, Popup, Modal, List, Button} from 'semantic-ui-react';
+import {Grid, Input, Image, Popup, Modal, Button} from 'semantic-ui-react';
 import avatar from './avatars.json';
 import ModalAvatar from './ModalAvatarMember.js';
 
-import {updateMember} from './libMember.js';
 
 class EditMemberInput extends Component {
   state = {
@@ -18,10 +16,9 @@ class EditMemberInput extends Component {
   close = () => this.setState({ open: false })
 
 
-tiClick = (newImage) => {
-  this.setState({image: newImage})  
-  this.props.imageChange(newImage, this.props.index);
-
+  tiClick = (newImage) => {
+    this.setState({image: newImage})  
+    this.props.imageChange(newImage, this.props.index);
   }
 
 

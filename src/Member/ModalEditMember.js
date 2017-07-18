@@ -3,9 +3,7 @@ import { Popup, Button, Input, Modal, Icon, Container, Message, Form, Grid, Divi
 import { loadMembers, saveMember, updateMember} from './libMember.js'
 import '../Home/olga.css';
 
-import MemberItem from './MemberItem.js';
 import EditMemberInput from './EditMemberInput.js';
-import ModalAvatar from './ModalAvatarMember.js';
 
 
 class ModalEditMember extends Component {
@@ -42,7 +40,9 @@ class ModalEditMember extends Component {
             msgSuccessHidden: true,
             msgSuccess: [],
             msgErrorHidden: true,
-            msgError: []
+            msgError: [],
+            msgClose: false, 
+            value: ''
         });        
       }).catch((err) => {
         console.log('failed to load Members :::', err);
@@ -60,7 +60,7 @@ class ModalEditMember extends Component {
       newMember.firstName = evt.target.value;
       newMember.role = this.state.role;
       newMember.family= this.props.family;
-      this.setState({addedMember: newMember, isMemberAdded: true});
+      this.setState({addedMember: newMember, isMemberAdded: true, value: evt.target.value});
     }
   }
   //update member
@@ -75,14 +75,13 @@ class ModalEditMember extends Component {
   }
 
   changeImage = (newImage, index) => {
-let newMembers = this.state.members;
+    let newMembers = this.state.members;
     let newChanges = this.state.changes;
     newMembers[index].image = newImage;
     console.log("modal Edit Member changeImage = " + newMembers[index])
     newChanges[index] = true;
     
-    this.setState({members: newMembers, changes : newChanges });
-    
+    this.setState({members: newMembers, changes : newChanges, msgClose : false });
   }
 
   validate = () => {
@@ -101,7 +100,7 @@ let newMembers = this.state.members;
         members.push(response);
         msgSuccess.push(newMember.firstName + ' : a été ajouté');
         msgSuccessHidden = false;
-        this.setState({members: members, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess, role: role});
+        this.setState({members: members, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess, role: role, value: '' });
       }).catch((err) => {
         console.log('Failed to save member' + err);
         msgError.push(newMember.firstName + ' : ' + err.response.data.message);
@@ -151,14 +150,23 @@ let newMembers = this.state.members;
         <Modal dimmer open={open} onClose={this.close}>
           <Modal.Header>
             <Icon link name='user' color='orange' />
-            Modifier ce membre
+            Modifier le(s) membre(s)
           </Modal.Header>
           <Modal.Content>
             <Form success error>
                 <Form.Group>
-                  <Container textAlign='center'>
-                    <Input focus label='Nouveau membre' placeholder='Nom du nouveau membre' onChange={(evt) => this.handleChangeAdd(evt)} />
-                  </Container>
+                  <Grid>
+                    <Grid.Column only='tablet computer' width={12} >
+                      <Container textAlign='center'>
+                        <Input focus label='Nouveau membre' placeholder='Nom du nouveau membre' value={this.state.value} onChange={(evt) => this.handleChangeAdd(evt)} />
+                      </Container>
+                    </Grid.Column>
+                    <Grid.Column only='mobile' width={12}>
+                      <Container textAlign='center'>
+                        <Input icon='users' iconPosition='left' placeholder='Nouveau membre' value={this.state.value} onChange={(evt) => this.handleChangeAdd(evt)} />
+                      </Container>
+                    </Grid.Column>
+                  </Grid>
                 </Form.Group>
                 <Message success hidden={this.state.msgSuccessHidden} list={this.state.msgSuccess}/>
                 <Message error hidden={this.state.msgErrorHidden} list={this.state.msgError}/>
