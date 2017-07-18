@@ -131,7 +131,6 @@ class ModalValidEvent extends Component {
     saveEvent(eventChild).then((response) => {
       this.setState({child: response});
       this.props.rload();
-      console.log("child enregistré");
       this.close();
     })
     .catch((err) => {

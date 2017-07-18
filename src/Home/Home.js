@@ -137,8 +137,16 @@ class Home extends Component {
     })
   }
   reloadMembers = () => {
+    let members;
     loadMembers(this.state.family.id, true).then((response) => {
-      this.setState({members: response})
+      members = response;
+      return loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId);
+    })
+    .then((response) => {
+      let msgNoEventHidden;
+      if (response.length < 1) {msgNoEventHidden = false;}
+      else {msgNoEventHidden = true;}
+      this.setState({members: members, events: response, msgNoEventHidden: msgNoEventHidden})
     })
     .catch((err) => {
       console.log('failed to get Members :::', err);
@@ -156,12 +164,19 @@ class Home extends Component {
     })
   }
   reloadEvents = () => {
+    let events;
+    let msgNoEventHidden;
+    let msgNoProjectHidden;
     loadEvents(this.state.family.id, this.state.selectedMemberId, this.state.selectedCategoryId, this.state.selectedProjectId).then((response) => {
-      let msgNoEventHidden;
+      events = response;
       if (response.length < 1) {msgNoEventHidden = false;}
       else {msgNoEventHidden = true;}
-      this.setState({events: response, msgNoEventHidden: msgNoEventHidden})
-      console.log('reloadEvents');
+      return loadProjects(this.state.family.id, false);
+    })
+    .then((response) => {
+      if (response.length < 1) {msgNoProjectHidden = false;}
+      else {msgNoProjectHidden = true;}
+      this.setState({events: events, msgNoEventHidden: msgNoEventHidden, projects: response, msgNoProjectHidden: msgNoProjectHidden})
     })
     .catch((err) => {
       console.log('failed to get Events :::', err);
@@ -207,7 +222,7 @@ class Home extends Component {
             <Grid.Column only='mobile' width={3}>
               <div className="plus">
                 {/* Modale Sélection des Membres */}
-                 <MemberMobile members={this.state.members} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadMembers} /> 
+                 <MemberMobile members={this.state.members} family={this.state.family} selectedId={this.state.selectedCategoryId} select={this.updateSelectedId} rload={this.reloadMembers} />
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' tablet={4} mobile={3}>
