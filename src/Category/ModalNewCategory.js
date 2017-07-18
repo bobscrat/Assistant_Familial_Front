@@ -41,7 +41,7 @@ componentWillMount() {
 }
 
   show = () => () => {
-      loadCategories(this.props.family.id, true).then((response)=> {
+      loadCategories(this.props.family.id, false).then((response)=> {
         console.log('load categories');
         this.setState({
             open: true ,
