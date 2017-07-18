@@ -256,11 +256,13 @@ class ModalNewEvent extends Component {
     let contactSelected = {};
     let aContact = ''; 
     for (var i=0; i < this.state.contacts.length; i++) {
-      aContact = this.state.contacts[i].name + ' ' + this.state.contacts[i].first_name
+      aContact = this.state.contacts[i].name.toUpperCase() + ' ' + this.state.contacts[i].first_name
       if (null !== this.state.contacts[i].profession){
         aContact = aContact + ' (' + this.state.contacts[i].profession + ')'; 
       }
+      console.log(aContact + ' / ' + e.target.value);
       if (aContact === e.target.value) {
+        console.log('OK ' + aContact);
         contactSelected = this.state.contacts[i];     
       } 
     }
@@ -308,10 +310,10 @@ class ModalNewEvent extends Component {
     contactEvent: '',
     budgetEvent: 0,
     commentEvent: '',
-    members: [],
-    categories: [],
-    projects: [],
-    contacts: [],
+    // members: [],
+    // categories: [],
+    // projects: [],
+    // contacts: [],
     priorities: [],
     periodicities: [],
     family: {},
@@ -481,7 +483,6 @@ class ModalNewEvent extends Component {
     newEvent.project = this.state.project;
     newEvent.family = this.props.family;
     newEvent.contact = this.state.contact;
-    console.log('contact ' + newEvent.contact.name);
     newEvent.hasChild = false;
     newEvent.estimatedBudget = this.state.budgetEvent;
 

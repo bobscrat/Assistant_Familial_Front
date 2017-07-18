@@ -17,8 +17,7 @@ class Modal4 extends Component {
     close = () => this.setState({ open: false });
 
     componentWillMount() {
-        optionsContacts.length = 0;               
-        console.log('passe dans le willmount modal 4 ' + this.props.theContacts.length);
+        optionsContacts.length = 0;                       
         for (var i=0; i < this.props.theContacts.length; i++) {                
             var aContact = {};
             aContact.key = this.props.theContacts[i].id;

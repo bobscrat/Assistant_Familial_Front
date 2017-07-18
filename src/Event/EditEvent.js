@@ -38,7 +38,7 @@ class ModalEditEvent extends Component {
             nameProject: '',
             priorityName: 'Aucune', 
             valuePeriodicity: 0,
-            periodicityName: this.props.myEvent.periodicity.name,
+            periodicityName: 'Aucune',
             contactEvent: '',
             budgetEvent: this.props.myEvent.estimatedBudget,
             commentEvent: this.props.myEvent.comment,
