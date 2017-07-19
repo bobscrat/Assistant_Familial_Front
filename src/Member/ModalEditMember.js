@@ -81,7 +81,7 @@ class ModalEditMember extends Component {
     console.log("modal Edit Member changeImage = " + newMembers[index])
     newChanges[index] = true;
     
-    this.setState({members: newMembers, changes : newChanges, msgClose : false });
+    this.setState({members: newMembers, changes : newChanges, msgClose : false, isMemberAdded: false });
   }
 
   validate = () => {
