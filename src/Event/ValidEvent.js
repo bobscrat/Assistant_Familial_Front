@@ -21,16 +21,21 @@ class ModalValidEvent extends Component {
 
   show = (dimmer) => () => this.setState({ dimmer, open: true, myEvent: this.props.myEvent, showForm: false })
 
-  close = () => this.setState({ open: false })
+  close = () => {
+    this.setState({ open: false });
+    this.props.rload();
+  }
 
   validate = () => {
     this.markAsDone(this.state.myEvent);
     if (this.state.myEvent.hasChild) {
       this.loadForm();
     } else {
-      this.props.rload();
+       this.props.rload();
+      // console.log('je me reload');
       this.close();
     }
+    
   }
 
   markAsDone = (event) => {
