@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Popup, Button, Input, Modal, Icon, Container, Message, Form, Grid, Divider } from 'semantic-ui-react'
+import { Popup, Button, Modal, Icon, Container, Message, Form, Grid, Divider } from 'semantic-ui-react'
 import { loadCategories, saveCategory, updateCategory} from './libCategory.js'
 import '../Home/olga.css';
 import { CirclePicker} from 'react-color';
@@ -36,7 +36,7 @@ componentWillMount() {
             family: {},
             colorPaletteShow: false
 
-            
+
         };
 }
 
@@ -56,11 +56,11 @@ componentWillMount() {
             msgSuccess: [],
             msgErrorHidden: true,
             msgError: []
-        });        
+        });
       }).catch((err) => {
         console.log('failed to load Categories :::', err);
       })
-  }  
+  }
 
   close = () => {
           this.setState({ open: false });
@@ -81,7 +81,7 @@ componentWillMount() {
       newCategory.name = name;
       newCategory.color = color;
       newCategory.family= this.props.family;
-      this.setState({addedCategory: newCategory, isCategoryAdded: true});    
+      this.setState({addedCategory: newCategory, isCategoryAdded: true});
   }
 
 
@@ -108,7 +108,7 @@ componentWillMount() {
   }
 
   resetMessage = () => {
-    this.setState( { msgErrorHidden: true, 
+    this.setState( { msgErrorHidden: true,
                       msgSuccessHidden: true,
                                   colorPaletteShow: false,
 
@@ -173,7 +173,7 @@ componentWillMount() {
 
     return (
       <div className='ribbonOrange'>
-        
+
         <Popup trigger={<Icon link size='large' name='pencil' onClick={this.show(true)}/>}>
         {/*<Popup trigger={<Button color='orange' onClick={this.show(false)}>None</Button>}>*/}
           <Popup.Header>Modifier les catégories</Popup.Header>
@@ -189,13 +189,13 @@ componentWillMount() {
           </Modal.Header>
           <Modal.Content>
             <Form success error>
-                <Form.Group>                    
-                  <Container style = {{width:'auto',height:'auto', alignItems:'center',flexDirection:'row'}}>                      
-                    <AddCategoryItem  changeInput={(evt, colorCate) => this.handleChangeAddInput(evt, colorCate)} 
+                <Form.Group>
+                  <Container style={{width:'auto',height:'auto', alignItems:'center',flexDirection:'row'}}>
+                    <AddCategoryItem  changeInput={(evt, colorCate) => this.handleChangeAddInput(evt, colorCate)}
                                       changeColor={(name, colorCate) => this.handleChangeAddColor(name, colorCate)}
                                       resetMsg={() => this.resetMessage()}
                                       colorPaletteShow={this.state.colorPaletteShow}
-                    />                    
+                    />
                   </Container>
                 </Form.Group>
 
@@ -208,10 +208,10 @@ componentWillMount() {
                 {/* index = project's rank in the array, not his id */}
                 {
                   this.state.categories.map(
-                    (category, i) => 
-                        <EditCategoryInput 
-                            key={i} index={i} id={category.id} 
-                            name={category.name} 
+                    (category, i) =>
+                        <EditCategoryInput
+                            key={i} index={i} id={category.id}
+                            name={category.name}
                             changeInput={this.handleChangeEdit}
                             changeColor={this.handleChangeEditColor}
                             colorPaletteShow={this.state.colorPaletteShow}
@@ -222,7 +222,7 @@ componentWillMount() {
                 }
                 </Grid>
             </Form>
-              
+
           </Modal.Content>
 
           <Modal.Actions>
@@ -236,5 +236,3 @@ componentWillMount() {
 }
 
 export default ModalNewCategory
-
- 

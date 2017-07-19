@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Grid, Form, Header, Modal, Message} from 'semantic-ui-react';
+import {Grid, Form, Header, Message} from 'semantic-ui-react';
 import ModalPassword from './Password.js';
 import axios from 'axios';
-import css from './Login.css';
 
 class LoginIn extends Component {
     constructor(props) {
@@ -36,7 +35,7 @@ class LoginIn extends Component {
                 console.log(response)
                 if(response.data !== ''){
              self.props.getUser(true, response.data);
-                } 
+                }
                 if(response.data === ''){
                     console.log("coucou");
                  self.setState({errMsg: false})
@@ -70,7 +69,7 @@ class LoginIn extends Component {
                     <p>Votre adresse e-mail et/ou votre mot de passe ne sont pas valides</p>
                 </Message>
             </Grid.Column>
-           
+
         )
     }
 }

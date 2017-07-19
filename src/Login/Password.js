@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Input, Modal, Form, Segment } from 'semantic-ui-react';
-import css from './Login.css';
+import { Button, Modal, Form, Segment } from 'semantic-ui-react';
 
 
 class ForgetPassword extends Component{
@@ -17,13 +16,13 @@ class ForgetPassword extends Component{
         <Segment className='segment-pass' onClick={this.show(true)}>Mot de passe oublié ?</Segment>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Modifier votre mot de passe</Modal.Header>
-          <Modal.Content>           
+          <Modal.Content>
             <Modal.Description>
                 <Form>
                     <Form.Input label="Nom de votre famille" type="text" name="name" />
                     <Form.Input label="Adresse e-mail" type="email" name="email" />
                 </Form>
-              
+
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>

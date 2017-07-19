@@ -3,7 +3,6 @@ import {Container, Grid, Header, Image} from 'semantic-ui-react';
 
 import LoginIn from './LoginIn.js';
 import SignUp from './SignUp.js';
-import css from './Login.css';
 import img from './logo_olga_white.png';
 import ModalDiscovery from'./ModalDiscovery.js';
 

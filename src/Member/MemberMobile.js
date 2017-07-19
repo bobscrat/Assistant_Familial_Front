@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Label, List, Segment, Image, Popup, Icon, Modal, Button} from 'semantic-ui-react';
+import {Container, Grid, Label, List, Segment, Image, Icon, Modal, Button} from 'semantic-ui-react';
 
 // import ModalNewMember from './ModalNewMember.js';
 import ModalEditMember from './ModalEditMember.js';
@@ -57,7 +57,7 @@ class MemberMobile extends Component{
     const {open} = this.state;
     return (
       <div>
-        < Icon link color='orange' size='huge' name='users' onClick={this.show(true)} />      
+        < Icon link color='orange' size='huge' name='users' onClick={this.show(true)} />
 
         <Modal dimmer open={open} onClose={this.close}>
           <Modal.Content>
@@ -75,7 +75,7 @@ class MemberMobile extends Component{
                     (member, i) =>
                       <List.Item key={i}>
                           <Image src={require('../images/avatars/32x32/'+ (member.image))}/>
-                        <List.Content>                          
+                        <List.Content>
                           <MemberItem
                             as='a'
                             basic
