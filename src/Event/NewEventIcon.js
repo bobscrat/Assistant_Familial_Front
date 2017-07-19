@@ -99,6 +99,31 @@ class ModalNewEventIcon extends Component {
       }));
   }
 
+   componentWillReceiveProps = () => {
+    let members = [];
+    let categories = [];
+    let projects = [];
+
+    loadMembers(2, true) // must replace 2 by family.id in prod
+      .then((response) => {
+        members = response;
+        return loadCategories(2, true);
+      }).then((response) => {
+          categories = response;
+          return loadProjects(2, true);
+      }).then((response) => {
+          projects = response;
+        console.log('will receive props coucou')
+          this.setState({
+            members: members,
+            categories: categories,
+            projects: projects,
+          });
+      }).catch((err => {
+        console.log('failed to reload on update :::', err);
+      }));
+  }
+
   addPrefixe = (myPrefixe) => {
         this.setState({prefixe: myPrefixe});
   }
