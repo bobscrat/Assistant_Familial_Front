@@ -33,6 +33,7 @@ class AddCategoryItem extends Component {
           [inputName]: inputValue,
       });
       this.props.changeInput(e, this.state.colorLabel);
+      this.props.resetMsg();
     };
 
 
@@ -52,10 +53,7 @@ class AddCategoryItem extends Component {
                     name="name" 
                     placeholder="nom de la nouvelle catégorie" 
                     value={this.state.name}                    
-                    onChange={this.handleChange.bind(this)}                        
-                    //onChange={(evt) => this.props.change(evt, this.state.colorLabel) }
-                    //onChange={(evt) => {this.handleChange.bind(this) ; this.props.change(evt, this.state.colorLabel)}}                        
-
+                    onChange={this.handleChange.bind(this)}                                            
                 />                  
 
                 <Popup trigger={
@@ -65,9 +63,7 @@ class AddCategoryItem extends Component {
                         circular                   
                         style={{"backgroundColor" : this.state.colorLabel, "color" : "white"}}  
                         onClick={ () => this.handleClickSelect(this.state.colorPaletteShow) }
-                        value={this.state.colorLabel}
-                        //onChange={(evt) => this.props.change(evt, this.state.colorLabel)}
-                        //onChange={this.props.change}                     
+                        value={this.state.colorLabel}              
                     />                    
                 }>
                     <Popup.Header>Modidier la couleur</Popup.Header>

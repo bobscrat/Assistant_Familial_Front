@@ -107,6 +107,12 @@ componentWillMount() {
     this.setState({categories: newCategories, changes : newChanges });
   }
 
+  resetMessage = () => {
+    this.setState( { msgErrorHidden: true, 
+                      msgSuccessHidden: true
+    })
+  }
+
 
 
 
@@ -185,6 +191,7 @@ componentWillMount() {
                   <Container style = {{width:'auto',height:'auto', alignItems:'center',flexDirection:'row'}}>                      
                     <AddCategoryItem  changeInput={(evt, colorCate) => this.handleChangeAddInput(evt, colorCate)} 
                                       changeColor={(name, colorCate) => this.handleChangeAddColor(name, colorCate)}
+                                      resetMsg={() => this.resetMessage()}
                     />                    
                   </Container>
                 </Form.Group>
