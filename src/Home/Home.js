@@ -198,13 +198,13 @@ class Home extends Component {
             <Grid.Column only='computer' width={2}>
               <div className="plus">
                 {/* Modal New Event */}
-                <ModalNewEventIcon/>
+                <ModalNewEventIcon events={this.state.events} family={this.state.family} msgHidden={this.state.msgNoEventHidden} rload={this.reloadEvents}/>
               </div>
             </Grid.Column>
             <Grid.Column only='tablet mobile' width={4}>
               <div className="plus">
                 {/* Modal New Event */}
-                <ModalNewEventIcon/>
+                <ModalNewEventIcon events={this.state.events} family={this.state.family} msgHidden={this.state.msgNoEventHidden} rload={this.reloadEvents}/>
               </div>
             </Grid.Column>
             <Grid.Column only='computer' width={2}>

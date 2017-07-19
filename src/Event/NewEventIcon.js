@@ -55,7 +55,16 @@ class ModalNewEventIcon extends Component {
             priority: {id: 1, name: 'Aucune'},
             periodicity: {id: 1, name: 'Aucune'},
             contact: null,
-            deadline: ''
+           deadline: '',
+            mess1M1: 'none',
+            mess2M1: 'none',
+            mess3M1: 'none',
+            mess4M1: 'none',
+            mess1M2: 'none',
+            mess2M2: 'none',
+            mess1M3: true,
+            messM5: true,
+            messClose: false
          } 
     };
 
@@ -99,6 +108,16 @@ class ModalNewEventIcon extends Component {
       }));
   }
 
+  reloadContacts = () => {
+    console.log('reloadContacts');
+    loadContacts(this.props.family.id, true).then((response) => {
+        this.setState({contacts: response})
+    })
+    .catch((err) => {
+    console.log('failed to get Contacts :::', err);
+    })
+  }
+  
    componentWillReceiveProps = () => {
     let members = [];
     let categories = [];
@@ -132,26 +151,44 @@ class ModalNewEventIcon extends Component {
         this.setState({prefixe: e.target.value});
   }
 
-  updateStateNameEvent = (e) => {
-      var validNameEvent = false
-        if (e.target.value.length > 2) {
-          validNameEvent = true;
-        }
-        this.setState({
-          nameEvent: e.target.value,
-        });
+updateStateNameEvent = (e) => {
+    var validNameEvent = false
+    if (e.target.value.length > 2 && e.target.value.length <= 45) {
+      validNameEvent = true;
+      this.setState({
+        mess1M1: 'none'
+      });
+    }
+    this.setState({
+      nameEvent: e.target.value,
+    });
   }
 
   updateStateDateEvent = (laDate) => {
-        this.setState({dateEvent: laDate});        
+    if (null !== laDate) {
+      this.setState({
+        mess2M1: 'none'
+      });
+    }
+    this.setState({dateEvent: laDate});        
   }
 
   updateStateHourEvent = (e) => {
-        this.setState({hourEvent: e.target.value});
+    if (null !== e.target.value) {
+      this.setState({
+        mess3M1: 'none'
+      });
+    }
+    this.setState({hourEvent: e.target.value});
   }
 
   updateStateMinuteEvent = (e) => {
-        this.setState({minuteEvent: e.target.value });
+    if (null !== e.target.value) {
+      this.setState({
+        mess4M1: 'none'
+      });
+    }
+    this.setState({minuteEvent: e.target.value });
   }
 
   updateStateNameMember = (e) => {
@@ -160,6 +197,11 @@ class ModalNewEventIcon extends Component {
       if (this.state.members[i].firstName === e.target.value) {
         memberSelected = this.state.members[i];
       } 
+    }
+    if (null !== e.target.value) {
+      this.setState({
+        mess1M2: 'none'
+      });
     }
     this.setState({
       nameMember: e.target.value,
@@ -173,6 +215,11 @@ class ModalNewEventIcon extends Component {
       if (this.state.categories[i].name === e.target.value) {
         categorySelected = this.state.categories[i];        
       } 
+    }
+    if (null !== e.target.value) {
+      this.setState({
+        mess2M2: 'none'
+      });
     }
     this.setState({
       nameCategory: e.target.value,
@@ -207,8 +254,12 @@ class ModalNewEventIcon extends Component {
   }
 
   updateStateValuePeriodicity = (mesure) => {
-      // this.state.event.periodicityValue = mesure
-      this.setState({valuePeriodicity: mesure});
+    if (null !== mesure) {
+      this.setState({
+        mess1M3: 'none'
+      });
+    }
+    this.setState({valuePeriodicity: mesure});
   }
 
   updateStatePriority = (mesure) => {
@@ -225,17 +276,21 @@ class ModalNewEventIcon extends Component {
   }
 
   updateStateContactEvent = (e) =>{
+    
     let contactSelected = {};
     let aContact = ''; 
     for (var i=0; i < this.state.contacts.length; i++) {
-      aContact = this.state.contacts[i].first_name + ' ' + this.state.contacts[i].name
+      aContact = this.state.contacts[i].name.toUpperCase() + ' ' + this.state.contacts[i].first_name
       if (null !== this.state.contacts[i].profession){
         aContact = aContact + ' (' + this.state.contacts[i].profession + ')'; 
       }
+      console.log(aContact + ' / ' + e.target.value);
       if (aContact === e.target.value) {
-        contactSelected = this.state.contacts[i];        
+        console.log('OK ' + aContact);
+        contactSelected = this.state.contacts[i];     
       } 
     }
+    
     this.setState({
       contactEvent: e.target.value,
       contact: contactSelected
@@ -257,6 +312,54 @@ class ModalNewEventIcon extends Component {
   show = (dimmer) => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
 
+  closeAfterUpdate = () => this.setState({
+    events: [],
+    open : false,      
+    addedEvent: {},
+    numero: 1,
+    nbModal: 5,
+    listModal: ['showModal1', 'showModal2', 'showModal3', 'showModal4', 'showModal5'],
+    showModal: [true, false, false, false, false],
+    prefixe: '',
+    nameEvent: '',
+    dateEvent: '',
+    hourEvent: 'x',
+    minuteEvent: 'x',
+    nameMember: '',
+    nameCategory: '',
+    nameProject: '',
+    priorityName: 'Aucune', 
+    valuePeriodicity: 0,
+    periodicityName: 'Aucune',
+    contactEvent: '',
+    budgetEvent: 0,
+    commentEvent: '',
+    // members: [],
+    // categories: [],
+    // projects: [],
+    // contacts: [],
+    // priorities: [],
+    // periodicities: [],
+    family: {},
+    member: {},
+    category: {},
+    project: null,
+    priority: {id: 1, name: 'Aucune'},
+    periodicity: {id: 1, name: 'Aucune'},
+    contact: null,
+    deadline: '',
+    mess1M1: 'none',
+    mess2M1: 'none',
+    mess3M1: 'none',
+    mess4M1: 'none',
+    mess1M2: 'none',
+    mess2M2: 'none',
+    mess1M3: true,
+    messM5: true,
+    messClose: false
+  });
+
+
   onClickNext(e){
     //Validation
     var valid = false;
@@ -264,34 +367,66 @@ class ModalNewEventIcon extends Component {
       case 1: //Modal1
         if (null != this.state.nameEvent && this.state.nameEvent.length > 1 && this.state.nameEvent.length < 45) {
           valid = true;
-        }    
+          this.setState({ mess1M1: 'none'});
+          this.setState({ mess2M1: 'none'});
+        }else{
+          this.setState({ mess1M1: 'inline'});
+        }   
         if (this.state.dateEvent !== '' && valid === true) {
           valid = true;
+          this.setState({ mess2M1: 'none'});
         }else{
           valid = false;
+          this.setState({ mess2M1: 'inline'});
         }
         if (valid === true){
           if ((this.state.hourEvent === 'x' && this.state.minuteEvent !== 'x') || 
               (this.state.hourEvent !== 'x' && this.state.minuteEvent === 'x')) {
             valid = false;
+            console.log('hm ' + this.state.hourEvent + ':' + this.setState.minuteEvent);
+            if (this.state.hourEvent === 'x') {
+              this.setState({ mess3M1: 'inline'});
+            }else{
+              this.setState({ mess3M1: 'none'});
+            }
+            if (this.state.minuteEvent === 'x') {
+              this.setState({ mess4M1: 'inline'});
+            }else{
+              this.setState({ mess4M1: 'none'});
+            }
+          }else{
+            this.setState({ 
+              mess1M1: 'none',
+              mess2M1: 'none',
+              mess3M1: 'none',
+              mess4M1: 'none'
+            });
           }
         }
         break;
       case 2: //Modal2
         if (this.state.nameMember.length > 0) {
           valid = true;
+          this.setState({ mess1M2: 'none'});
+        }else{
+          this.setState({ mess1M2: 'inline'});
         }
         if (this.state.nameCategory.length > 0 && valid === true) {
           valid = true;
+          this.setState({ mess2M2: 'none'});
         }else{
           valid = false;
+          this.setState({ mess2M2: 'inline'});
         }
         break;
       case 3: //Modal3
         if ((this.state.periodicityName !== 'Aucune' && this.state.valuePeriodicity > 0) ||
             this.state.periodicityName === 'Aucune') {
           valid = true;
-        }      
+          this.setState({ mess1M3: true});
+        }else{
+          this.setState({ mess1M3: false});
+        }
         break;
       case 4: //Modal4        
         valid = true;           
@@ -361,7 +496,7 @@ class ModalNewEventIcon extends Component {
 
     let newEvent = this.state.addedEvent;
     
-    newEvent.name = this.state.nameEvent;
+    newEvent.name = this.state.prefixe + this.state.nameEvent;
     newEvent.done = false;
     newEvent.comment = this.state.commentEvent;
     newEvent.periodicityValue = this.state.valuePeriodicity;
@@ -372,7 +507,11 @@ class ModalNewEventIcon extends Component {
     newEvent.project = this.state.project;
     newEvent.family = this.props.family;
     newEvent.contact = this.state.contact;
-    newEvent.hasChild = false;
+    if (this.state.prefixe === 'PRV_') {
+      newEvent.hasChild = true;
+    }else{
+      newEvent.hasChild = false;
+    }
     newEvent.estimatedBudget = this.state.budgetEvent;
 
     let hours, minutes, timeRDV;
@@ -380,7 +519,7 @@ class ModalNewEventIcon extends Component {
       timeRDV = '00:00:11';
     }else{
       if (this.state.hourEvent - 1 < 10){
-        hours = '0' + this.state.hourEvent - 1;
+        hours = '0' + (this.state.hourEvent - 1);
       }else{
         hours = this.state.hourEvent - 1;
       }
@@ -390,14 +529,21 @@ class ModalNewEventIcon extends Component {
         minutes = (this.state.minuteEvent - 1) * 5;
       }
       timeRDV = hours + ':' + minutes + ':00';
-    }        
+    }         
 
-    newEvent.deadline = this.state.dateEvent + 'T' + timeRDV;    
-    this.setState({addedEvent: newEvent});
+    newEvent.deadline = this.state.dateEvent.format('YYYY-MM-DD') + 'T' + timeRDV;    
+    this.setState({
+      addedEvent: newEvent,
+      messClose: true
+    });
   
     axios.post('/api/events', this.state.addedEvent)
       .then((response) => {
-        this.close(); 
+        this.setState({ messM5: false});
+        // this.timeout = setTimeout(() => {
+        //   this.setState({ messM5: false});
+        // }, 2500);
+        // this.close(); 
         this.props.rload();
       })
       .catch((err) => {
@@ -441,6 +587,10 @@ class ModalNewEventIcon extends Component {
                   updateStateHourEventProp={this.updateStateHourEvent}
                   myMinute={this.state.minuteEvent}
                   updateStateMinuteEventProp={this.updateStateMinuteEvent}
+                  aMess1M1={this.state.mess1M1}
+                  aMess2M1={this.state.mess2M1}
+                  aMess3M1={this.state.mess3M1}
+                  aMess4M1={this.state.mess4M1}
                 />}
                 {this.state.showModal[1] && < Modal2 
                   myNameMember={this.state.nameMember} 
@@ -452,6 +602,8 @@ class ModalNewEventIcon extends Component {
                   theMembers={this.state.members}
                   theCategories={this.state.categories}
                   theProjects={this.state.projects}
+                  aMess1M2={this.state.mess1M2}
+                  aMess2M2={this.state.mess2M2}
                 />}
                 {this.state.showModal[2] && < Modal3 
                   myPriority={this.state.priorityName}
@@ -461,29 +613,36 @@ class ModalNewEventIcon extends Component {
                   myValuePeriodicity={this.state.valuePeriodicity}
                   updateStateValuePeriodicityProp={this.updateStateValuePeriodicity}    
                   thePeriodicities={this.state.periodicities}
-                  thePriorities={this.state.priorities}      
+                  thePriorities={this.state.priorities} 
+                  aMess1M3={this.state.mess1M3}     
                 />}
                 {this.state.showModal[3] && < Modal4 
                   myContactEvent={this.state.contactEvent}
                   updateStateContactEventProp={this.updateStateContactEvent}               
                   theContacts={this.state.contacts}
+                  family={this.props.family}
+                  reloadContacts={this.reloadContacts}
                 />}
                 {this.state.showModal[4] && < Modal5 
                   myBudgetEvent={this.state.budgetEvent}
                   updateStateBudgetEventProp={this.updateStateBudgetEvent}
                   myCommentEvent={this.state.commentEvent}
-                  updateStateCommentEventProp={this.updateStateCommentEvent}
+                  updateStateCommentEventProp={this.updateStateCommentEvent}     
+                  aMessM5={this.state.messM5}             
                 />}
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
-              {this.state.numero > 1 && <Button content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
-              {this.state.numero === 1 && <Button disabled content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
-              <Button color='orange' onClick={this.close}>
+              {(this.state.numero > 1 && this.state.messClose === false) && <Button content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
+              {(this.state.numero === 1 && this.state.messClose === false) && <Button disabled content='Précédent' icon='left chevron' labelPosition='left' onClick={this.onClickPrevious.bind(this)} />}
+              {this.state.messClose === false && <Button color='orange' onClick={this.close}>
                 Annuler
-              </Button>
-              {this.state.numero < 5 && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
-              {this.state.numero === 5 && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
+              </Button>}
+              {(this.state.numero < 5 && this.state.messClose === false) && <Button positive icon='right chevron' labelPosition='right' content='Suivant' onClick={this.onClickNext.bind(this)} />}
+              {(this.state.numero === 5 && this.state.messClose === false) && <Button positive icon='checkmark' labelPosition='right' content='Valider' onClick={this.createEvent} />}
+              {this.state.messClose === true && <Button color='green' onClick={this.closeAfterUpdate}>
+                Fermer
+              </Button>}
             </Modal.Actions>         
         </Modal>        
       </div>
