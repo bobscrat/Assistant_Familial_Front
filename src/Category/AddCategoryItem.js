@@ -10,7 +10,7 @@ class AddCategoryItem extends Component {
         name: '',
         colorCate: '',
         colorLabel: '',
-        colorPaletteShow: false
+        colorPaletteShow: this.props.colorPaletteShow
     }
 
     handleChangeColorCate = (color) => {

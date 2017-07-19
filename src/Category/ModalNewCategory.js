@@ -109,7 +109,9 @@ componentWillMount() {
 
   resetMessage = () => {
     this.setState( { msgErrorHidden: true, 
-                      msgSuccessHidden: true
+                      msgSuccessHidden: true,
+                                  colorPaletteShow: false,
+
     })
   }
 
@@ -132,7 +134,7 @@ componentWillMount() {
         categories.push(response);
         msgSuccess.push(newCategory.name + ' : a été ajouté');
         msgSuccessHidden = false;
-        this.setState({categories: categories, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess, role: role});
+        this.setState({categories: categories, msgSuccessHidden: msgSuccessHidden, msgSuccess: msgSuccess, colorPaletteShow: false, role: role});
       }).catch((err) => {
         console.log('Failed to save category' + err);
         msgError.push(newCategory.name + ' : ' + err.response.data.message);
@@ -192,6 +194,7 @@ componentWillMount() {
                     <AddCategoryItem  changeInput={(evt, colorCate) => this.handleChangeAddInput(evt, colorCate)} 
                                       changeColor={(name, colorCate) => this.handleChangeAddColor(name, colorCate)}
                                       resetMsg={() => this.resetMessage()}
+                                      colorPaletteShow={this.state.colorPaletteShow}
                     />                    
                   </Container>
                 </Form.Group>
@@ -213,6 +216,7 @@ componentWillMount() {
                             changeColor={this.handleChangeEditColor}
                             colorPaletteShow={this.state.colorPaletteShow}
                             color={category.color}
+                            resetMsg={() => this.resetMessage()}
                         />
                     )
                 }

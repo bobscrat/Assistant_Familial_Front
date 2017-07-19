@@ -35,6 +35,8 @@ class EditCategoryInput extends Component {
           nameCate: inputValue
       });
       this.props.changeInput(e, this.props.index, this.state.colorLabel);
+      this.props.resetMsg();
+
     };
 
 
