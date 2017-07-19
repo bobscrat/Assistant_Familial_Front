@@ -4,7 +4,6 @@ import {Container, Grid, Label, List, Segment, Image, Popup, Message} from 'sema
 import ModalNewEvent from './NewEvent.js';
 import ModalValidEvent from './ValidEvent.js';
 import ModalEditEvent from './EditEvent.js';
-import ModalEditEvent1 from './EditEvent.1.js';
 
 import './event.css'
 import '../Home/olga.css';

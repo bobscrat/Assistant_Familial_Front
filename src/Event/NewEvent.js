@@ -483,7 +483,11 @@ class ModalNewEvent extends Component {
     newEvent.project = this.state.project;
     newEvent.family = this.props.family;
     newEvent.contact = this.state.contact;
-    newEvent.hasChild = false;
+    if (this.state.prefixe === 'PRV_') {
+      newEvent.hasChild = true;
+    }else{
+      newEvent.hasChild = false;
+    }
     newEvent.estimatedBudget = this.state.budgetEvent;
 
     let hours, minutes, timeRDV;
